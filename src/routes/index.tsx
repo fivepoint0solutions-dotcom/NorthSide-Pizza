@@ -72,7 +72,7 @@ function RecentWork() {
   if (recent.length === 0) return null;
 
   return (
-    <section className="section-y">
+    <section className="pt-10 pb-6 lg:pt-12">
       <div className="mb-6 flex items-center justify-between">
         <h2 className="text-headline">Recent work</h2>
         <Link to="/recent-work" className="text-sm font-semibold text-interactive hover:underline">
@@ -117,7 +117,7 @@ function Dashboard() {
         </Reveal>
       </section>
 
-      <section className="container-app section-y">
+      <section className="container-app pt-4 pb-10 lg:pb-12">
         <Reveal>
           <div className="grid gap-5 sm:grid-cols-2">
             {MODES.map((mode) => (
@@ -133,7 +133,7 @@ function Dashboard() {
         </Reveal>
       </section>
 
-      <div className="container-app">
+      <div className="container-app pb-10">
         <RecentWork />
       </div>
     </main>

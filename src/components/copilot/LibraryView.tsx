@@ -14,14 +14,14 @@ export function LibraryView({ category, title, subtitle }: LibraryViewProps) {
   const items = useLibrary(category);
 
   return (
-    <div className="container-app section-y">
-      <div className="mb-10">
+    <div className="container-app py-8 lg:py-10">
+      <div className="mb-8">
         <h1 className="text-headline">{title}</h1>
         <p className="text-body mt-2 text-muted-foreground">{subtitle}</p>
       </div>
 
       {items.length === 0 ? (
-        <div className="card-soft flex flex-col items-center gap-4 p-14 text-center">
+        <div className="card-soft flex flex-col items-center gap-4 p-10 text-center">
           <span className="gradient-hero gradient-motion grid size-14 place-items-center rounded-2xl text-white">
             <Sparkles className="size-6" />
           </span>

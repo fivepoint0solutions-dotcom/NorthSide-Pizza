@@ -60,7 +60,7 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
   const panelProps = { draft, patch, onSave };
 
   return (
-    <div className="container-app section-y">
+    <div className={`container-app ${config.cardTintClass} py-8 lg:py-10`}>
       <ModeHeader mode={config} />
       {draft.mode === "inspire" && <InspirePanel {...panelProps} />}
       {draft.mode === "build" && <BuildPanel {...panelProps} />}

@@ -50,7 +50,7 @@ export function ChallengePanel({ draft, patch }: PanelProps) {
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
-          rows={6}
+          rows={4}
           placeholder="Describe your lesson or idea…"
           className="text-base"
         />

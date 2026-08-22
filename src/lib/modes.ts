@@ -8,6 +8,7 @@ export interface ModeConfig {
   description: string;
   icon: LucideIcon;
   gradientClass: string;
+  cardTintClass: string;
   href: string;
 }
 
@@ -20,6 +21,7 @@ export const MODES: ModeConfig[] = [
       "Multiple approaches and angles to spark your own thinking — you pick and customize.",
     icon: Lightbulb,
     gradientClass: "gradient-inspire",
+    cardTintClass: "card-tint-inspire",
     href: "/inspire",
   },
   {
@@ -30,6 +32,7 @@ export const MODES: ModeConfig[] = [
       "Answer a few quick questions and shape a lesson collaboratively — you're in every decision.",
     icon: Users,
     gradientClass: "gradient-build",
+    cardTintClass: "card-tint-build",
     href: "/build",
   },
   {
@@ -39,6 +42,7 @@ export const MODES: ModeConfig[] = [
     description: "Worksheets, quizzes, rubrics, parent messages — the practical stuff, done fast.",
     icon: ListChecks,
     gradientClass: "gradient-busywork",
+    cardTintClass: "card-tint-busywork",
     href: "/busywork",
   },
   {
@@ -49,6 +53,7 @@ export const MODES: ModeConfig[] = [
       "A second opinion that pokes at weak spots and offers alternatives — never a verdict.",
     icon: ShieldQuestion,
     gradientClass: "gradient-challenge",
+    cardTintClass: "card-tint-challenge",
     href: "/challenge",
   },
 ];

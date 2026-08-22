@@ -200,6 +200,29 @@
     color-mix(in oklab, var(--brand-cream) 66%, var(--brand-terracotta) 16%) 55%,
     color-mix(in oklab, var(--brand-cream) 70%, var(--brand-olive) 14%) 100%
   );
+  /* Mode-tinted card gradients — same shape as --grad-card, colors keyed to each mode. */
+  --grad-card-inspire: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--brand-cream) 64%, var(--brand-gold) 24%),
+    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-terracotta) 18%) 60%,
+    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-gold) 16%) 100%
+  );
+  --grad-card-build: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--brand-cream) 64%, var(--brand-terracotta) 22%),
+    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-olive) 18%) 100%
+  );
+  --grad-card-busywork: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-olive) 20%),
+    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-sage) 18%) 55%,
+    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-gold) 16%) 100%
+  );
+  --grad-card-challenge: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--brand-cream) 62%, var(--brand-terracotta) 24%),
+    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-rust) 18%) 100%
+  );
 
   --primary: var(--brand-terracotta);
   --primary-foreground: white;
@@ -695,6 +718,20 @@
 
 @utility gradient-challenge {
   background-image: var(--grad-challenge);
+}
+
+/* Scope card-soft/card-elevated/glass-panel to a mode's palette wherever this wraps them. */
+@utility card-tint-inspire {
+  --grad-card: var(--grad-card-inspire);
+}
+@utility card-tint-build {
+  --grad-card: var(--grad-card-build);
+}
+@utility card-tint-busywork {
+  --grad-card: var(--grad-card-busywork);
+}
+@utility card-tint-challenge {
+  --grad-card: var(--grad-card-challenge);
 }
 
 /* ============================================================

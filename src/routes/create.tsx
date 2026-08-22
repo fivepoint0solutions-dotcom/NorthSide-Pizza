@@ -24,9 +24,9 @@ function CreatePage() {
   }
 
   return (
-    <main className="container-app section-y">
+    <main className="container-app py-8 lg:py-10">
       <Reveal>
-        <div className="mb-10 text-center">
+        <div className="mb-8 text-center">
           <h1 className="text-headline">What are we creating?</h1>
           <p className="text-body mt-2 text-muted-foreground">
             Pick a starting point — you can always change direction.
