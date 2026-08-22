@@ -12,8 +12,9 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { RefinedCursor } from "../components/motion/RefinedCursor";
-import { SiteHeader } from "../components/navigation/SiteHeader";
-
+import { AppHeader } from "../components/navigation/AppHeader";
+import { AskTeachersPet } from "../components/copilot/AskTeachersPet";
+import { Toaster } from "../components/ui/sonner";
 
 function NotFoundComponent() {
   return (
@@ -80,17 +81,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Victoria Coast & Cedar — Premium West Coast Real Estate" },
+      { title: "Teacher's Pet" },
       {
         name: "description",
         content:
-          "Premium Victoria, BC real estate: Pacific coastline, old-growth character and historic homes, presented with editorial care.",
+          "An AI teaching assistant that amplifies your creativity, expertise and confidence. You're still the teacher — AI just helps you do more with your ideas.",
       },
-      { property: "og:title", content: "Victoria Coast & Cedar — Premium West Coast Real Estate" },
+      { property: "og:title", content: "Teacher's Pet" },
       {
         property: "og:description",
-        content:
-          "Premium Victoria, BC real estate: Pacific coastline, old-growth character and historic homes, presented with editorial care.",
+        content: "You're still the teacher. AI just helps you do more with your ideas.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -104,7 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=Karla:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap",
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
@@ -136,10 +136,11 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <RefinedCursor />
-      <SiteHeader />
+      <AppHeader />
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <AskTeachersPet />
+      <Toaster position="bottom-right" />
     </QueryClientProvider>
   );
 }
-

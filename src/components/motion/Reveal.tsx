@@ -58,11 +58,7 @@ export function Reveal({
   if (variant === "curtain") {
     return (
       <Tag ref={ref} className={className}>
-        <span
-          data-revealed={revealedAttr}
-          style={delayStyle}
-          className="reveal-curtain block"
-        >
+        <span data-revealed={revealedAttr} style={delayStyle} className="reveal-curtain block">
           {children}
         </span>
       </Tag>
@@ -80,6 +76,5 @@ export function Reveal({
     </Tag>
   );
 }
-
 
 export default Reveal;

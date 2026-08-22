@@ -1,235 +1,143 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
+import { ArrowRight, BookOpen, FolderOpen, Lightbulb, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ModeCard } from "@/components/copilot/ModeCard";
+import { LibraryCard } from "@/components/copilot/LibraryCard";
 import { Reveal } from "@/components/motion/Reveal";
-import { Parallax } from "@/components/motion/Parallax";
-import logoAsset from "@/assets/west-coast-realty-logo.png.asset.json";
+import { MODES } from "@/lib/modes";
+import { deleteLibraryItem, useLibrary, useRecentWork } from "@/lib/library";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Design System — Victoria Coast & Cedar" },
+      { title: "Teacher's Pet" },
       {
         name: "description",
         content:
-          "The global design system: brand palette, editorial typography, spacing, elevation and motion tokens for a premium Victoria, BC real estate experience.",
+          "An AI teaching assistant that amplifies your creativity, expertise and confidence — you're still the teacher, AI just helps you do more with your ideas.",
       },
-      { property: "og:title", content: "Design System — Victoria Coast & Cedar" },
+      { property: "og:title", content: "Teacher's Pet" },
       {
         property: "og:description",
-        content:
-          "Brand palette, editorial typography, spacing, elevation and motion tokens for a premium Victoria, BC real estate experience.",
+        content: "You're still the teacher. AI just helps you do more with your ideas.",
       },
     ],
   }),
-  component: DesignSystem,
+  component: Dashboard,
 });
 
-const palette = [
+const SHORTCUTS = [
+  { label: "My Lessons", to: "/lessons" as const, icon: BookOpen, category: "lesson" as const },
+  { label: "My Ideas", to: "/ideas" as const, icon: Lightbulb, category: "idea" as const },
   {
-    name: "Old-Growth Green",
-    hex: "#263F35",
-    role: "Primary dark, navigation, headings, dark sections",
-    swatch: "bg-primary",
-  },
-  { name: "Cedar", hex: "#76533F", role: "Warm secondary accent", swatch: "bg-accent" },
-  { name: "Pacific Teal", hex: "#28717A", role: "Links, interactive states, key CTAs", swatch: "bg-interactive" },
-  { name: "Fern", hex: "#87965B", role: "Natural accent, subtle highlights", swatch: "bg-highlight" },
-  {
-    name: "Bone",
-    hex: "#E7E0D2",
-    role: "Primary light background and surfaces",
-    swatch: "bg-background border border-border",
+    label: "Classroom Materials",
+    to: "/materials" as const,
+    icon: FolderOpen,
+    category: "material" as const,
   },
 ];
 
-const typeScale = [
-  { token: "text-display", sample: "Coast & Cedar", cls: "text-display" },
-  { token: "text-headline", sample: "A house shaped by the tide", cls: "text-headline" },
-  { token: "text-title", sample: "Rockland, Victoria", cls: "text-title" },
-  { token: "text-quote", sample: "Light moves through the cedars all afternoon.", cls: "text-quote" },
-  {
-    token: "text-lede",
-    sample: "An introduction set in the sans, one weight lighter, for measured editorial pacing.",
-    cls: "text-lede",
-  },
-  {
-    token: "text-body",
-    sample: "Body copy is Karla — clean, modern, quietly Pacific Northwest, and comfortable at length.",
-    cls: "text-body",
-  },
-  { token: "text-caption", sample: "Listed by appointment — 2026", cls: "text-caption" },
-  { token: "text-eyebrow", sample: "Design system", cls: "text-eyebrow" },
-];
+function ShortcutRow() {
+  const lessons = useLibrary("lesson");
+  const ideas = useLibrary("idea");
+  const materials = useLibrary("material");
+  const counts = { lesson: lessons.length, idea: ideas.length, material: materials.length };
 
-function Section({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
   return (
-    <section className="section-y hairline">
-      <div className="container-editorial">
-        <Reveal>
-          <p className="text-eyebrow text-interactive">{eyebrow}</p>
-          <h2 className="text-headline mt-3">{title}</h2>
-        </Reveal>
-        <div className="mt-12">{children}</div>
+    <div className="grid gap-4 sm:grid-cols-3">
+      {SHORTCUTS.map((s) => (
+        <Link
+          key={s.to}
+          to={s.to}
+          className="card-soft group flex items-center justify-between gap-4 p-5 hover:-translate-y-0.5"
+        >
+          <div className="flex items-center gap-3">
+            <span className="grid size-10 place-items-center rounded-xl bg-secondary text-interactive">
+              <s.icon className="size-5" />
+            </span>
+            <div>
+              <p className="font-semibold">{s.label}</p>
+              <p className="text-caption text-muted-foreground">{counts[s.category]} saved</p>
+            </div>
+          </div>
+          <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+function RecentWork() {
+  const recent = useRecentWork(6);
+  if (recent.length === 0) return null;
+
+  return (
+    <section className="section-y">
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-headline">Recent work</h2>
+        <Link to="/recent-work" className="text-sm font-semibold text-interactive hover:underline">
+          See all
+        </Link>
+      </div>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {recent.map((item) => (
+          <LibraryCard key={item.id} item={item} onDelete={deleteLibraryItem} />
+        ))}
       </div>
     </section>
   );
 }
 
-function DesignSystem() {
+function Dashboard() {
   return (
-    <main className="min-h-screen bg-background text-foreground">
-      {/* Hero — dark old-growth section with subtle parallax */}
-      <header
-        className="surface-dark relative overflow-hidden"
-        style={{
-          backgroundImage: "url(https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1920&q=80)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
-        <Parallax speed={0.14} className="pointer-events-none absolute inset-0">
-          <div
-            aria-hidden="true"
-            className="absolute -inset-y-24 inset-x-0 opacity-40"
-            style={{
-              background:
-                "radial-gradient(60% 60% at 20% 20%, color-mix(in oklab, var(--brand-teal) 55%, transparent), transparent 70%), radial-gradient(50% 50% at 80% 70%, color-mix(in oklab, var(--brand-fern) 35%, transparent), transparent 70%)",
-            }}
-          />
-        </Parallax>
-        {/* Legibility scrim — keeps all hero text readable over imagery */}
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-0"
-          style={{
-            background:
-              "linear-gradient(to bottom, color-mix(in oklab, var(--brand-green) 88%, transparent), color-mix(in oklab, var(--brand-green) 72%, transparent) 55%, color-mix(in oklab, var(--brand-green) 90%, transparent))",
-          }}
-        />
-        <div className="container-editorial relative section-y pt-40 md:pt-48">
-          <Reveal>
-            <p className="text-eyebrow text-highlight">Victoria, British Columbia</p>
-          </Reveal>
+    <main>
+      <div className="app-ambient-bg" aria-hidden="true" />
 
-          <Reveal variant="curtain" delay={80}>
-            <h1 className="text-display mt-6 max-w-[18ch]">Coast, cedar &amp; character</h1>
-          </Reveal>
-          <Reveal delay={200}>
-            <p className="text-lede measure mt-8 opacity-80">
-              The global visual language for a premium West Coast real estate experience — five brand colours, editorial
-              typography, and motion that stays out of the way.
-            </p>
-          </Reveal>
-          <Reveal delay={320} className="mt-10 flex flex-wrap gap-4">
-            <Button variant="cta" size="lg">
-              Primary action
-            </Button>
-            <Button variant="outline" size="lg" className="text-primary-foreground border-primary-foreground/40">
-              Secondary
-            </Button>
-          </Reveal>
-        </div>
-      </header>
-
-      <Section eyebrow="Foundation" title="Brand palette">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {palette.map((c, i) => (
-            <Reveal key={c.hex} delay={i * 70}>
-              <article className="bg-card shadow-subtle hover-lift rounded-sm p-1">
-                <div className={`${c.swatch} h-28 rounded-sm`} />
-                <div className="p-4">
-                  <h3 className="text-title">{c.name}</h3>
-                  <p className="text-caption text-muted-foreground mt-1 uppercase">{c.hex}</p>
-                  <p className="text-body text-muted-foreground mt-3">{c.role}</p>
-                </div>
-              </article>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      <Section eyebrow="Voice" title="Typographic scale">
-        <div className="space-y-10">
-          {typeScale.map((t, i) => (
-            <Reveal key={t.token} delay={i * 50}>
-              <div className="grid gap-3 lg:grid-cols-[10rem_1fr] lg:gap-10">
-                <code className="text-caption text-interactive pt-2">{t.token}</code>
-                <p className={t.cls}>{t.sample}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      <Section eyebrow="Interaction" title="Buttons &amp; links">
-        <Reveal className="flex flex-wrap items-center gap-4">
-          <Button>Default</Button>
-          <Button variant="cta">Pacific CTA</Button>
-          <Button variant="cedar">Cedar</Button>
-          <Button variant="fern">Fern</Button>
-          <Button variant="outline">Outline sweep</Button>
-          <Button variant="secondary">Secondary</Button>
-          <Button variant="ghost">Ghost</Button>
-          <Button variant="link">Inline link</Button>
-          <Button variant="editorial">View details</Button>
+      <section className="container-app pb-4 pt-16 text-center lg:pt-24">
+        <Reveal>
+          <p className="text-eyebrow text-interactive">Teacher's Pet</p>
         </Reveal>
-      </Section>
-
-      <Section eyebrow="Depth" title="Elevation &amp; radii">
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-          {[
-            ["shadow-subtle", "shadow-subtle"],
-            ["shadow-raised", "shadow-raised"],
-            ["shadow-editorial", "shadow-editorial"],
-            ["shadow-cinematic", "shadow-cinematic"],
-          ].map(([label, cls], i) => (
-            <Reveal key={label} delay={i * 70}>
-              <div className={`bg-surface ${cls} flex h-32 items-center justify-center rounded-sm`}>
-                <code className="text-caption text-muted-foreground">{label}</code>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-      </Section>
-
-      <Section eyebrow="Motion" title="Reveals, parallax &amp; drift">
-        <div className="grid gap-8 lg:grid-cols-3">
-          {[
-            [
-              "Scroll reveals",
-              "One-shot IntersectionObserver reveals with opacity and a short rise. Never re-triggers, never hijacks scroll.",
-            ],
-            ["Subtle parallax", "Capped intensity, rAF-throttled, transform-only, and paused while off-screen."],
-            [
-              "Cinematic imagery",
-              "Frames fade in and drift slowly on hover, with a curtain wipe for headline moments.",
-            ],
-          ].map(([title, body], i) => (
-            <Reveal key={title} delay={i * 90}>
-              <div className="border-border border-t pt-6">
-                <h3 className="text-title">{title}</h3>
-                <p className="text-body text-muted-foreground mt-3">{body}</p>
-              </div>
-            </Reveal>
-          ))}
-        </div>
-        <Reveal className="mt-14">
-          <p className="text-body text-muted-foreground measure">
-            All motion respects <code className="text-interactive">prefers-reduced-motion</code> and animates only{" "}
-            <code className="text-interactive">opacity</code>, <code className="text-interactive">transform</code> and{" "}
-            <code className="text-interactive">clip-path</code>.
+        <Reveal delay={80}>
+          <h1 className="text-display measure mx-auto mt-5">
+            You're still the teacher.
+            <br />
+            AI just helps you do more with your ideas.
+          </h1>
+        </Reveal>
+        <Reveal delay={160}>
+          <p className="text-lede measure mx-auto mt-6 text-muted-foreground">
+            Bring your expertise. Choose a mode below, and let's turn your idea into something even
+            better — together.
           </p>
         </Reveal>
-      </Section>
+        <Reveal delay={240} className="mt-9 flex justify-center">
+          <Button asChild variant="hero" size="xl">
+            <Link to="/create">
+              <Sparkles /> Create Something
+            </Link>
+          </Button>
+        </Reveal>
+      </section>
 
-      <footer className="surface-dark">
-        <div className="container-editorial py-16">
-          <p className="text-eyebrow text-highlight">Foundation established</p>
-          <p className="text-lede measure mt-4 opacity-80">
-            Every future component draws from these tokens — no new colours, no local overrides.
-          </p>
-        </div>
-      </footer>
+      <section className="container-app section-y">
+        <Reveal>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {MODES.map((mode) => (
+              <ModeCard key={mode.id} mode={mode} />
+            ))}
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="container-app">
+        <Reveal>
+          <ShortcutRow />
+        </Reveal>
+      </section>
+
+      <div className="container-app">
+        <RecentWork />
+      </div>
     </main>
   );
 }

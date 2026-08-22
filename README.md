@@ -1,112 +1,23 @@
-# West Coast Reality
+# Teacher's Pet
 
-Establish the global visual design system for this project.
+An AI teaching assistant built to amplify a teacher's creativity, expertise and confidence — not replace them.
 
-IMPORTANT:
+> You're still the teacher. Teacher's Pet just helps you do more with your ideas.
 
-These five colours are the official brand palette. Use ONLY these five brand colours throughout the design system.
+## Modes
 
-OLD-GROWTH GREEN
+- **Inspire Me** — ideas and angles, never a finished lesson.
+- **Build With Me** — a few quick questions, then a lesson developed collaboratively.
+- **Do The Busywork** — worksheets, quizzes, rubrics, parent messages, done fast.
+- **Challenge Me** — a second opinion that pokes at weak spots, never a verdict.
 
-#263F35
+"Ask Teacher's Pet" is available from anywhere in the app for plain-language help — no prompts or settings required.
 
-CEDAR
+## AI architecture
 
-#76533F
-
-PACIFIC TEAL
-
-#28717A
-
-FERN
-
-#87965B
-
-BONE
-
-#E7E0D2
-
-Do not replace, reinterpret, or invent a new colour palette.
-
-Create centralized reusable design tokens/CSS variables for these five colours so the entire website can be controlled from one global colour system.
-
-Colour roles should be assigned intelligently:
-
-- Old-Growth Green: primary dark colour, navigation, major headings, dark sections
-
-- Cedar: warm secondary/accent colour
-
-- Pacific Teal: interactive elements, links, selected states and important CTAs
-
-- Fern: natural secondary accent and subtle highlights
-
-- Bone: primary light background and light surfaces
-
-Do not force every colour to appear equally. The design should feel sophisticated and restrained.
-
-Overall visual direction:
-
-Premium Victoria, BC real estate.
-
-Blend:
-
-- Pacific Ocean
-
-- Vancouver Island old-growth wilderness
-
-- Historic Victoria
-
-- Natural materials
-
-- Bohemian character
-
-- Sophisticated luxury
-
-- High-end editorial real estate
-
-Typography:
-
-Use an elegant editorial serif style for major headlines and a clean modern sans-serif for body text and UI.
-
-Establish reusable typography, spacing, border-radius, shadow and animation tokens.
-
-Interaction language:
-
-- Refined cursor effects
-
-- Subtle button interactions
-
-- Smooth hover states
-
-- Scroll-based reveals
-
-- Subtle parallax
-
-- Cinematic transitions
-
-- Smooth image movement
-
-Animations must remain performant and must never interfere with scrolling, reading or usability.
-
-IMPORTANT:
-
-Do not build the homepage.
-
-Do not build property cards.
-
-Do not build property pages.
-
-Do not create listings.
-
-Do not create the logo.
-
-Do not modify unrelated functionality.
-
-Only establish the global visual design system and make it reusable by all future components.
+All AI functionality goes through a single seam: `src/lib/ai/index.ts` exports `aiProvider`, typed as `AIProvider` (`src/lib/ai/types.ts`). The shipped implementation, `mockProvider.ts`, is a template engine that needs no API key — swap the export for a real provider (Anthropic, OpenAI, Gemini, etc.) and every screen keeps working unchanged.
 
 This project was built with [Lovable](https://lovable.dev).
-
-**Live app**: https://island-bloom-tokens.lovable.app
 
 ## Build with Lovable
 
