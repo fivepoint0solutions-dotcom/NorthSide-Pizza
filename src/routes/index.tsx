@@ -91,8 +91,6 @@ function RecentWork() {
 function Dashboard() {
   return (
     <main>
-      <div className="app-ambient-bg" aria-hidden="true" />
-
       <section className="container-app pb-4 pt-16 text-center lg:pt-24">
         <Reveal>
           <p className="text-eyebrow text-interactive">Teacher's Pet</p>
