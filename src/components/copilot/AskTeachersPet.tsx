@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { cn } from "@/lib/utils";
+import { useT, type TranslationKey } from "@/lib/i18n";
 
 type ChatTurn = {
   id: string;
@@ -21,23 +22,20 @@ type ChatTurn = {
   suggestions?: ChatSuggestion[];
 };
 
-const OPENING: ChatTurn = {
-  id: "opening",
-  role: "assistant",
-  text: "Hi — I'm Teacher's Pet. Tell me what you're working on, in your own words, and I'll help you run with it.",
-};
-
-const STARTERS = [
-  "I want to teach fractions to my Grade 6 class.",
-  "My students are bored with this lesson. Give me some ideas.",
-  "Challenge my lesson.",
-  "I don't know where to start.",
+const STARTER_KEYS: TranslationKey[] = [
+  "chat.starter1",
+  "chat.starter2",
+  "chat.starter3",
+  "chat.starter4",
 ];
 
 export function AskTeachersPet() {
   const navigate = useNavigate();
+  const t = useT();
   const [open, setOpen] = useState(false);
-  const [turns, setTurns] = useState<ChatTurn[]>([OPENING]);
+  const [turns, setTurns] = useState<ChatTurn[]>([
+    { id: "opening", role: "assistant", text: t("chat.opening") },
+  ]);
   const [memory, setMemory] = useState<ChatMemory>({ context: {} });
   const [input, setInput] = useState("");
   const [thinking, setThinking] = useState(false);
@@ -99,11 +97,11 @@ export function AskTeachersPet() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        aria-label="Ask Teacher's Pet"
+        aria-label={t("chat.button")}
         className="gradient-hero gradient-motion big-cta fixed bottom-5 right-5 z-40 flex items-center gap-2.5 px-5 py-4 text-sm font-bold text-white sm:bottom-7 sm:right-7"
       >
         <MessageCircleHeart className="size-5" />
-        Ask Teacher's Pet
+        {t("chat.button")}
       </button>
 
       <Sheet open={open} onOpenChange={setOpen}>
@@ -115,7 +113,7 @@ export function AskTeachersPet() {
               </span>
               Teacher's Pet
             </SheetTitle>
-            <SheetDescription>Type naturally — no prompts or settings needed.</SheetDescription>
+            <SheetDescription>{t("chat.subtitle")}</SheetDescription>
           </SheetHeader>
 
           <div ref={listRef} className="flex-1 space-y-4 overflow-y-auto px-5 py-5">
@@ -166,11 +164,19 @@ export function AskTeachersPet() {
 
             {turns.length === 1 && (
               <div className="flex flex-wrap gap-2 pt-2">
-                {STARTERS.map((s) => (
-                  <button key={s} type="button" className="chip" onClick={() => void send(s)}>
-                    {s}
-                  </button>
-                ))}
+                {STARTER_KEYS.map((key) => {
+                  const label = t(key);
+                  return (
+                    <button
+                      key={key}
+                      type="button"
+                      className="chip"
+                      onClick={() => void send(label)}
+                    >
+                      {label}
+                    </button>
+                  );
+                })}
               </div>
             )}
           </div>
@@ -185,7 +191,7 @@ export function AskTeachersPet() {
                   void send(input);
                 }
               }}
-              placeholder="Ask anything about your class, lesson, or idea…"
+              placeholder={t("chat.placeholder")}
               rows={2}
               className="max-h-32 flex-1 resize-none text-sm"
             />
@@ -196,7 +202,7 @@ export function AskTeachersPet() {
               className="shrink-0 rounded-xl"
               disabled={!input.trim() || thinking}
               onClick={() => void send(input)}
-              aria-label="Send"
+              aria-label={t("chat.send")}
             >
               <ArrowUp className="size-4" />
             </Button>

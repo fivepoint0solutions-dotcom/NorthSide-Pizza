@@ -11,6 +11,17 @@ import type {
   IdeaOption,
   QuickAction,
 } from "./types";
+import { translate, type TranslationKey } from "@/lib/i18n";
+import { DEFAULT_LANGUAGE, isLanguageCode } from "@/lib/i18n/languages";
+
+function langOf(ctx: CreationContext) {
+  return ctx.language && isLanguageCode(ctx.language) ? ctx.language : DEFAULT_LANGUAGE;
+}
+
+/** Localized block heading for the teacher's chosen interface language. */
+function h(ctx: CreationContext, key: TranslationKey): string {
+  return translate(langOf(ctx), key);
+}
 
 /**
  * Reference implementation of `AIProvider`.
@@ -164,17 +175,21 @@ function makeBlocks(ctx: CreationContext): ContentBlock[] {
   const g = gradeOf(ctx);
   const time = ctx.timeAvailable?.trim() || "one class period";
   return [
-    { id: id("blk"), heading: "Hook", body: pick(HOOK_STARTERS)(t) },
+    { id: id("blk"), heading: h(ctx, "block.hook"), body: pick(HOOK_STARTERS)(t) },
     {
       id: id("blk"),
-      heading: "Learning objective",
+      heading: h(ctx, "block.learningObjective"),
       body:
         ctx.objective?.trim() ||
         `By the end of ${time}, students will be able to explain and apply ${t} in a new example.`,
     },
-    { id: id("blk"), heading: "Main activity", body: pick(ACTIVITY_STARTERS)(t, g) },
-    { id: id("blk"), heading: "Check for understanding", body: pick(ASSESSMENT_STARTERS)(t) },
-    { id: id("blk"), heading: "Closing", body: pick(CLOSING_STARTERS)(t) },
+    { id: id("blk"), heading: h(ctx, "block.mainActivity"), body: pick(ACTIVITY_STARTERS)(t, g) },
+    {
+      id: id("blk"),
+      heading: h(ctx, "block.checkUnderstanding"),
+      body: pick(ASSESSMENT_STARTERS)(t),
+    },
+    { id: id("blk"), heading: h(ctx, "block.closing"), body: pick(CLOSING_STARTERS)(t) },
   ];
 }
 
@@ -183,22 +198,22 @@ function makeWorksheet(ctx: CreationContext): ContentBlock[] {
   return [
     {
       id: id("blk"),
-      heading: "Instructions",
+      heading: h(ctx, "block.instructions"),
       body: `Work through the questions below about ${t}. Show your thinking, not just your answer.`,
     },
     {
       id: id("blk"),
-      heading: "Warm-up",
+      heading: h(ctx, "block.warmUp"),
       body: `1. In your own words, what does "${t}" mean?\n2. Give one example of ${t} you've seen before.`,
     },
     {
       id: id("blk"),
-      heading: "Practice",
+      heading: h(ctx, "block.practice"),
       body: `3. Apply ${t} to solve the following problem: [insert scenario here]\n4. Explain why your approach works.\n5. What would change if one detail of the problem were different?`,
     },
     {
       id: id("blk"),
-      heading: "Challenge (optional)",
+      heading: h(ctx, "block.challengeOptional"),
       body: `6. Create your own example that uses ${t} and swap with a partner to solve.`,
     },
   ];
@@ -209,22 +224,22 @@ function makeQuiz(ctx: CreationContext): ContentBlock[] {
   return [
     {
       id: id("blk"),
-      heading: "Directions",
+      heading: h(ctx, "block.directions"),
       body: `Choose the best answer for each question about ${t}. You have ${ctx.timeAvailable?.trim() || "15 minutes"}.`,
     },
     {
       id: id("blk"),
-      heading: "Question 1 (multiple choice)",
+      heading: h(ctx, "block.question1MultipleChoice"),
       body: `Which statement best describes ${t}?\nA) [option]\nB) [option]\nC) [option]\nD) [option]`,
     },
     {
       id: id("blk"),
-      heading: "Question 2 (short answer)",
+      heading: h(ctx, "block.question2ShortAnswer"),
       body: `Explain one situation where ${t} applies, in 2-3 sentences.`,
     },
     {
       id: id("blk"),
-      heading: "Question 3 (applied)",
+      heading: h(ctx, "block.question3Applied"),
       body: `Given [a short scenario], use ${t} to solve it and show your work.`,
     },
   ];
@@ -235,12 +250,12 @@ function makeAnswerKey(ctx: CreationContext): ContentBlock[] {
   return [
     {
       id: id("blk"),
-      heading: "Answer key",
+      heading: h(ctx, "block.answerKey"),
       body: `1. [Correct answer + why it's correct]\n2. [Model short answer touching on ${t}]\n3. [Worked solution]`,
     },
     {
       id: id("blk"),
-      heading: "Common mistakes to watch for",
+      heading: h(ctx, "block.commonMistakes"),
       body: `Students often confuse ${t} with a related-but-different idea — award partial credit for reasoning that's on the right track.`,
     },
   ];
@@ -251,17 +266,17 @@ function makeRubric(ctx: CreationContext): ContentBlock[] {
   return [
     {
       id: id("blk"),
-      heading: "Criterion: Understanding",
+      heading: h(ctx, "block.criterionUnderstanding"),
       body: `4 — Explains ${t} accurately and in depth.\n3 — Explains ${t} with minor gaps.\n2 — Shows partial understanding of ${t}.\n1 — Little to no understanding shown.`,
     },
     {
       id: id("blk"),
-      heading: "Criterion: Application",
+      heading: h(ctx, "block.criterionApplication"),
       body: `4 — Applies ${t} correctly to a new situation.\n3 — Applies ${t} with small errors.\n2 — Attempts application with significant errors.\n1 — Does not attempt application.`,
     },
     {
       id: id("blk"),
-      heading: "Criterion: Communication",
+      heading: h(ctx, "block.criterionCommunication"),
       body: `4 — Work is clear, organized, and well explained.\n3 — Work is mostly clear.\n2 — Work is hard to follow in places.\n1 — Work is difficult to understand.`,
     },
   ];
@@ -273,17 +288,17 @@ function makeParentMessage(ctx: CreationContext): ContentBlock[] {
   return [
     {
       id: id("blk"),
-      heading: "Subject line",
+      heading: h(ctx, "block.subjectLine"),
       body: `A quick update from ${subjectOf(ctx)} class`,
     },
     {
       id: id("blk"),
-      heading: "Message",
+      heading: h(ctx, "block.message"),
       body: `Hi families,\n\nThis week we've been exploring ${t} in class. ${ctx.keyPoints?.trim() ? ctx.keyPoints.trim() + " " : ""}Your student can practice by explaining ${t} to you in their own words tonight.\n\nThanks for your support at home.\n\nWarmly,\n[Your name]`,
     },
     {
       id: id("blk"),
-      heading: "Tone note",
+      heading: h(ctx, "block.toneNote"),
       body: `Written to sound ${tone} — adjust freely to match your voice.`,
     },
   ];
@@ -294,13 +309,17 @@ function makeActivity(ctx: CreationContext): ContentBlock[] {
   return [
     {
       id: id("blk"),
-      heading: "Setup",
+      heading: h(ctx, "block.setup"),
       body: `Materials and grouping for a ${t} activity — adjust to what you have on hand.`,
     },
-    { id: id("blk"), heading: "Directions", body: pick(ACTIVITY_STARTERS)(t, gradeOf(ctx)) },
     {
       id: id("blk"),
-      heading: "Debrief question",
+      heading: h(ctx, "block.directions"),
+      body: pick(ACTIVITY_STARTERS)(t, gradeOf(ctx)),
+    },
+    {
+      id: id("blk"),
+      heading: h(ctx, "block.debriefQuestion"),
       body: `What did this activity reveal about ${t} that you didn't expect?`,
     },
   ];
@@ -311,7 +330,7 @@ function makeOther(ctx: CreationContext): ContentBlock[] {
   return [
     {
       id: id("blk"),
-      heading: "Draft",
+      heading: h(ctx, "block.draft"),
       body: `Here's a starting point for ${t} — tell me more about what you need and I'll reshape it.`,
     },
   ];

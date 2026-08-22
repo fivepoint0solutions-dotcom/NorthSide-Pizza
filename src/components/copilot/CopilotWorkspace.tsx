@@ -3,7 +3,8 @@ import { toast } from "sonner";
 import type { Mode } from "@/lib/ai";
 import { createDraft, getDraft, updateDraft, type Draft } from "@/lib/draft";
 import { saveLibraryItem } from "@/lib/library";
-import { defaultTypeForMode, modeConfig } from "@/lib/modes";
+import { defaultTypeForMode, useModeConfig } from "@/lib/modes";
+import { useLanguage, useT } from "@/lib/i18n";
 import { ModeHeader } from "./ModeHeader";
 import { InspirePanel } from "./panels/InspirePanel";
 import { BuildPanel } from "./panels/BuildPanel";
@@ -40,6 +41,14 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
     setDraft((prev) => ({ ...prev, ...p }));
   }
 
+  const t = useT();
+  const { language } = useLanguage();
+
+  useEffect(() => {
+    if (draft.context.language !== language) patch({ context: { ...draft.context, language } });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [language]);
+
   function onSave(title: string) {
     const saved = saveLibraryItem({
       id: draft.savedLibraryId ?? undefined,
@@ -51,12 +60,12 @@ export function CopilotWorkspace({ draftId, mode }: CopilotWorkspaceProps) {
       ideas: draft.ideas,
     });
     patch({ savedLibraryId: saved.id });
-    toast.success("Saved to your library", {
-      description: "You're always in control — edit it any time.",
+    toast.success(t("library.savedToast"), {
+      description: t("library.savedToastDescription"),
     });
   }
 
-  const config = modeConfig(draft.mode);
+  const config = useModeConfig(draft.mode);
   const panelProps = { draft, patch, onSave };
 
   return (

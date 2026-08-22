@@ -22,6 +22,9 @@ export interface CreationContext {
   audience?: string;
   tone?: string;
   keyPoints?: string;
+  /** The teacher's chosen interface language — threaded through so a real
+   * AI provider can generate lesson content natively in that language. */
+  language?: string;
 }
 
 export interface ContentBlock {

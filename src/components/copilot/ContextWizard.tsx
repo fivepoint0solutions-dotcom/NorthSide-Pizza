@@ -5,6 +5,7 @@ import type { CreationContext } from "@/lib/ai";
 import { Button } from "@/components/ui/button";
 import { FieldInput } from "./FieldInput";
 import { cn } from "@/lib/utils";
+import { useT } from "@/lib/i18n";
 
 type ContextWizardProps = {
   typeConfig: CreationTypeConfig;
@@ -19,6 +20,7 @@ function chunk<T>(arr: T[], size: number): T[][] {
 
 /** Progressive disclosure: a couple of questions per screen, never the whole form at once. */
 export function ContextWizard({ typeConfig, onComplete }: ContextWizardProps) {
+  const t = useT();
   const steps = useMemo(() => chunk(typeConfig.fields, 2), [typeConfig]);
   const [stepIndex, setStepIndex] = useState(0);
   const [context, setContext] = useState<CreationContext>({});
@@ -62,7 +64,7 @@ export function ContextWizard({ typeConfig, onComplete }: ContextWizardProps) {
               {field.label}
               {!field.required && (
                 <span className="ml-2 text-caption font-normal text-muted-foreground">
-                  optional
+                  {t("create.optional")}
                 </span>
               )}
             </label>
@@ -81,7 +83,7 @@ export function ContextWizard({ typeConfig, onComplete }: ContextWizardProps) {
           onClick={() => setStepIndex((i) => Math.max(0, i - 1))}
           className="disabled:opacity-0"
         >
-          <ArrowLeft /> Back
+          <ArrowLeft /> {t("create.back")}
         </Button>
         <Button
           type="button"
@@ -91,7 +93,7 @@ export function ContextWizard({ typeConfig, onComplete }: ContextWizardProps) {
           disabled={!canAdvance}
           className="min-w-40"
         >
-          {isLast ? "Let's go" : "Continue"} <ArrowRight />
+          {isLast ? t("create.letsGo") : t("create.continue")} <ArrowRight />
         </Button>
       </div>
     </div>

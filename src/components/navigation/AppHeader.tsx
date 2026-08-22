@@ -1,18 +1,59 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, Sparkles, X } from "lucide-react";
+import { Globe, Menu, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
-  { label: "Dashboard", to: "/" as const },
-  { label: "My Lessons", to: "/lessons" as const },
-  { label: "My Ideas", to: "/ideas" as const },
-  { label: "Materials", to: "/materials" as const },
-];
+  { key: "nav.dashboard", to: "/" as const },
+  { key: "nav.myLessons", to: "/lessons" as const },
+  { key: "nav.myIdeas", to: "/ideas" as const },
+  { key: "nav.materials", to: "/materials" as const },
+] as const;
+
+function LanguageSwitcher() {
+  const { language, setLanguage } = useLanguage();
+  const t = useT();
+  const current = LANGUAGES.find((l) => l.code === language) ?? LANGUAGES[0]!;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          aria-label={t("language.label")}
+          className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-foreground/75 transition-refined hover:bg-secondary hover:text-foreground"
+        >
+          <Globe className="size-4" />
+          <span className="uppercase">{current.code}</span>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {LANGUAGES.map((lang) => (
+          <DropdownMenuItem
+            key={lang.code}
+            onClick={() => setLanguage(lang.code)}
+            className={cn("gap-2", lang.code === language && "font-semibold text-primary")}
+          >
+            <span>{lang.nativeName}</span>
+            <span className="ml-auto text-xs text-muted-foreground">{lang.englishName}</span>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export function AppHeader() {
   const [open, setOpen] = useState(false);
+  const t = useT();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
@@ -39,15 +80,16 @@ export function AppHeader() {
                 className="rounded-full px-4 py-2 text-sm font-semibold text-foreground/75 transition-refined hover:bg-secondary hover:text-foreground"
                 activeProps={{ className: "bg-secondary text-foreground" }}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             </li>
           ))}
         </ul>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-2 md:flex">
+          <LanguageSwitcher />
           <Button asChild variant="hero" size="default">
-            <Link to="/create">Create Something</Link>
+            <Link to="/create">{t("nav.createSomething")}</Link>
           </Button>
         </div>
 
@@ -77,9 +119,12 @@ export function AppHeader() {
                 onClick={() => setOpen(false)}
                 className="rounded-xl px-4 py-3 text-base font-semibold text-foreground/85 hover:bg-secondary"
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             ))}
+            <div className="mt-1 px-4">
+              <LanguageSwitcher />
+            </div>
             <Button
               asChild
               variant="hero"
@@ -87,7 +132,7 @@ export function AppHeader() {
               className="mt-2"
               onClick={() => setOpen(false)}
             >
-              <Link to="/create">Create Something</Link>
+              <Link to="/create">{t("nav.createSomething")}</Link>
             </Button>
           </div>
         </div>

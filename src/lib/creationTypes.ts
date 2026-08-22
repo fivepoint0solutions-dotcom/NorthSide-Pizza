@@ -9,18 +9,37 @@ import {
   Sparkles,
   Wand2,
 } from "lucide-react";
+import { useT, type TranslationKey, type TFunction } from "./i18n";
 import type { CreationContext, CreationType, Mode } from "./ai";
 
 export type FieldKind = "text" | "textarea" | "choice" | "slider";
+
+/** Raw field definition — label/placeholder/helper are translation keys, resolved via resolveField(). */
+interface FieldMeta {
+  key: keyof CreationContext;
+  labelKey: TranslationKey;
+  placeholderKey?: TranslationKey;
+  helperKey?: TranslationKey;
+  kind: FieldKind;
+  options?: string[];
+  required?: boolean;
+}
 
 export interface FieldConfig {
   key: keyof CreationContext;
   label: string;
   placeholder?: string;
+  helper?: string;
   kind: FieldKind;
   options?: string[];
   required?: boolean;
-  helper?: string;
+}
+
+interface CreationTypeMeta {
+  id: CreationType;
+  icon: LucideIcon;
+  defaultMode: Mode;
+  fields: FieldMeta[];
 }
 
 export interface CreationTypeConfig {
@@ -67,57 +86,55 @@ export const AUDIENCE_OPTIONS = [
   "Behavior update",
 ];
 
-const gradeField: FieldConfig = {
+const gradeField: FieldMeta = {
   key: "grade",
-  label: "Grade",
+  labelKey: "field.grade.label",
   kind: "choice",
   options: GRADE_OPTIONS,
   required: true,
 };
-const subjectField: FieldConfig = {
+const subjectField: FieldMeta = {
   key: "subject",
-  label: "Subject",
+  labelKey: "field.subject.label",
   kind: "text",
-  placeholder: "e.g. Science, 6th grade math, ELA…",
+  placeholderKey: "field.subject.placeholder",
   required: true,
 };
-const topicField: FieldConfig = {
+const topicField: FieldMeta = {
   key: "topic",
-  label: "Topic",
+  labelKey: "field.topic.label",
   kind: "text",
-  placeholder: "e.g. photosynthesis, fractions, the water cycle…",
+  placeholderKey: "field.topic.placeholder",
   required: true,
 };
-const timeField: FieldConfig = {
+const timeField: FieldMeta = {
   key: "timeAvailable",
-  label: "Time available",
+  labelKey: "field.timeAvailable.label",
   kind: "choice",
   options: TIME_OPTIONS,
 };
-const objectiveField: FieldConfig = {
+const objectiveField: FieldMeta = {
   key: "objective",
-  label: "Learning objective",
+  labelKey: "field.objective.label",
   kind: "textarea",
-  placeholder: "What should students walk away able to do? (optional — I can suggest one)",
+  placeholderKey: "field.objective.placeholder",
 };
-const levelField: FieldConfig = {
+const levelField: FieldMeta = {
   key: "studentLevel",
-  label: "Student level",
+  labelKey: "field.studentLevel.label",
   kind: "choice",
   options: LEVEL_OPTIONS,
 };
-const creativityField: FieldConfig = {
+const creativityField: FieldMeta = {
   key: "creativity",
-  label: "Creativity level",
+  labelKey: "field.creativity.label",
   kind: "slider",
-  helper: "Play it safe ↔ Go wild",
+  helperKey: "field.creativity.helper",
 };
 
-export const CREATION_TYPES: CreationTypeConfig[] = [
+export const CREATION_TYPES_META: CreationTypeMeta[] = [
   {
     id: "lesson",
-    label: "Lesson",
-    tagline: "A full lesson plan, built around your idea",
     icon: BookOpen,
     defaultMode: "build",
     fields: [
@@ -132,32 +149,24 @@ export const CREATION_TYPES: CreationTypeConfig[] = [
   },
   {
     id: "activity",
-    label: "Activity",
-    tagline: "One engaging activity to drop into any lesson",
     icon: Boxes,
     defaultMode: "build",
     fields: [gradeField, subjectField, topicField, timeField, creativityField],
   },
   {
     id: "worksheet",
-    label: "Worksheet",
-    tagline: "Practice questions students can work through",
     icon: PencilRuler,
     defaultMode: "busywork",
     fields: [gradeField, subjectField, topicField, levelField],
   },
   {
     id: "quiz",
-    label: "Quiz",
-    tagline: "A short check for understanding, with an answer key",
     icon: ClipboardList,
     defaultMode: "busywork",
     fields: [gradeField, subjectField, topicField, timeField],
   },
   {
     id: "rubric",
-    label: "Rubric",
-    tagline: "Clear criteria for grading student work",
     icon: Layers,
     defaultMode: "busywork",
     fields: [
@@ -166,62 +175,105 @@ export const CREATION_TYPES: CreationTypeConfig[] = [
       topicField,
       {
         key: "keyPoints",
-        label: "What matters most?",
+        labelKey: "field.rubricKeyPoints.label",
         kind: "textarea",
-        placeholder: "Optional — what should this rubric emphasize?",
+        placeholderKey: "field.rubricKeyPoints.placeholder",
       },
     ],
   },
   {
     id: "parent-message",
-    label: "Parent Message",
-    tagline: "A note home, in the right tone",
     icon: MessageSquareHeart,
     defaultMode: "busywork",
     fields: [
       {
         key: "audience",
-        label: "Who's this for?",
+        labelKey: "field.audience.label",
         kind: "choice",
         options: AUDIENCE_OPTIONS,
         required: true,
       },
       topicField,
-      { key: "tone", label: "Tone", kind: "choice", options: TONE_OPTIONS },
+      { key: "tone", labelKey: "field.tone.label", kind: "choice", options: TONE_OPTIONS },
       {
         key: "keyPoints",
-        label: "Anything specific to include?",
+        labelKey: "field.parentKeyPoints.label",
         kind: "textarea",
-        placeholder: "Optional",
+        placeholderKey: "field.parentKeyPoints.placeholder",
       },
     ],
   },
   {
     id: "brainstorm",
-    label: "Brainstorm",
-    tagline: "Explore ideas before committing to one",
     icon: Sparkles,
     defaultMode: "inspire",
-    fields: [topicField, { key: "subject", label: "Subject (optional)", kind: "text" }],
+    fields: [topicField, { key: "subject", labelKey: "field.subjectOptional.label", kind: "text" }],
   },
   {
     id: "other",
-    label: "Something Else",
-    tagline: "Tell me what you need in your own words",
     icon: Wand2,
     defaultMode: "build",
     fields: [
       {
         key: "idea",
-        label: "Describe what you need",
+        labelKey: "field.idea.label",
         kind: "textarea",
-        placeholder: "e.g. a sub plan for Friday, a bulletin board idea…",
+        placeholderKey: "field.idea.placeholder",
         required: true,
       },
     ],
   },
 ];
 
-export function creationTypeConfig(id: CreationType): CreationTypeConfig {
-  return CREATION_TYPES.find((t) => t.id === id) ?? CREATION_TYPES[CREATION_TYPES.length - 1]!;
+function resolveField(field: FieldMeta, t: TFunction): FieldConfig {
+  return {
+    key: field.key,
+    label: t(field.labelKey),
+    placeholder: field.placeholderKey ? t(field.placeholderKey) : undefined,
+    helper: field.helperKey ? t(field.helperKey) : undefined,
+    kind: field.kind,
+    options: field.options,
+    required: field.required,
+  };
+}
+
+function typeLabelKey(id: CreationType): TranslationKey {
+  const camel = id === "parent-message" ? "parentMessage" : id;
+  return `types.${camel}.label` as TranslationKey;
+}
+
+function typeTaglineKey(id: CreationType): TranslationKey {
+  const camel = id === "parent-message" ? "parentMessage" : id;
+  return `types.${camel}.tagline` as TranslationKey;
+}
+
+export function creationTypeMeta(id: CreationType): CreationTypeMeta {
+  return (
+    CREATION_TYPES_META.find((t) => t.id === id) ??
+    CREATION_TYPES_META[CREATION_TYPES_META.length - 1]!
+  );
+}
+
+function resolveType(meta: CreationTypeMeta, t: TFunction): CreationTypeConfig {
+  return {
+    id: meta.id,
+    label: t(typeLabelKey(meta.id)),
+    tagline: t(typeTaglineKey(meta.id)),
+    icon: meta.icon,
+    defaultMode: meta.defaultMode,
+    fields: meta.fields.map((f) => resolveField(f, t)),
+  };
+}
+
+/** Translated creation-type config for a single type — use inside components. */
+export function useCreationTypeConfig(id: CreationType): CreationTypeConfig {
+  const t = useT();
+  return resolveType(creationTypeMeta(id), t);
+}
+
+/** Translated creation-type configs, optionally filtered to a subset of ids. */
+export function useCreationTypes(ids?: CreationType[]): CreationTypeConfig[] {
+  const t = useT();
+  const metas = ids ? CREATION_TYPES_META.filter((m) => ids.includes(m.id)) : CREATION_TYPES_META;
+  return metas.map((m) => resolveType(m, t));
 }

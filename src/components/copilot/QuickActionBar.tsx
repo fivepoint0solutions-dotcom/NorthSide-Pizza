@@ -1,5 +1,6 @@
 import type { QuickAction } from "@/lib/ai";
-import { QUICK_ACTIONS } from "@/lib/modes";
+import { QUICK_ACTION_KEYS, QUICK_ACTION_ORDER } from "@/lib/modes";
+import { useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 type QuickActionBarProps = {
@@ -11,19 +12,20 @@ type QuickActionBarProps = {
 
 /** The row of "give me 3 approaches / make this simpler" style collaborator prompts. */
 export function QuickActionBar({ actions, onAction, disabled, className }: QuickActionBarProps) {
-  const items = actions ? QUICK_ACTIONS.filter((a) => actions.includes(a.id)) : QUICK_ACTIONS;
+  const t = useT();
+  const items = actions ?? QUICK_ACTION_ORDER;
 
   return (
     <div className={cn("-mx-1 flex flex-wrap gap-2 overflow-x-auto px-1 py-1", className)}>
-      {items.map((action) => (
+      {items.map((id) => (
         <button
-          key={action.id}
+          key={id}
           type="button"
           className="chip"
           disabled={disabled}
-          onClick={() => onAction(action.id)}
+          onClick={() => onAction(id)}
         >
-          {action.label}
+          {t(QUICK_ACTION_KEYS[id])}
         </button>
       ))}
     </div>

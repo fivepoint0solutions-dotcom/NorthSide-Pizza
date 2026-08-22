@@ -8,9 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { ShieldQuestion, Sparkles } from "lucide-react";
 import type { PanelProps } from "../panelTypes";
+import { useT } from "@/lib/i18n";
 
 export function ChallengePanel({ draft, patch }: PanelProps) {
   const navigate = useNavigate();
+  const t = useT();
   const [loading, setLoading] = useState(false);
   const [text, setText] = useState(draft.challengeText);
 
@@ -41,17 +43,14 @@ export function ChallengePanel({ draft, patch }: PanelProps) {
     return (
       <div className="card-soft mx-auto max-w-xl space-y-6 p-8 animate-pop">
         <div>
-          <h2 className="text-title mb-2">What would you like a second opinion on?</h2>
-          <p className="text-body text-muted-foreground">
-            Paste in a lesson idea, an activity, or just describe your plan. I'll look for gaps —
-            you decide what to do with them.
-          </p>
+          <h2 className="text-title mb-2">{t("panel.challenge.title")}</h2>
+          <p className="text-body text-muted-foreground">{t("panel.challenge.subtitle")}</p>
         </div>
         <Textarea
           value={text}
           onChange={(e) => setText(e.target.value)}
           rows={4}
-          placeholder="Describe your lesson or idea…"
+          placeholder={t("panel.challenge.placeholder")}
           className="text-base"
         />
         <Button
@@ -61,7 +60,7 @@ export function ChallengePanel({ draft, patch }: PanelProps) {
           disabled={!text.trim()}
           onClick={() => void challenge()}
         >
-          <ShieldQuestion /> Challenge This Idea
+          <ShieldQuestion /> {t("panel.challenge.cta")}
         </Button>
       </div>
     );
@@ -72,10 +71,10 @@ export function ChallengePanel({ draft, patch }: PanelProps) {
       <CritiquePanel critique={draft.critique} />
       <div className="flex flex-wrap items-center gap-3">
         <Button variant="outline" size="lg" onClick={() => void challenge()}>
-          Challenge it again
+          {t("panel.challenge.again")}
         </Button>
         <Button variant="build" size="lg" onClick={helpMeImprove}>
-          <Sparkles /> Help me improve this
+          <Sparkles /> {t("panel.challenge.improve")}
         </Button>
       </div>
     </div>

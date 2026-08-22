@@ -1,6 +1,7 @@
 import { Wand2 } from "lucide-react";
 import type { IdeaOption } from "@/lib/ai";
 import { Button } from "@/components/ui/button";
+import { useT } from "@/lib/i18n";
 
 type IdeaCardProps = {
   idea: IdeaOption;
@@ -8,6 +9,7 @@ type IdeaCardProps = {
 };
 
 export function IdeaCard({ idea, onUse }: IdeaCardProps) {
+  const t = useT();
   return (
     <div className="card-elevated flex h-full flex-col gap-3 p-6">
       <span className="badge-pill w-fit border border-border bg-secondary text-secondary-foreground">
@@ -22,7 +24,7 @@ export function IdeaCard({ idea, onUse }: IdeaCardProps) {
         onClick={() => onUse(idea)}
         className="mt-2 w-fit"
       >
-        <Wand2 /> Use this
+        <Wand2 /> {t("panel.inspire.useThis")}
       </Button>
     </div>
   );

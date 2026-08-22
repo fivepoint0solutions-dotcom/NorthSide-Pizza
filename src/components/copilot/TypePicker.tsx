@@ -1,5 +1,5 @@
 import type { CreationType } from "@/lib/ai";
-import { CREATION_TYPES } from "@/lib/creationTypes";
+import { useCreationTypes } from "@/lib/creationTypes";
 import { cn } from "@/lib/utils";
 
 type TypePickerProps = {
@@ -10,7 +10,7 @@ type TypePickerProps = {
 };
 
 export function TypePicker({ value, onSelect, types, className }: TypePickerProps) {
-  const items = types ? CREATION_TYPES.filter((t) => types.includes(t.id)) : CREATION_TYPES;
+  const items = useCreationTypes(types);
 
   return (
     <div className={cn("grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4", className)}>

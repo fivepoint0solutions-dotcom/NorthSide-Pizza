@@ -9,8 +9,10 @@ import { ChoiceGroup } from "../ChoiceGroup";
 import { Button } from "@/components/ui/button";
 import { Check, Save } from "lucide-react";
 import type { PanelProps } from "../panelTypes";
+import { useT } from "@/lib/i18n";
 
 export function BuildPanel({ draft, patch, onSave }: PanelProps) {
+  const t = useT();
   const [loading, setLoading] = useState(false);
   const [regenIndex, setRegenIndex] = useState<number | null>(null);
   const hasIdea = Boolean(draft.context.topic || draft.context.idea);
@@ -70,19 +72,19 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
   if (!hasIdea) {
     return (
       <QuickCapture
-        title="Let's build something together"
-        subtitle="Tell me the basics and I'll ask a couple of quick questions before we draft anything."
+        title={t("panel.build.title")}
+        subtitle={t("panel.build.subtitle")}
         fields={[
           {
             key: "topic",
-            label: "Topic",
+            label: t("field.topic.label"),
             kind: "text",
-            placeholder: "e.g. fractions, the Revolutionary War…",
+            placeholder: t("panel.build.topicPlaceholder"),
             required: true,
           },
           {
             key: "grade",
-            label: "Grade",
+            label: t("field.grade.label"),
             kind: "choice",
             options: [
               "K",
@@ -101,7 +103,7 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
             ],
           },
         ]}
-        cta="Start building"
+        cta={t("panel.build.cta")}
         ctaVariant="build"
         onSubmit={(context) => patch({ context })}
       />
@@ -151,11 +153,15 @@ export function BuildPanel({ draft, patch, onSave }: PanelProps) {
             variant="build"
             size="lg"
             onClick={() =>
-              onSave(draft.context.topic ? `${draft.context.topic} — lesson` : "Untitled lesson")
+              onSave(
+                draft.context.topic
+                  ? `${draft.context.topic} — ${t("panel.build.savedTitleSuffix")}`
+                  : t("panel.build.untitled"),
+              )
             }
           >
             {draft.savedLibraryId ? <Check /> : <Save />}{" "}
-            {draft.savedLibraryId ? "Saved" : "Approve & Save"}
+            {draft.savedLibraryId ? t("panel.build.saved") : t("panel.build.saveCta")}
           </Button>
         </div>
       )}

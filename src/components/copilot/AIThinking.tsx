@@ -1,22 +1,24 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { useT, type TranslationKey } from "@/lib/i18n";
 
-const PHRASES = [
-  "Thinking like a teacher…",
-  "Brewing a few ideas…",
-  "Weighing a couple of approaches…",
-  "Almost there…",
-  "Sketching this out…",
+const PHRASE_KEYS: TranslationKey[] = [
+  "thinking.phrase1",
+  "thinking.phrase2",
+  "thinking.phrase3",
+  "thinking.phrase4",
+  "thinking.phrase5",
 ];
 
 type AIThinkingProps = { className?: string; gradientClass?: string };
 
 export function AIThinking({ className, gradientClass = "gradient-build" }: AIThinkingProps) {
+  const t = useT();
   const [phraseIndex, setPhraseIndex] = useState(0);
 
   useEffect(() => {
-    const t = setInterval(() => setPhraseIndex((i) => (i + 1) % PHRASES.length), 1400);
-    return () => clearInterval(t);
+    const id = setInterval(() => setPhraseIndex((i) => (i + 1) % PHRASE_KEYS.length), 1400);
+    return () => clearInterval(id);
   }, []);
 
   return (
@@ -33,7 +35,7 @@ export function AIThinking({ className, gradientClass = "gradient-build" }: AITh
         ))}
       </div>
       <p className="text-body text-muted-foreground" aria-live="polite">
-        {PHRASES[phraseIndex]}
+        {t(PHRASE_KEYS[phraseIndex]!)}
       </p>
     </div>
   );

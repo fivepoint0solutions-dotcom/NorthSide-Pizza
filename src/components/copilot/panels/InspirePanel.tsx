@@ -10,9 +10,11 @@ import { QuickCapture } from "../QuickCapture";
 import { Button } from "@/components/ui/button";
 import { RefreshCw } from "lucide-react";
 import type { PanelProps } from "../panelTypes";
+import { useT } from "@/lib/i18n";
 
 export function InspirePanel({ draft, patch }: PanelProps) {
   const navigate = useNavigate();
+  const t = useT();
   const [loading, setLoading] = useState(false);
 
   async function generate(contextOverride?: CreationContext) {
@@ -35,19 +37,19 @@ export function InspirePanel({ draft, patch }: PanelProps) {
   if (!draft.context.topic && draft.ideas.length === 0) {
     return (
       <QuickCapture
-        title="What's on your mind?"
-        subtitle="Just a topic is enough — I'll bring a few different angles."
+        title={t("panel.inspire.title")}
+        subtitle={t("panel.inspire.subtitle")}
         fields={[
           {
             key: "topic",
-            label: "Topic or idea",
+            label: t("field.topic.label"),
             kind: "text",
-            placeholder: "e.g. the water cycle, persuasive writing…",
+            placeholder: t("field.topic.placeholder"),
             required: true,
           },
-          { key: "subject", label: "Subject (optional)", kind: "text" },
+          { key: "subject", label: t("field.subjectOptional.label"), kind: "text" },
         ]}
-        cta="Get Ideas"
+        cta={t("panel.inspire.cta")}
         ctaVariant="inspire"
         onSubmit={(context) => void generate(context)}
       />
@@ -60,7 +62,7 @@ export function InspirePanel({ draft, patch }: PanelProps) {
     return (
       <div className="flex justify-center">
         <Button variant="inspire" size="lg" onClick={() => void generate()}>
-          Get Ideas
+          {t("panel.inspire.cta")}
         </Button>
       </div>
     );
@@ -80,12 +82,10 @@ export function InspirePanel({ draft, patch }: PanelProps) {
           disabled={loading}
         />
         <Button variant="ghost" size="sm" onClick={() => void generate()} disabled={loading}>
-          <RefreshCw className="size-4" /> More ideas
+          <RefreshCw className="size-4" /> {t("panel.inspire.moreIdeas")}
         </Button>
       </div>
-      <p className="text-caption text-muted-foreground">
-        These are starting points, not finished lessons — pick one and make it yours.
-      </p>
+      <p className="text-caption text-muted-foreground">{t("panel.inspire.footerNote")}</p>
     </div>
   );
 }

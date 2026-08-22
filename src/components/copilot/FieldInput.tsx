@@ -4,6 +4,7 @@ import { ChoiceGroup } from "./ChoiceGroup";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Slider } from "@/components/ui/slider";
+import { useT, type TranslationKey } from "@/lib/i18n";
 
 type FieldInputProps = {
   field: FieldConfig;
@@ -11,9 +12,16 @@ type FieldInputProps = {
   onChange: (key: keyof CreationContext, value: string | number) => void;
 };
 
-const CREATIVITY_LABELS = ["Play it safe", "Familiar", "Balanced", "Adventurous", "Go wild"];
+const CREATIVITY_LEVEL_KEYS: TranslationKey[] = [
+  "field.creativity.level1",
+  "field.creativity.level2",
+  "field.creativity.level3",
+  "field.creativity.level4",
+  "field.creativity.level5",
+];
 
 export function FieldInput({ field, context, onChange }: FieldInputProps) {
+  const t = useT();
   const value = context[field.key];
 
   if (field.kind === "choice") {
@@ -49,7 +57,9 @@ export function FieldInput({ field, context, onChange }: FieldInputProps) {
           value={[numeric]}
           onValueChange={([v]) => onChange(field.key, v ?? 3)}
         />
-        <p className="text-caption text-muted-foreground">{CREATIVITY_LABELS[numeric - 1]}</p>
+        <p className="text-caption text-muted-foreground">
+          {t(CREATIVITY_LEVEL_KEYS[numeric - 1]!)}
+        </p>
       </div>
     );
   }

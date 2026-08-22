@@ -1,7 +1,7 @@
 import { useState } from "react";
 import type { CreationContext, CreationType } from "@/lib/ai";
 import { aiProvider } from "@/lib/ai";
-import { creationTypeConfig } from "@/lib/creationTypes";
+import { useCreationTypeConfig } from "@/lib/creationTypes";
 import { AIThinking } from "../AIThinking";
 import { EditableBlock } from "../EditableBlock";
 import { QuickActionBar } from "../QuickActionBar";
@@ -10,6 +10,7 @@ import { FieldInput } from "../FieldInput";
 import { Button } from "@/components/ui/button";
 import { Check, ListChecks, Save } from "lucide-react";
 import type { PanelProps } from "../panelTypes";
+import { useT } from "@/lib/i18n";
 
 const BUSYWORK_TYPES: CreationType[] = [
   "worksheet",
@@ -21,8 +22,9 @@ const BUSYWORK_TYPES: CreationType[] = [
 ];
 
 export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
+  const t = useT();
   const [loading, setLoading] = useState(false);
-  const typeConfig = creationTypeConfig(draft.type);
+  const typeConfig = useCreationTypeConfig(draft.type);
 
   function setType(type: CreationType) {
     patch({ type, blocks: [] });
@@ -55,7 +57,7 @@ export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
     return (
       <div className="mx-auto max-w-2xl space-y-8 animate-pop">
         <div>
-          <h2 className="text-title mb-3">What do you need?</h2>
+          <h2 className="text-title mb-3">{t("panel.busywork.title")}</h2>
           <TypePicker value={draft.type} onSelect={setType} types={BUSYWORK_TYPES} />
         </div>
         <div className="card-soft space-y-5 p-7">
@@ -73,7 +75,7 @@ export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
           disabled={!canGenerate}
           onClick={() => void generate()}
         >
-          <ListChecks /> Do The Busywork
+          <ListChecks /> {t("panel.busywork.cta")}
         </Button>
       </div>
     );
@@ -99,7 +101,7 @@ export function BusyworkPanel({ draft, patch, onSave }: PanelProps) {
           onClick={() => onSave(`${draft.context.topic ?? typeConfig.label} — ${typeConfig.label}`)}
         >
           {draft.savedLibraryId ? <Check /> : <Save />}{" "}
-          {draft.savedLibraryId ? "Saved" : "Approve & Save"}
+          {draft.savedLibraryId ? t("library.saved") : t("library.approveSave")}
         </Button>
       </div>
     </div>
