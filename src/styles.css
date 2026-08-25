@@ -6,47 +6,35 @@
 
 /*
  * ============================================================
- * GLOBAL DESIGN SYSTEM — Premium Victoria, BC Real Estate
+ * GLOBAL DESIGN SYSTEM — Teacher's Creative Copilot
  * ============================================================
  *
- * Brand palette (the ONLY five colours in this system):
- *   Old-Growth Green  #263F35  primary dark, nav, headings, dark sections
- *   Cedar             #76533F  warm secondary / accent
- *   Pacific Teal      #28717A  links, interactive, selected, key CTAs
- *   Fern              #87965B  natural accent, subtle highlights
- *   Bone              #E7E0D2  primary light background / light surfaces
- *
- * Never hardcode colours in components. Use semantic utilities
- * (bg-background, text-primary, border-border, text-interactive, ...).
+ * Warm, premium, soft-gradient visual language. Colour is built from
+ * a small set of brand hues, mixed with `color-mix()` into semantic
+ * roles (bg-background, text-primary, border-border, ...). Never
+ * hardcode a colour in a component — reach for a semantic utility or
+ * one of the mode gradients below.
  */
 
 @theme inline {
-  /* Radii — architectural, restrained */
   --radius-xs: calc(var(--radius) * 0.5);
   --radius-sm: var(--radius);
-  --radius-md: calc(var(--radius) * 2);
-  --radius-lg: calc(var(--radius) * 3);
-  --radius-xl: 0.875rem;
-  --radius-2xl: 1.25rem;
-  --radius-3xl: 1.75rem;
-  --radius-4xl: 2.25rem;
-  --radius-image: 1.25rem;
-  --radius-soft: 1.25rem;
-
+  --radius-md: calc(var(--radius) * 1.4);
+  --radius-lg: calc(var(--radius) * 2);
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-3xl: 2rem;
+  --radius-4xl: 2.5rem;
   --radius-full: 9999px;
 
-  /* Typography families */
-  --font-display: "Cormorant Garamond", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Karla", "Helvetica Neue", Arial, sans-serif;
-  --font-serif: var(--font-display);
+  --font-display: "Fraunces", "Lora", Georgia, serif;
+  --font-sans: "Nunito", "Quicksand", "Helvetica Neue", Arial, sans-serif;
 
-  /* Editorial spacing rhythm */
   --spacing-gutter: 1.5rem;
-  --spacing-section: 5rem;
-  --spacing-section-lg: 8.5rem;
-  --spacing-measure: 38rem;
+  --spacing-section: 4rem;
+  --spacing-section-lg: 6rem;
+  --spacing-measure: 40rem;
 
-  /* Semantic colours */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -88,13 +76,11 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  /* Shadows — soft, green-tinted, never grey */
   --shadow-subtle: var(--elevation-1);
   --shadow-raised: var(--elevation-2);
-  --shadow-editorial: var(--elevation-3);
+  --shadow-glow: var(--elevation-3);
   --shadow-cinematic: var(--elevation-4);
 
-  /* Motion */
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-cinematic: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-tide: cubic-bezier(0.4, 0, 0.2, 1);
@@ -102,6 +88,8 @@
   --animate-reveal-up: reveal-up var(--duration-slow) var(--ease-editorial) both;
   --animate-reveal-fade: reveal-fade var(--duration-slow) var(--ease-editorial) both;
   --animate-curtain: curtain var(--duration-cinematic) var(--ease-cinematic) both;
+  --animate-float: float 7s var(--ease-tide) infinite;
+  --animate-pop: pop 0.4s var(--ease-editorial) both;
 
   @keyframes reveal-up {
     from {
@@ -129,151 +117,232 @@
       clip-path: inset(0 0 0 0);
     }
   }
+  @keyframes float {
+    0%,
+    100% {
+      transform: translate3d(0, 0, 0);
+    }
+    50% {
+      transform: translate3d(0, -6px, 0);
+    }
+  }
+  @keyframes pop {
+    from {
+      opacity: 0;
+      transform: scale(0.92);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 }
 
 :root {
   /* --- Brand primitives (single source of truth) --- */
-  --brand-green: oklch(0.344 0.036 167.2); /* #263F35 */
-  --brand-cedar: oklch(0.475 0.056 50.7); /* #76533F */
-  --brand-teal: oklch(0.508 0.072 206.6); /* #28717A */
-  --brand-fern: oklch(0.647 0.083 120.4); /* #87965B */
-  --brand-bone: oklch(0.908 0.02 84.6); /* #E7E0D2 */
+  --brand-terracotta: oklch(0.535 0.135 35.6); /* #B1502D */
+  --brand-rust: oklch(0.44 0.115 33.8); /* #8B3A2B */
+  --brand-burgundy: oklch(0.34 0.09 30.2); /* #6E2A1E */
+  --brand-olive: oklch(0.52 0.075 116.8); /* #707C46 */
+  --brand-sage: oklch(0.68 0.07 121.4); /* #93A36E */
+  --brand-gold: oklch(0.78 0.115 76.8); /* #D9A441 */
+  --brand-ink: oklch(0.26 0.03 55); /* warm dark brown ink */
+  --brand-cream: oklch(0.96 0.025 80); /* warm paper */
 
-  --radius: 0.125rem;
+  --radius: 0.875rem;
 
-  /* --- Semantic roles: light (Bone ground, Green ink) --- */
-  --background: var(--brand-bone);
-  --foreground: var(--brand-green);
+  /* --- Mode gradients — the app's visual personality --- */
+  --grad-inspire: linear-gradient(120deg, #e8b84b, #d9973d 45%, #c0682f 100%);
+  --grad-build: linear-gradient(120deg, #b1502d, #96602f 45%, #707c46 100%);
+  --grad-busywork: linear-gradient(120deg, #707c46, #8fa06b 45%, #d9a441 100%);
+  --grad-challenge: linear-gradient(120deg, #b1502d, #8b3a2b 45%, #6e2a1e 100%);
+  --grad-hero: linear-gradient(120deg, #d9a441, #c0682f 35%, #b1502d 65%, #707c46 100%);
+  --grad-ambient:
+    radial-gradient(
+      60% 55% at 14% 10%,
+      color-mix(in oklab, var(--brand-gold) 42%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      55% 50% at 88% 16%,
+      color-mix(in oklab, var(--brand-terracotta) 38%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      65% 60% at 18% 92%,
+      color-mix(in oklab, var(--brand-olive) 34%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      55% 55% at 90% 90%,
+      color-mix(in oklab, var(--brand-sage) 32%, transparent),
+      transparent 72%
+    ),
+    radial-gradient(
+      85% 75% at 50% 50%,
+      color-mix(in oklab, var(--brand-rust) 16%, transparent),
+      transparent 80%
+    );
 
-  --surface: color-mix(in oklab, var(--brand-bone) 55%, white);
-  --surface-foreground: var(--brand-green);
-  --card: color-mix(in oklab, var(--brand-bone) 40%, white);
-  --card-foreground: var(--brand-green);
-  --popover: color-mix(in oklab, var(--brand-bone) 25%, white);
-  --popover-foreground: var(--brand-green);
+  /* --- Semantic roles: light --- */
+  --background: var(--brand-cream);
+  --foreground: var(--brand-ink);
 
-  --primary: var(--brand-green);
-  --primary-foreground: var(--brand-bone);
+  --surface: color-mix(in oklab, var(--brand-cream) 78%, var(--brand-gold) 12%);
+  --surface-foreground: var(--brand-ink);
+  --card: color-mix(in oklab, var(--brand-cream) 72%, var(--brand-gold) 14%);
+  --card-foreground: var(--brand-ink);
+  --popover: color-mix(in oklab, var(--brand-cream) 82%, var(--brand-gold) 10%);
+  --popover-foreground: var(--brand-ink);
+  --grad-card: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-gold) 20%),
+    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-terracotta) 16%) 55%,
+    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-olive) 14%) 100%
+  );
+  /* Mode-tinted card gradients — same shape as --grad-card, colors keyed to each mode. */
+  --grad-card-inspire: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--brand-cream) 64%, var(--brand-gold) 24%),
+    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-terracotta) 18%) 60%,
+    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-gold) 16%) 100%
+  );
+  --grad-card-build: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--brand-cream) 64%, var(--brand-terracotta) 22%),
+    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-olive) 18%) 100%
+  );
+  --grad-card-busywork: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-olive) 20%),
+    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-sage) 18%) 55%,
+    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-gold) 16%) 100%
+  );
+  --grad-card-challenge: linear-gradient(
+    135deg,
+    color-mix(in oklab, var(--brand-cream) 62%, var(--brand-terracotta) 24%),
+    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-rust) 18%) 100%
+  );
 
-  --secondary: color-mix(in oklab, var(--brand-bone) 80%, var(--brand-green));
-  --secondary-foreground: var(--brand-green);
+  --primary: var(--brand-terracotta);
+  --primary-foreground: white;
 
-  --muted: color-mix(in oklab, var(--brand-bone) 88%, var(--brand-green));
-  --muted-foreground: color-mix(in oklab, var(--brand-green) 72%, var(--brand-bone));
+  --secondary: color-mix(in oklab, var(--brand-cream) 78%, var(--brand-terracotta));
+  --secondary-foreground: var(--brand-ink);
 
-  --accent: var(--brand-cedar);
-  --accent-foreground: var(--brand-bone);
+  --muted: color-mix(in oklab, var(--brand-cream) 85%, var(--brand-ink));
+  --muted-foreground: color-mix(in oklab, var(--brand-ink) 55%, var(--brand-cream));
 
-  --interactive: var(--brand-teal);
-  --interactive-foreground: var(--brand-bone);
+  --accent: var(--brand-gold);
+  --accent-foreground: var(--brand-ink);
 
-  --highlight: var(--brand-fern);
-  --highlight-foreground: var(--brand-green);
+  --interactive: var(--brand-terracotta);
+  --interactive-foreground: white;
 
-  --destructive: color-mix(in oklab, var(--brand-cedar) 78%, oklch(0.55 0.2 27));
-  --destructive-foreground: var(--brand-bone);
+  --highlight: var(--brand-olive);
+  --highlight-foreground: white;
 
-  --border: color-mix(in oklab, var(--brand-green) 16%, transparent);
-  --border-strong: color-mix(in oklab, var(--brand-green) 38%, transparent);
-  --input: color-mix(in oklab, var(--brand-green) 22%, transparent);
-  --ring: var(--brand-teal);
+  --destructive: oklch(0.55 0.19 27);
+  --destructive-foreground: white;
 
-  --chart-1: var(--brand-green);
-  --chart-2: var(--brand-teal);
-  --chart-3: var(--brand-fern);
-  --chart-4: var(--brand-cedar);
-  --chart-5: color-mix(in oklab, var(--brand-bone) 60%, var(--brand-green));
+  --border: color-mix(in oklab, var(--brand-terracotta) 16%, var(--brand-ink) 6%);
+  --border-strong: color-mix(in oklab, var(--brand-terracotta) 30%, var(--brand-ink) 14%);
+  --input: color-mix(in oklab, var(--brand-ink) 14%, transparent);
+  --ring: var(--brand-terracotta);
 
-  --sidebar: color-mix(in oklab, var(--brand-bone) 70%, white);
-  --sidebar-foreground: var(--brand-green);
-  --sidebar-primary: var(--brand-green);
-  --sidebar-primary-foreground: var(--brand-bone);
-  --sidebar-accent: color-mix(in oklab, var(--brand-bone) 85%, var(--brand-green));
-  --sidebar-accent-foreground: var(--brand-green);
-  --sidebar-border: color-mix(in oklab, var(--brand-green) 14%, transparent);
-  --sidebar-ring: var(--brand-teal);
+  --chart-1: var(--brand-terracotta);
+  --chart-2: var(--brand-olive);
+  --chart-3: var(--brand-gold);
+  --chart-4: var(--brand-sage);
+  --chart-5: var(--brand-rust);
 
-  /* --- Elevation: soft and green-tinted --- */
-  --elevation-1: 0 1px 2px color-mix(in oklab, var(--brand-green) 8%, transparent);
+  --sidebar: color-mix(in oklab, var(--brand-cream) 80%, var(--brand-gold) 10%);
+  --sidebar-foreground: var(--brand-ink);
+  --sidebar-primary: var(--brand-terracotta);
+  --sidebar-primary-foreground: white;
+  --sidebar-accent: color-mix(in oklab, var(--brand-cream) 85%, var(--brand-terracotta));
+  --sidebar-accent-foreground: var(--brand-ink);
+  --sidebar-border: color-mix(in oklab, var(--brand-terracotta) 14%, transparent);
+  --sidebar-ring: var(--brand-terracotta);
+
+  /* --- Elevation: soft, warm-tinted, never grey --- */
+  --elevation-1: 0 1px 2px color-mix(in oklab, var(--brand-ink) 8%, transparent);
   --elevation-2:
-    0 2px 6px color-mix(in oklab, var(--brand-green) 10%, transparent),
-    0 8px 20px -12px color-mix(in oklab, var(--brand-green) 14%, transparent);
+    0 3px 8px color-mix(in oklab, var(--brand-terracotta) 10%, transparent),
+    0 10px 24px -14px color-mix(in oklab, var(--brand-terracotta) 24%, transparent);
   --elevation-3:
-    0 4px 14px color-mix(in oklab, var(--brand-green) 10%, transparent),
-    0 24px 48px -24px color-mix(in oklab, var(--brand-green) 22%, transparent);
-  --elevation-4: 0 48px 96px -40px color-mix(in oklab, var(--brand-green) 32%, transparent);
+    0 6px 20px color-mix(in oklab, var(--brand-terracotta) 16%, transparent),
+    0 28px 56px -28px color-mix(in oklab, var(--brand-terracotta) 34%, transparent);
+  --elevation-4: 0 40px 90px -32px color-mix(in oklab, var(--brand-terracotta) 42%, transparent);
 
   /* --- Motion tokens --- */
   --duration-instant: 90ms;
   --duration-fast: 180ms;
   --duration-base: 320ms;
-  --duration-slow: 620ms;
-  --duration-cinematic: 1100ms;
+  --duration-slow: 560ms;
+  --duration-cinematic: 900ms;
+  --duration-gradient: 16s;
+  --duration-gradient-soft: 26s;
+  --duration-ambient: 42s;
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-cinematic: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-tide: cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-hover: color var(--duration-fast) var(--ease-tide),
+  --transition-hover:
+    color var(--duration-fast) var(--ease-tide),
     background-color var(--duration-fast) var(--ease-tide),
     border-color var(--duration-fast) var(--ease-tide),
     opacity var(--duration-fast) var(--ease-tide),
     transform var(--duration-base) var(--ease-editorial),
     box-shadow var(--duration-base) var(--ease-editorial);
-  --parallax-shift: 6%;
 }
 
 .dark {
-  /* Green ground, Bone ink */
-  --background: var(--brand-green);
-  --foreground: color-mix(in oklab, var(--brand-bone) 94%, white);
+  --background: color-mix(in oklab, var(--brand-ink) 92%, black);
+  --foreground: color-mix(in oklab, var(--brand-cream) 96%, white);
 
-  --surface: color-mix(in oklab, var(--brand-green) 88%, white);
-  --surface-foreground: var(--brand-bone);
-  --card: color-mix(in oklab, var(--brand-green) 92%, white);
-  --card-foreground: var(--brand-bone);
-  --popover: color-mix(in oklab, var(--brand-green) 88%, white);
-  --popover-foreground: var(--brand-bone);
+  --surface: color-mix(in oklab, var(--brand-ink) 82%, black);
+  --surface-foreground: var(--brand-cream);
+  --card: color-mix(in oklab, var(--brand-ink) 78%, black);
+  --card-foreground: var(--brand-cream);
+  --popover: color-mix(in oklab, var(--brand-ink) 72%, black);
+  --popover-foreground: var(--brand-cream);
 
-  --primary: var(--brand-bone);
-  --primary-foreground: var(--brand-green);
+  --primary: var(--brand-terracotta);
+  --primary-foreground: white;
 
-  --secondary: color-mix(in oklab, var(--brand-green) 82%, var(--brand-bone));
-  --secondary-foreground: var(--brand-bone);
+  --secondary: color-mix(in oklab, var(--brand-ink) 68%, var(--brand-terracotta));
+  --secondary-foreground: var(--brand-cream);
 
-  --muted: color-mix(in oklab, var(--brand-green) 86%, var(--brand-bone));
-  --muted-foreground: color-mix(in oklab, var(--brand-bone) 62%, var(--brand-green));
+  --muted: color-mix(in oklab, var(--brand-ink) 70%, black);
+  --muted-foreground: color-mix(in oklab, var(--brand-cream) 62%, var(--brand-ink));
 
-  --accent: color-mix(in oklab, var(--brand-cedar) 78%, var(--brand-bone));
-  --accent-foreground: var(--brand-green);
+  --accent: var(--brand-gold);
+  --accent-foreground: var(--brand-ink);
 
-  --interactive: color-mix(in oklab, var(--brand-teal) 66%, var(--brand-bone));
-  --interactive-foreground: var(--brand-green);
+  --interactive: color-mix(in oklab, var(--brand-terracotta) 78%, white);
+  --interactive-foreground: var(--brand-ink);
 
-  --highlight: color-mix(in oklab, var(--brand-fern) 82%, var(--brand-bone));
-  --highlight-foreground: var(--brand-green);
+  --highlight: var(--brand-sage);
+  --highlight-foreground: var(--brand-ink);
 
-  --destructive: color-mix(in oklab, var(--brand-cedar) 60%, oklch(0.68 0.18 27));
-  --destructive-foreground: var(--brand-green);
+  --border: color-mix(in oklab, var(--brand-cream) 14%, transparent);
+  --border-strong: color-mix(in oklab, var(--brand-cream) 28%, transparent);
+  --input: color-mix(in oklab, var(--brand-cream) 18%, transparent);
+  --ring: color-mix(in oklab, var(--brand-terracotta) 70%, white);
 
-  --border: color-mix(in oklab, var(--brand-bone) 16%, transparent);
-  --border-strong: color-mix(in oklab, var(--brand-bone) 34%, transparent);
-  --input: color-mix(in oklab, var(--brand-bone) 22%, transparent);
-  --ring: color-mix(in oklab, var(--brand-teal) 70%, var(--brand-bone));
+  --sidebar: color-mix(in oklab, var(--brand-ink) 86%, black);
+  --sidebar-foreground: var(--brand-cream);
+  --sidebar-primary: var(--brand-terracotta);
+  --sidebar-primary-foreground: white;
+  --sidebar-accent: color-mix(in oklab, var(--brand-ink) 70%, var(--brand-terracotta));
+  --sidebar-accent-foreground: var(--brand-cream);
+  --sidebar-border: color-mix(in oklab, var(--brand-cream) 12%, transparent);
+  --sidebar-ring: color-mix(in oklab, var(--brand-terracotta) 70%, white);
 
-  --chart-5: color-mix(in oklab, var(--brand-bone) 70%, var(--brand-green));
-
-  --sidebar: color-mix(in oklab, var(--brand-green) 92%, white);
-  --sidebar-foreground: var(--brand-bone);
-  --sidebar-primary: var(--brand-bone);
-  --sidebar-primary-foreground: var(--brand-green);
-  --sidebar-accent: color-mix(in oklab, var(--brand-green) 82%, var(--brand-bone));
-  --sidebar-accent-foreground: var(--brand-bone);
-  --sidebar-border: color-mix(in oklab, var(--brand-bone) 14%, transparent);
-  --sidebar-ring: color-mix(in oklab, var(--brand-teal) 70%, var(--brand-bone));
-
-  --elevation-1: 0 1px 2px oklch(0 0 0 / 24%);
-  --elevation-2: 0 2px 6px oklch(0 0 0 / 28%), 0 8px 20px -12px oklch(0 0 0 / 36%);
-  --elevation-3: 0 4px 14px oklch(0 0 0 / 30%), 0 24px 48px -24px oklch(0 0 0 / 44%);
-  --elevation-4: 0 48px 96px -40px oklch(0 0 0 / 56%);
+  --elevation-1: 0 1px 2px oklch(0 0 0 / 30%);
+  --elevation-2: 0 3px 8px oklch(0 0 0 / 30%), 0 10px 24px -14px oklch(0 0 0 / 45%);
+  --elevation-3: 0 6px 20px oklch(0 0 0 / 34%), 0 28px 56px -28px oklch(0 0 0 / 55%);
+  --elevation-4: 0 40px 90px -32px oklch(0 0 0 / 65%);
 }
 
 @layer base {
@@ -292,8 +361,32 @@
     color: var(--color-foreground);
     font-family: var(--font-sans);
     font-size: 1rem;
-    line-height: 1.65;
-    letter-spacing: 0.005em;
+    line-height: 1.6;
+    letter-spacing: -0.001em;
+    position: relative;
+  }
+
+  /* The living gradient wash — fixed behind every screen, never just flat cream. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image: var(--grad-ambient);
+    background-size: 220% 220%;
+    animation: gradient-flow var(--duration-ambient) ease-in-out infinite;
+  }
+
+  .dark body::before {
+    opacity: 0.55;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    body::before {
+      animation: none;
+      background-position: 30% 30%;
+    }
   }
 
   h1,
@@ -301,9 +394,9 @@
   h3,
   h4 {
     font-family: var(--font-display);
-    font-weight: 400;
-    line-height: 1.06;
-    letter-spacing: -0.015em;
+    font-weight: 600;
+    line-height: 1.12;
+    letter-spacing: -0.02em;
     text-wrap: balance;
   }
 
@@ -337,69 +430,60 @@
 }
 
 /* ============================================================
- * TYPOGRAPHY SCALE — editorial
+ * TYPOGRAPHY SCALE
  * ============================================================ */
 
 @utility text-display {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2.75rem, 7vw, 6rem);
-  line-height: 0.98;
-  letter-spacing: -0.025em;
+  font-weight: 700;
+  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  line-height: 1.02;
+  letter-spacing: -0.03em;
 }
 
 @utility text-headline {
   font-family: var(--font-display);
-  font-weight: 400;
-  font-size: clamp(2rem, 4.2vw, 3.5rem);
-  line-height: 1.06;
+  font-weight: 700;
+  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+  line-height: 1.1;
   letter-spacing: -0.02em;
 }
 
 @utility text-title {
   font-family: var(--font-display);
-  font-weight: 500;
-  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
-  line-height: 1.18;
+  font-weight: 600;
+  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
+  line-height: 1.24;
   letter-spacing: -0.01em;
 }
 
 @utility text-eyebrow {
   font-family: var(--font-sans);
-  font-weight: 600;
-  font-size: 0.6875rem;
+  font-weight: 700;
+  font-size: 0.75rem;
   line-height: 1.2;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
 }
 
 @utility text-lede {
   font-family: var(--font-sans);
-  font-weight: 300;
-  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
-  line-height: 1.62;
-  letter-spacing: 0.002em;
+  font-weight: 400;
+  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
+  line-height: 1.6;
 }
 
 @utility text-body {
   font-family: var(--font-sans);
   font-size: 1rem;
-  line-height: 1.68;
+  line-height: 1.65;
 }
 
 @utility text-caption {
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   line-height: 1.5;
-  letter-spacing: 0.04em;
-}
-
-@utility text-quote {
-  font-family: var(--font-display);
-  font-style: italic;
-  font-weight: 300;
-  font-size: clamp(1.5rem, 3vw, 2.25rem);
-  line-height: 1.3;
+  letter-spacing: 0.01em;
 }
 
 @utility measure {
@@ -417,19 +501,14 @@
   }
 }
 
-@utility container-editorial {
+@utility container-app {
   width: 100%;
   margin-inline: auto;
-  max-width: 84rem;
+  max-width: 76rem;
   padding-inline: var(--spacing-gutter);
   @media (min-width: 1024px) {
-    padding-inline: 3rem;
+    padding-inline: 2.5rem;
   }
-}
-
-@utility surface-dark {
-  background-color: var(--brand-green);
-  color: color-mix(in oklab, var(--brand-bone) 94%, white);
 }
 
 @utility hairline {
@@ -456,7 +535,6 @@
   }
 }
 
-/* Animated editorial underline for links */
 @utility link-underline {
   position: relative;
   color: var(--interactive);
@@ -478,7 +556,6 @@
   }
 }
 
-/* Sweeping fill used by primary CTAs */
 @utility sweep-fill {
   position: relative;
   isolation: isolate;
@@ -488,7 +565,7 @@
     position: absolute;
     inset: 0;
     z-index: -1;
-    background-color: color-mix(in oklab, currentColor 12%, transparent);
+    background-color: color-mix(in oklab, currentColor 10%, transparent);
     transform: translate3d(0, 101%, 0);
     transition: transform var(--duration-base) var(--ease-editorial);
   }
@@ -497,7 +574,6 @@
   }
 }
 
-/* Refined cursor affordances */
 @utility cursor-refined {
   cursor: none;
 }
@@ -510,7 +586,7 @@
   pointer-events: none;
   mix-blend-mode: difference;
   border-radius: var(--radius-full);
-  background-color: var(--brand-bone);
+  background-color: white;
   will-change: transform, width, height, opacity;
   transition:
     width var(--duration-base) var(--ease-editorial),
@@ -519,12 +595,12 @@
 }
 
 /* ============================================================
- * SCROLL REVEAL / PARALLAX / IMAGE MOTION
+ * SCROLL REVEAL / PARALLAX
  * ============================================================ */
 
 @utility reveal {
   opacity: 0;
-  transform: translate3d(0, 1.5rem, 0);
+  transform: translate3d(0, 1.25rem, 0);
   transition:
     opacity var(--duration-slow) var(--ease-editorial),
     transform var(--duration-slow) var(--ease-editorial);
@@ -549,28 +625,6 @@
   transform: translate3d(0, var(--parallax-offset, 0px), 0);
 }
 
-/* Slow, cinematic image drift on hover of the frame */
-@utility image-frame {
-  position: relative;
-  overflow: hidden;
-  border-radius: var(--radius-image);
-  background-color: var(--muted);
-  & > img,
-  & > video {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transform: scale(1.02);
-    transition: transform var(--duration-cinematic) var(--ease-cinematic);
-    will-change: transform;
-  }
-  &:hover > img,
-  &:hover > video {
-    transform: scale(1.07);
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .reveal,
   .reveal-curtain {
@@ -584,35 +638,177 @@
 }
 
 /* ============================================================
- * SOFT-EDGE SURFACES — glass & elevated cards
+ * GRADIENT SYSTEM — the app's visual personality
  * ============================================================ */
 
-@utility glass-card {
+@utility gradient-motion {
+  background-size: 220% 220%;
+  animation: gradient-flow var(--duration-gradient) ease-in-out infinite;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-position: 30% 30%;
+  }
+}
+
+@keyframes gradient-flow {
+  0% {
+    background-position: 0% 40%;
+  }
+  50% {
+    background-position: 100% 60%;
+  }
+  100% {
+    background-position: 0% 40%;
+  }
+}
+
+@keyframes shimmer-sweep {
+  0% {
+    transform: translateX(-140%) rotate(8deg);
+  }
+  100% {
+    transform: translateX(140%) rotate(8deg);
+  }
+}
+
+/* A soft diagonal light sweep, layered on top of gradient surfaces. */
+@utility shimmer-sweep {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  &::after {
+    content: "";
+    position: absolute;
+    inset: -30% -10%;
+    width: 45%;
+    background: linear-gradient(
+      100deg,
+      transparent,
+      color-mix(in oklab, white 65%, var(--brand-gold)) 50%,
+      transparent
+    );
+    opacity: 0.4;
+    transform: translateX(-140%) rotate(8deg);
+    animation: shimmer-sweep 6s ease-in-out infinite;
+    pointer-events: none;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      animation: none;
+      opacity: 0;
+    }
+  }
+}
+
+@utility gradient-hero {
+  background-image: var(--grad-hero);
+}
+
+@utility gradient-inspire {
+  background-image: var(--grad-inspire);
+}
+
+@utility gradient-build {
+  background-image: var(--grad-build);
+}
+
+@utility gradient-busywork {
+  background-image: var(--grad-busywork);
+}
+
+@utility gradient-challenge {
+  background-image: var(--grad-challenge);
+}
+
+/* Scope card-soft/card-elevated/glass-panel to a mode's palette wherever this wraps them. */
+@utility card-tint-inspire {
+  --grad-card: var(--grad-card-inspire);
+}
+@utility card-tint-build {
+  --grad-card: var(--grad-card-build);
+}
+@utility card-tint-busywork {
+  --grad-card: var(--grad-card-busywork);
+}
+@utility card-tint-challenge {
+  --grad-card: var(--grad-card-challenge);
+}
+
+/* ============================================================
+ * SURFACES — soft, elevated, glassy
+ * ============================================================ */
+
+@utility card-soft {
+  @apply shimmer-sweep;
   border-radius: var(--radius-2xl);
-  background-color: color-mix(in oklab, var(--card) 82%, transparent);
-  backdrop-filter: blur(18px) saturate(135%);
-  border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
-  box-shadow: var(--elevation-2);
+  background-image: var(--grad-card);
+  background-size: 180% 180%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  border: 1px solid var(--border);
+  box-shadow: var(--elevation-1);
   transition: var(--transition-hover);
 }
 
-@utility glass-panel {
-  border-radius: var(--radius-3xl);
-  background-color: color-mix(in oklab, var(--surface) 76%, transparent);
-  backdrop-filter: blur(24px) saturate(140%);
-  border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
-  box-shadow: var(--elevation-3);
-}
-
 @utility card-elevated {
+  @apply shimmer-sweep;
   border-radius: var(--radius-2xl);
-  background-color: var(--card);
+  background-image: var(--grad-card);
+  background-size: 180% 180%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
   border: 1px solid var(--border);
   box-shadow: var(--elevation-2);
   transition: var(--transition-hover);
   &:hover {
     transform: translate3d(0, -4px, 0);
     box-shadow: var(--elevation-3);
+  }
+}
+
+@utility glass-panel {
+  border-radius: var(--radius-3xl);
+  background-image: var(--grad-card);
+  background-size: 180% 180%;
+  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
+  opacity: 0.94;
+  backdrop-filter: blur(20px) saturate(140%);
+  border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
+  box-shadow: var(--elevation-2);
+}
+
+@utility big-cta {
+  @apply shimmer-sweep;
+  border-radius: var(--radius-3xl);
+  border: 1px solid color-mix(in oklab, var(--brand-gold) 55%, transparent);
+  color: white;
+  box-shadow: var(--elevation-3);
+  transition: var(--transition-hover);
+  &:hover {
+    transform: translate3d(0, -5px, 0);
+    box-shadow: var(--elevation-4);
+  }
+  &:active {
+    transform: translate3d(0, -2px, 0);
+  }
+}
+
+@utility chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: var(--radius-full);
+  padding: 0.5rem 1rem;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  background-color: var(--secondary);
+  color: var(--secondary-foreground);
+  border: 1px solid var(--border);
+  transition: var(--transition-hover);
+  cursor: pointer;
+  white-space: nowrap;
+  &:hover {
+    border-color: var(--interactive);
+    color: var(--interactive);
+    transform: translate3d(0, -2px, 0);
   }
 }
 
@@ -624,17 +820,22 @@
   padding: 0.3125rem 0.75rem;
   font-family: var(--font-sans);
   font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.12em;
+  font-weight: 700;
+  letter-spacing: 0.04em;
   text-transform: uppercase;
-  backdrop-filter: blur(10px);
-  border: 1px solid color-mix(in oklab, var(--brand-bone) 40%, transparent);
 }
 
 @utility stat-tile {
   border-radius: var(--radius-xl);
-  background-color: color-mix(in oklab, var(--card) 70%, transparent);
+  background-color: color-mix(in oklab, var(--card) 80%, transparent);
   border: 1px solid var(--border);
   padding: 1rem 1.25rem;
-  backdrop-filter: blur(14px);
+}
+
+@utility animate-float {
+  animation: float 7s var(--ease-tide) infinite;
+}
+
+@utility animate-pop {
+  animation: pop 0.4s var(--ease-editorial) both;
 }
