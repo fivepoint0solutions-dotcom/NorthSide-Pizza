@@ -27,8 +27,8 @@
   --radius-4xl: 2.5rem;
   --radius-full: 9999px;
 
-  --font-display: "Fraunces", "Lora", Georgia, serif;
-  --font-sans: "Nunito", "Quicksand", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Plus Jakarta Sans", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Inter", "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
 
   --spacing-gutter: 1.5rem;
   --spacing-section: 4rem;
@@ -140,47 +140,54 @@
 
 :root {
   /* --- Brand primitives (single source of truth) --- */
-  --brand-terracotta: oklch(0.535 0.135 35.6); /* #B1502D */
-  --brand-rust: oklch(0.44 0.115 33.8); /* #8B3A2B */
-  --brand-burgundy: oklch(0.34 0.09 30.2); /* #6E2A1E */
-  --brand-olive: oklch(0.52 0.075 116.8); /* #707C46 */
-  --brand-sage: oklch(0.68 0.07 121.4); /* #93A36E */
-  --brand-gold: oklch(0.78 0.115 76.8); /* #D9A441 */
-  --brand-ink: oklch(0.26 0.03 55); /* warm dark brown ink */
-  --brand-cream: oklch(0.96 0.025 80); /* warm paper */
+  --brand-indigo: oklch(0.511 0.262 276.966); /* #4f46e5 */
+  --brand-indigo-deep: oklch(0.457 0.24 277.023); /* #4338ca */
+  --brand-violet: oklch(0.541 0.281 293.009); /* #7c3aed */
+  --brand-violet-soft: oklch(0.702 0.183 293.541); /* #a78bfa */
+  --brand-sky: oklch(0.588 0.158 241.966); /* #0284c7 */
+  --brand-sky-soft: oklch(0.746 0.16 232.661); /* #38bdf8 */
+  --brand-emerald: oklch(0.596 0.145 163.225); /* #059669 */
+  --brand-emerald-soft: oklch(0.765 0.177 163.223); /* #34d399 */
+  --brand-amber: oklch(0.769 0.188 70.08); /* #f59e0b */
+  --brand-amber-soft: oklch(0.828 0.189 84.429); /* #fbbf24 */
+  --brand-ink: oklch(0.24 0.04 268); /* deep indigo-black ink */
+  --brand-cream: oklch(0.985 0.006 264); /* cool mist paper */
 
   --radius: 0.875rem;
 
+  /* Default glow tint for glass cards; overridden per-mode by .card-tint-* */
+  --card-glow: var(--brand-indigo);
+
   /* --- Mode gradients — the app's visual personality --- */
-  --grad-inspire: linear-gradient(120deg, #e8b84b, #d9973d 45%, #c0682f 100%);
-  --grad-build: linear-gradient(120deg, #b1502d, #96602f 45%, #707c46 100%);
-  --grad-busywork: linear-gradient(120deg, #707c46, #8fa06b 45%, #d9a441 100%);
-  --grad-challenge: linear-gradient(120deg, #b1502d, #8b3a2b 45%, #6e2a1e 100%);
-  --grad-hero: linear-gradient(120deg, #d9a441, #c0682f 35%, #b1502d 65%, #707c46 100%);
+  --grad-inspire: linear-gradient(120deg, #fbbf24, #f59e0b 45%, #d97706 100%);
+  --grad-build: linear-gradient(120deg, #38bdf8, #0ea5e9 45%, #0284c7 100%);
+  --grad-busywork: linear-gradient(120deg, #34d399, #10b981 45%, #059669 100%);
+  --grad-challenge: linear-gradient(120deg, #a78bfa, #8b5cf6 45%, #7c3aed 100%);
+  --grad-hero: linear-gradient(120deg, #6366f1, #7c3aed 40%, #0ea5e9 75%, #10b981 100%);
   --grad-ambient:
     radial-gradient(
-      60% 55% at 14% 10%,
-      color-mix(in oklab, var(--brand-gold) 42%, transparent),
+      55% 50% at 12% 8%,
+      color-mix(in oklab, var(--brand-amber) 38%, transparent),
       transparent 72%
     ),
     radial-gradient(
-      55% 50% at 88% 16%,
-      color-mix(in oklab, var(--brand-terracotta) 38%, transparent),
+      55% 50% at 90% 12%,
+      color-mix(in oklab, var(--brand-indigo) 40%, transparent),
       transparent 72%
     ),
     radial-gradient(
-      65% 60% at 18% 92%,
-      color-mix(in oklab, var(--brand-olive) 34%, transparent),
+      60% 55% at 16% 92%,
+      color-mix(in oklab, var(--brand-emerald) 34%, transparent),
       transparent 72%
     ),
     radial-gradient(
-      55% 55% at 90% 90%,
-      color-mix(in oklab, var(--brand-sage) 32%, transparent),
+      55% 55% at 92% 90%,
+      color-mix(in oklab, var(--brand-violet) 34%, transparent),
       transparent 72%
     ),
     radial-gradient(
-      85% 75% at 50% 50%,
-      color-mix(in oklab, var(--brand-rust) 16%, transparent),
+      80% 70% at 50% 45%,
+      color-mix(in oklab, var(--brand-sky) 18%, transparent),
       transparent 80%
     );
 
@@ -188,92 +195,77 @@
   --background: var(--brand-cream);
   --foreground: var(--brand-ink);
 
-  --surface: color-mix(in oklab, var(--brand-cream) 78%, var(--brand-gold) 12%);
+  --surface: color-mix(in oklab, var(--brand-cream) 88%, var(--brand-indigo) 6%);
   --surface-foreground: var(--brand-ink);
-  --card: color-mix(in oklab, var(--brand-cream) 72%, var(--brand-gold) 14%);
+  --card: color-mix(in oklab, white 82%, var(--brand-cream) 18%);
   --card-foreground: var(--brand-ink);
-  --popover: color-mix(in oklab, var(--brand-cream) 82%, var(--brand-gold) 10%);
+  --popover: color-mix(in oklab, white 90%, var(--brand-cream) 10%);
   --popover-foreground: var(--brand-ink);
+
+  /* Glass-card surface: translucent white over the mesh background, blurred. */
+  --glass-bg: color-mix(in oklab, white 78%, transparent);
+  --glass-border: color-mix(in oklab, white 55%, transparent);
   --grad-card: linear-gradient(
     135deg,
-    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-gold) 20%),
-    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-terracotta) 16%) 55%,
-    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-olive) 14%) 100%
+    color-mix(in oklab, white 88%, var(--brand-indigo) 6%),
+    color-mix(in oklab, white 90%, var(--brand-sky) 5%) 100%
   );
-  /* Mode-tinted card gradients — same shape as --grad-card, colors keyed to each mode. */
-  --grad-card-inspire: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--brand-cream) 64%, var(--brand-gold) 24%),
-    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-terracotta) 18%) 60%,
-    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-gold) 16%) 100%
-  );
-  --grad-card-build: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--brand-cream) 64%, var(--brand-terracotta) 22%),
-    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-olive) 18%) 100%
-  );
-  --grad-card-busywork: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-olive) 20%),
-    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-sage) 18%) 55%,
-    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-gold) 16%) 100%
-  );
-  --grad-card-challenge: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--brand-cream) 62%, var(--brand-terracotta) 24%),
-    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-rust) 18%) 100%
-  );
+  /* Mode-tinted glow colors — used for hover borders/shadows on cards keyed to each mode. */
+  --grad-card-inspire: var(--brand-amber);
+  --grad-card-build: var(--brand-sky);
+  --grad-card-busywork: var(--brand-emerald);
+  --grad-card-challenge: var(--brand-violet);
 
-  --primary: var(--brand-terracotta);
+  --primary: var(--brand-indigo);
   --primary-foreground: white;
 
-  --secondary: color-mix(in oklab, var(--brand-cream) 78%, var(--brand-terracotta));
+  --secondary: color-mix(in oklab, var(--brand-cream) 82%, var(--brand-indigo) 10%);
   --secondary-foreground: var(--brand-ink);
 
-  --muted: color-mix(in oklab, var(--brand-cream) 85%, var(--brand-ink));
-  --muted-foreground: color-mix(in oklab, var(--brand-ink) 55%, var(--brand-cream));
+  --muted: color-mix(in oklab, var(--brand-cream) 88%, var(--brand-ink) 6%);
+  --muted-foreground: color-mix(in oklab, var(--brand-ink) 52%, var(--brand-cream));
 
-  --accent: var(--brand-gold);
+  --accent: var(--brand-amber);
   --accent-foreground: var(--brand-ink);
 
-  --interactive: var(--brand-terracotta);
+  --interactive: var(--brand-indigo);
   --interactive-foreground: white;
 
-  --highlight: var(--brand-olive);
+  --highlight: var(--brand-emerald);
   --highlight-foreground: white;
 
   --destructive: oklch(0.55 0.19 27);
   --destructive-foreground: white;
 
-  --border: color-mix(in oklab, var(--brand-terracotta) 16%, var(--brand-ink) 6%);
-  --border-strong: color-mix(in oklab, var(--brand-terracotta) 30%, var(--brand-ink) 14%);
+  --border: color-mix(in oklab, var(--brand-indigo) 14%, var(--brand-ink) 5%);
+  --border-strong: color-mix(in oklab, var(--brand-indigo) 28%, var(--brand-ink) 12%);
   --input: color-mix(in oklab, var(--brand-ink) 14%, transparent);
-  --ring: var(--brand-terracotta);
+  --ring: var(--brand-indigo);
 
-  --chart-1: var(--brand-terracotta);
-  --chart-2: var(--brand-olive);
-  --chart-3: var(--brand-gold);
-  --chart-4: var(--brand-sage);
-  --chart-5: var(--brand-rust);
+  --chart-1: var(--brand-indigo);
+  --chart-2: var(--brand-sky);
+  --chart-3: var(--brand-emerald);
+  --chart-4: var(--brand-amber);
+  --chart-5: var(--brand-violet);
 
-  --sidebar: color-mix(in oklab, var(--brand-cream) 80%, var(--brand-gold) 10%);
+  --sidebar: color-mix(in oklab, var(--brand-cream) 88%, var(--brand-indigo) 8%);
   --sidebar-foreground: var(--brand-ink);
-  --sidebar-primary: var(--brand-terracotta);
+  --sidebar-primary: var(--brand-indigo);
   --sidebar-primary-foreground: white;
-  --sidebar-accent: color-mix(in oklab, var(--brand-cream) 85%, var(--brand-terracotta));
+  --sidebar-accent: color-mix(in oklab, var(--brand-cream) 88%, var(--brand-indigo) 10%);
   --sidebar-accent-foreground: var(--brand-ink);
-  --sidebar-border: color-mix(in oklab, var(--brand-terracotta) 14%, transparent);
-  --sidebar-ring: var(--brand-terracotta);
+  --sidebar-border: color-mix(in oklab, var(--brand-indigo) 14%, transparent);
+  --sidebar-ring: var(--brand-indigo);
 
-  /* --- Elevation: soft, warm-tinted, never grey --- */
-  --elevation-1: 0 1px 2px color-mix(in oklab, var(--brand-ink) 8%, transparent);
+  /* --- Elevation: soft, cool-tinted glass shadows --- */
+  --elevation-1: 0 1px 2px color-mix(in oklab, var(--brand-ink) 7%, transparent);
   --elevation-2:
-    0 3px 8px color-mix(in oklab, var(--brand-terracotta) 10%, transparent),
-    0 10px 24px -14px color-mix(in oklab, var(--brand-terracotta) 24%, transparent);
+    0 3px 8px color-mix(in oklab, var(--brand-indigo) 8%, transparent),
+    0 10px 24px -14px color-mix(in oklab, var(--brand-indigo) 22%, transparent);
   --elevation-3:
-    0 6px 20px color-mix(in oklab, var(--brand-terracotta) 16%, transparent),
-    0 28px 56px -28px color-mix(in oklab, var(--brand-terracotta) 34%, transparent);
-  --elevation-4: 0 40px 90px -32px color-mix(in oklab, var(--brand-terracotta) 42%, transparent);
+    0 6px 20px color-mix(in oklab, var(--brand-indigo) 14%, transparent),
+    0 28px 56px -28px color-mix(in oklab, var(--brand-indigo) 32%, transparent);
+  --elevation-4: 0 40px 90px -32px color-mix(in oklab, var(--brand-indigo) 40%, transparent);
 
   /* --- Motion tokens --- */
   --duration-instant: 90ms;
@@ -307,37 +299,40 @@
   --popover: color-mix(in oklab, var(--brand-ink) 72%, black);
   --popover-foreground: var(--brand-cream);
 
-  --primary: var(--brand-terracotta);
+  --glass-bg: color-mix(in oklab, var(--brand-ink) 62%, black 20%);
+  --glass-border: color-mix(in oklab, var(--brand-cream) 14%, transparent);
+
+  --primary: var(--brand-indigo-deep);
   --primary-foreground: white;
 
-  --secondary: color-mix(in oklab, var(--brand-ink) 68%, var(--brand-terracotta));
+  --secondary: color-mix(in oklab, var(--brand-ink) 68%, var(--brand-indigo));
   --secondary-foreground: var(--brand-cream);
 
   --muted: color-mix(in oklab, var(--brand-ink) 70%, black);
   --muted-foreground: color-mix(in oklab, var(--brand-cream) 62%, var(--brand-ink));
 
-  --accent: var(--brand-gold);
+  --accent: var(--brand-amber);
   --accent-foreground: var(--brand-ink);
 
-  --interactive: color-mix(in oklab, var(--brand-terracotta) 78%, white);
+  --interactive: color-mix(in oklab, var(--brand-indigo) 78%, white);
   --interactive-foreground: var(--brand-ink);
 
-  --highlight: var(--brand-sage);
+  --highlight: var(--brand-emerald-soft);
   --highlight-foreground: var(--brand-ink);
 
   --border: color-mix(in oklab, var(--brand-cream) 14%, transparent);
   --border-strong: color-mix(in oklab, var(--brand-cream) 28%, transparent);
   --input: color-mix(in oklab, var(--brand-cream) 18%, transparent);
-  --ring: color-mix(in oklab, var(--brand-terracotta) 70%, white);
+  --ring: color-mix(in oklab, var(--brand-indigo) 70%, white);
 
   --sidebar: color-mix(in oklab, var(--brand-ink) 86%, black);
   --sidebar-foreground: var(--brand-cream);
-  --sidebar-primary: var(--brand-terracotta);
+  --sidebar-primary: var(--brand-indigo);
   --sidebar-primary-foreground: white;
-  --sidebar-accent: color-mix(in oklab, var(--brand-ink) 70%, var(--brand-terracotta));
+  --sidebar-accent: color-mix(in oklab, var(--brand-ink) 70%, var(--brand-indigo));
   --sidebar-accent-foreground: var(--brand-cream);
   --sidebar-border: color-mix(in oklab, var(--brand-cream) 12%, transparent);
-  --sidebar-ring: color-mix(in oklab, var(--brand-terracotta) 70%, white);
+  --sidebar-ring: color-mix(in oklab, var(--brand-indigo) 70%, white);
 
   --elevation-1: 0 1px 2px oklch(0 0 0 / 30%);
   --elevation-2: 0 3px 8px oklch(0 0 0 / 30%), 0 10px 24px -14px oklch(0 0 0 / 45%);
@@ -455,6 +450,19 @@
   font-size: clamp(1.15rem, 1.8vw, 1.4rem);
   line-height: 1.24;
   letter-spacing: -0.01em;
+}
+
+@utility text-gradient {
+  background-image: var(--grad-hero);
+  background-size: 220% 220%;
+  animation: gradient-flow var(--duration-gradient) ease-in-out infinite;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    background-position: 30% 30%;
+  }
 }
 
 @utility text-eyebrow {
@@ -684,7 +692,7 @@
     background: linear-gradient(
       100deg,
       transparent,
-      color-mix(in oklab, white 65%, var(--brand-gold)) 50%,
+      color-mix(in oklab, white 65%, var(--brand-sky-soft)) 50%,
       transparent
     );
     opacity: 0.4;
@@ -720,18 +728,18 @@
   background-image: var(--grad-challenge);
 }
 
-/* Scope card-soft/card-elevated/glass-panel to a mode's palette wherever this wraps them. */
+/* Scope card-soft/card-elevated/glass-panel to a mode's glow colour wherever this wraps them. */
 @utility card-tint-inspire {
-  --grad-card: var(--grad-card-inspire);
+  --card-glow: var(--grad-card-inspire);
 }
 @utility card-tint-build {
-  --grad-card: var(--grad-card-build);
+  --card-glow: var(--grad-card-build);
 }
 @utility card-tint-busywork {
-  --grad-card: var(--grad-card-busywork);
+  --card-glow: var(--grad-card-busywork);
 }
 @utility card-tint-challenge {
-  --grad-card: var(--grad-card-challenge);
+  --card-glow: var(--grad-card-challenge);
 }
 
 /* ============================================================
@@ -741,44 +749,55 @@
 @utility card-soft {
   @apply shimmer-sweep;
   border-radius: var(--radius-2xl);
+  background-color: var(--glass-bg);
   background-image: var(--grad-card);
-  background-size: 180% 180%;
-  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  border: 1px solid var(--border);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--glass-border);
   box-shadow: var(--elevation-1);
-  transition: var(--transition-hover);
+  transition:
+    var(--transition-hover),
+    border-color var(--duration-base) var(--ease-editorial);
+  &:hover {
+    border-color: color-mix(in oklab, var(--card-glow) 45%, var(--glass-border));
+    box-shadow:
+      var(--elevation-2),
+      0 0 0 1px color-mix(in oklab, var(--card-glow) 18%, transparent);
+  }
 }
 
 @utility card-elevated {
   @apply shimmer-sweep;
   border-radius: var(--radius-2xl);
+  background-color: var(--glass-bg);
   background-image: var(--grad-card);
-  background-size: 180% 180%;
-  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  border: 1px solid var(--border);
+  backdrop-filter: blur(16px) saturate(140%);
+  border: 1px solid var(--glass-border);
   box-shadow: var(--elevation-2);
-  transition: var(--transition-hover);
+  transition:
+    var(--transition-hover),
+    border-color var(--duration-base) var(--ease-editorial);
   &:hover {
     transform: translate3d(0, -4px, 0);
-    box-shadow: var(--elevation-3);
+    border-color: color-mix(in oklab, var(--card-glow) 50%, var(--glass-border));
+    box-shadow:
+      var(--elevation-3),
+      0 0 32px -8px color-mix(in oklab, var(--card-glow) 45%, transparent);
   }
 }
 
 @utility glass-panel {
   border-radius: var(--radius-3xl);
+  background-color: var(--glass-bg);
   background-image: var(--grad-card);
-  background-size: 180% 180%;
-  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  opacity: 0.94;
   backdrop-filter: blur(20px) saturate(140%);
-  border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
+  border: 1px solid var(--glass-border);
   box-shadow: var(--elevation-2);
 }
 
 @utility big-cta {
   @apply shimmer-sweep;
   border-radius: var(--radius-3xl);
-  border: 1px solid color-mix(in oklab, var(--brand-gold) 55%, transparent);
+  border: 1px solid color-mix(in oklab, white 45%, transparent);
   color: white;
   box-shadow: var(--elevation-3);
   transition: var(--transition-hover);

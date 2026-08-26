@@ -117,7 +117,7 @@ function Dashboard() {
           <h1 className="text-display measure mx-auto mt-5">
             {t("dashboard.headline1")}
             <br />
-            {t("dashboard.headline2")}
+            <span className="text-gradient">{t("dashboard.headline2")}</span>
           </h1>
         </Reveal>
         <Reveal delay={160}>
