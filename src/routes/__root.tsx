@@ -12,10 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { RefinedCursor } from "../components/motion/RefinedCursor";
-import { AppHeader } from "../components/navigation/AppHeader";
-import { AskTeachersPet } from "../components/copilot/AskTeachersPet";
 import { Toaster } from "../components/ui/sonner";
-import { LanguageProvider } from "../lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -82,16 +79,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Teacher's Pet" },
+      { title: "Dairy King Frozen Fountain" },
       {
         name: "description",
         content:
-          "An AI teaching assistant that amplifies your creativity, expertise and confidence. You're still the teacher — AI just helps you do more with your ideas.",
+          "Hand-spun milkshakes, 20+ hard ice cream flavors and custom flurries at Dairy King Frozen Fountain — 5204 51 Ave.",
       },
-      { property: "og:title", content: "Teacher's Pet" },
+      { property: "og:title", content: "Dairy King Frozen Fountain" },
       {
         property: "og:description",
-        content: "You're still the teacher. AI just helps you do more with your ideas.",
+        content: "Ice cream, hand-spun shakes and custom flurries — available in-store only.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -136,14 +133,10 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <RefinedCursor />
-        <AppHeader />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <AskTeachersPet />
-        <Toaster position="bottom-right" />
-      </LanguageProvider>
+      <RefinedCursor />
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <Outlet />
+      <Toaster position="bottom-right" />
     </QueryClientProvider>
   );
 }
