@@ -11,17 +11,18 @@ import {
   DEFAULT_LANGUAGE,
   detectBrowserLanguage,
   isLanguageCode,
+  languageOption,
   type LanguageCode,
 } from "./languages";
 import { TRANSLATIONS, type TranslationKey } from "./translations";
 
-export type { LanguageCode } from "./languages";
-export { LANGUAGES } from "./languages";
+export type { LanguageCode, LanguageOption } from "./languages";
+export { LANGUAGES, formatLongDate, formatTime, languageOption } from "./languages";
 export type { TranslationKey } from "./translations";
 
-const STORAGE_KEY = "tcc.language";
+const STORAGE_KEY = "sidekick.language";
 
-/** Plain (non-hook) lookup usable outside React — e.g. from the AI layer. */
+/** Plain (non-hook) lookup usable outside React. */
 export function translate(
   language: LanguageCode,
   key: TranslationKey,
@@ -47,11 +48,21 @@ interface LanguageContextValue {
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
+  // Always start from the default so SSR markup and first client paint agree;
+  // the stored/browser preference is applied in an effect.
   const [language, setLanguageState] = useState<LanguageCode>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
     setLanguageState(readStoredLanguage());
   }, []);
+
+  // Keep the document in sync so screen readers announce content in the right
+  // language and `lang`-scoped typography rules apply.
+  useEffect(() => {
+    const option = languageOption(language);
+    document.documentElement.lang = language;
+    document.documentElement.dir = option.dir;
+  }, [language]);
 
   const setLanguage = useCallback((next: LanguageCode) => {
     setLanguageState(next);

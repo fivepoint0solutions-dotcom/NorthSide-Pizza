@@ -10,167 +10,297 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as BuildRouteImport } from './routes/build'
-import { Route as BusyworkRouteImport } from './routes/busywork'
-import { Route as ChallengeRouteImport } from './routes/challenge'
-import { Route as CreateRouteImport } from './routes/create'
-import { Route as IdeasRouteImport } from './routes/ideas'
-import { Route as InspireRouteImport } from './routes/inspire'
-import { Route as LessonsRouteImport } from './routes/lessons'
-import { Route as MaterialsRouteImport } from './routes/materials'
-import { Route as RecentWorkRouteImport } from './routes/recent-work'
-import { Route as WorkspaceRouteImport } from './routes/workspace'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as AccessibilityRouteImport } from './routes/accessibility'
+import { Route as DayInTheLifeRouteImport } from './routes/day-in-the-life'
+import { Route as FamiliesRouteImport } from './routes/families'
+import { Route as FaqRouteImport } from './routes/faq'
+import { Route as GetStartedRouteImport } from './routes/get-started'
+import { Route as HowItWorksRouteImport } from './routes/how-it-works'
+import { Route as LanguagesRouteImport } from './routes/languages'
+import { Route as MemoriesRouteImport } from './routes/memories'
+import { Route as PartnersRouteImport } from './routes/partners'
+import { Route as PricingRouteImport } from './routes/pricing'
+import { Route as PrivacyRouteImport } from './routes/privacy'
+import { Route as ResourcesRouteImport } from './routes/resources'
+import { Route as SafetyRouteImport } from './routes/safety'
+import { Route as ScenariosRouteImport } from './routes/scenarios'
+import { Route as SeniorsRouteImport } from './routes/seniors'
+import { Route as SupportRouteImport } from './routes/support'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as AdventuresIndexRouteImport } from './routes/adventures.index'
+import { Route as AdventuresSlugRouteImport } from './routes/adventures.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BuildRoute = BuildRouteImport.update({
-  id: '/build',
-  path: '/build',
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const BusyworkRoute = BusyworkRouteImport.update({
-  id: '/busywork',
-  path: '/busywork',
+const AccessibilityRoute = AccessibilityRouteImport.update({
+  id: '/accessibility',
+  path: '/accessibility',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ChallengeRoute = ChallengeRouteImport.update({
-  id: '/challenge',
-  path: '/challenge',
+const DayInTheLifeRoute = DayInTheLifeRouteImport.update({
+  id: '/day-in-the-life',
+  path: '/day-in-the-life',
   getParentRoute: () => rootRouteImport,
 } as any)
-const CreateRoute = CreateRouteImport.update({
-  id: '/create',
-  path: '/create',
+const FamiliesRoute = FamiliesRouteImport.update({
+  id: '/families',
+  path: '/families',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IdeasRoute = IdeasRouteImport.update({
-  id: '/ideas',
-  path: '/ideas',
+const FaqRoute = FaqRouteImport.update({
+  id: '/faq',
+  path: '/faq',
   getParentRoute: () => rootRouteImport,
 } as any)
-const InspireRoute = InspireRouteImport.update({
-  id: '/inspire',
-  path: '/inspire',
+const GetStartedRoute = GetStartedRouteImport.update({
+  id: '/get-started',
+  path: '/get-started',
   getParentRoute: () => rootRouteImport,
 } as any)
-const LessonsRoute = LessonsRouteImport.update({
-  id: '/lessons',
-  path: '/lessons',
+const HowItWorksRoute = HowItWorksRouteImport.update({
+  id: '/how-it-works',
+  path: '/how-it-works',
   getParentRoute: () => rootRouteImport,
 } as any)
-const MaterialsRoute = MaterialsRouteImport.update({
-  id: '/materials',
-  path: '/materials',
+const LanguagesRoute = LanguagesRouteImport.update({
+  id: '/languages',
+  path: '/languages',
   getParentRoute: () => rootRouteImport,
 } as any)
-const RecentWorkRoute = RecentWorkRouteImport.update({
-  id: '/recent-work',
-  path: '/recent-work',
+const MemoriesRoute = MemoriesRouteImport.update({
+  id: '/memories',
+  path: '/memories',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WorkspaceRoute = WorkspaceRouteImport.update({
-  id: '/workspace',
-  path: '/workspace',
+const PartnersRoute = PartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PricingRoute = PricingRouteImport.update({
+  id: '/pricing',
+  path: '/pricing',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ResourcesRoute = ResourcesRouteImport.update({
+  id: '/resources',
+  path: '/resources',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SafetyRoute = SafetyRouteImport.update({
+  id: '/safety',
+  path: '/safety',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ScenariosRoute = ScenariosRouteImport.update({
+  id: '/scenarios',
+  path: '/scenarios',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SeniorsRoute = SeniorsRouteImport.update({
+  id: '/seniors',
+  path: '/seniors',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SupportRoute = SupportRouteImport.update({
+  id: '/support',
+  path: '/support',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdventuresIndexRoute = AdventuresIndexRouteImport.update({
+  id: '/adventures/',
+  path: '/adventures/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdventuresSlugRoute = AdventuresSlugRouteImport.update({
+  id: '/adventures/$slug',
+  path: '/adventures/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
-  '/build': typeof BuildRoute
-  '/busywork': typeof BusyworkRoute
-  '/challenge': typeof ChallengeRoute
-  '/create': typeof CreateRoute
-  '/ideas': typeof IdeasRoute
-  '/inspire': typeof InspireRoute
-  '/lessons': typeof LessonsRoute
-  '/materials': typeof MaterialsRoute
-  '/recent-work': typeof RecentWorkRoute
-  '/workspace': typeof WorkspaceRoute
+  '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/day-in-the-life': typeof DayInTheLifeRoute
+  '/families': typeof FamiliesRoute
+  '/faq': typeof FaqRoute
+  '/get-started': typeof GetStartedRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/languages': typeof LanguagesRoute
+  '/memories': typeof MemoriesRoute
+  '/partners': typeof PartnersRoute
+  '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/resources': typeof ResourcesRoute
+  '/safety': typeof SafetyRoute
+  '/scenarios': typeof ScenariosRoute
+  '/seniors': typeof SeniorsRoute
+  '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
+  '/adventures/$slug': typeof AdventuresSlugRoute
+  '/adventures/': typeof AdventuresIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
-  '/build': typeof BuildRoute
-  '/busywork': typeof BusyworkRoute
-  '/challenge': typeof ChallengeRoute
-  '/create': typeof CreateRoute
-  '/ideas': typeof IdeasRoute
-  '/inspire': typeof InspireRoute
-  '/lessons': typeof LessonsRoute
-  '/materials': typeof MaterialsRoute
-  '/recent-work': typeof RecentWorkRoute
-  '/workspace': typeof WorkspaceRoute
+  '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/day-in-the-life': typeof DayInTheLifeRoute
+  '/families': typeof FamiliesRoute
+  '/faq': typeof FaqRoute
+  '/get-started': typeof GetStartedRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/languages': typeof LanguagesRoute
+  '/memories': typeof MemoriesRoute
+  '/partners': typeof PartnersRoute
+  '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/resources': typeof ResourcesRoute
+  '/safety': typeof SafetyRoute
+  '/scenarios': typeof ScenariosRoute
+  '/seniors': typeof SeniorsRoute
+  '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
+  '/adventures/$slug': typeof AdventuresSlugRoute
+  '/adventures': typeof AdventuresIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
-  '/build': typeof BuildRoute
-  '/busywork': typeof BusyworkRoute
-  '/challenge': typeof ChallengeRoute
-  '/create': typeof CreateRoute
-  '/ideas': typeof IdeasRoute
-  '/inspire': typeof InspireRoute
-  '/lessons': typeof LessonsRoute
-  '/materials': typeof MaterialsRoute
-  '/recent-work': typeof RecentWorkRoute
-  '/workspace': typeof WorkspaceRoute
+  '/about': typeof AboutRoute
+  '/accessibility': typeof AccessibilityRoute
+  '/day-in-the-life': typeof DayInTheLifeRoute
+  '/families': typeof FamiliesRoute
+  '/faq': typeof FaqRoute
+  '/get-started': typeof GetStartedRoute
+  '/how-it-works': typeof HowItWorksRoute
+  '/languages': typeof LanguagesRoute
+  '/memories': typeof MemoriesRoute
+  '/partners': typeof PartnersRoute
+  '/pricing': typeof PricingRoute
+  '/privacy': typeof PrivacyRoute
+  '/resources': typeof ResourcesRoute
+  '/safety': typeof SafetyRoute
+  '/scenarios': typeof ScenariosRoute
+  '/seniors': typeof SeniorsRoute
+  '/support': typeof SupportRoute
+  '/terms': typeof TermsRoute
+  '/adventures/$slug': typeof AdventuresSlugRoute
+  '/adventures/': typeof AdventuresIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
-    | '/build'
-    | '/busywork'
-    | '/challenge'
-    | '/create'
-    | '/ideas'
-    | '/inspire'
-    | '/lessons'
-    | '/materials'
-    | '/recent-work'
-    | '/workspace'
+    | '/about'
+    | '/accessibility'
+    | '/day-in-the-life'
+    | '/families'
+    | '/faq'
+    | '/get-started'
+    | '/how-it-works'
+    | '/languages'
+    | '/memories'
+    | '/partners'
+    | '/pricing'
+    | '/privacy'
+    | '/resources'
+    | '/safety'
+    | '/scenarios'
+    | '/seniors'
+    | '/support'
+    | '/terms'
+    | '/adventures/$slug'
+    | '/adventures/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
-    | '/build'
-    | '/busywork'
-    | '/challenge'
-    | '/create'
-    | '/ideas'
-    | '/inspire'
-    | '/lessons'
-    | '/materials'
-    | '/recent-work'
-    | '/workspace'
+    | '/about'
+    | '/accessibility'
+    | '/day-in-the-life'
+    | '/families'
+    | '/faq'
+    | '/get-started'
+    | '/how-it-works'
+    | '/languages'
+    | '/memories'
+    | '/partners'
+    | '/pricing'
+    | '/privacy'
+    | '/resources'
+    | '/safety'
+    | '/scenarios'
+    | '/seniors'
+    | '/support'
+    | '/terms'
+    | '/adventures/$slug'
+    | '/adventures'
   id:
     | '__root__'
     | '/'
-    | '/build'
-    | '/busywork'
-    | '/challenge'
-    | '/create'
-    | '/ideas'
-    | '/inspire'
-    | '/lessons'
-    | '/materials'
-    | '/recent-work'
-    | '/workspace'
+    | '/about'
+    | '/accessibility'
+    | '/day-in-the-life'
+    | '/families'
+    | '/faq'
+    | '/get-started'
+    | '/how-it-works'
+    | '/languages'
+    | '/memories'
+    | '/partners'
+    | '/pricing'
+    | '/privacy'
+    | '/resources'
+    | '/safety'
+    | '/scenarios'
+    | '/seniors'
+    | '/support'
+    | '/terms'
+    | '/adventures/$slug'
+    | '/adventures/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
-  BuildRoute: typeof BuildRoute
-  BusyworkRoute: typeof BusyworkRoute
-  ChallengeRoute: typeof ChallengeRoute
-  CreateRoute: typeof CreateRoute
-  IdeasRoute: typeof IdeasRoute
-  InspireRoute: typeof InspireRoute
-  LessonsRoute: typeof LessonsRoute
-  MaterialsRoute: typeof MaterialsRoute
-  RecentWorkRoute: typeof RecentWorkRoute
-  WorkspaceRoute: typeof WorkspaceRoute
+  AboutRoute: typeof AboutRoute
+  AccessibilityRoute: typeof AccessibilityRoute
+  DayInTheLifeRoute: typeof DayInTheLifeRoute
+  FamiliesRoute: typeof FamiliesRoute
+  FaqRoute: typeof FaqRoute
+  GetStartedRoute: typeof GetStartedRoute
+  HowItWorksRoute: typeof HowItWorksRoute
+  LanguagesRoute: typeof LanguagesRoute
+  MemoriesRoute: typeof MemoriesRoute
+  PartnersRoute: typeof PartnersRoute
+  PricingRoute: typeof PricingRoute
+  PrivacyRoute: typeof PrivacyRoute
+  ResourcesRoute: typeof ResourcesRoute
+  SafetyRoute: typeof SafetyRoute
+  ScenariosRoute: typeof ScenariosRoute
+  SeniorsRoute: typeof SeniorsRoute
+  SupportRoute: typeof SupportRoute
+  TermsRoute: typeof TermsRoute
+  AdventuresSlugRoute: typeof AdventuresSlugRoute
+  AdventuresIndexRoute: typeof AdventuresIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -182,74 +312,144 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/build': {
-      id: '/build'
-      path: '/build'
-      fullPath: '/build'
-      preLoaderRoute: typeof BuildRouteImport
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/busywork': {
-      id: '/busywork'
-      path: '/busywork'
-      fullPath: '/busywork'
-      preLoaderRoute: typeof BusyworkRouteImport
+    '/accessibility': {
+      id: '/accessibility'
+      path: '/accessibility'
+      fullPath: '/accessibility'
+      preLoaderRoute: typeof AccessibilityRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/challenge': {
-      id: '/challenge'
-      path: '/challenge'
-      fullPath: '/challenge'
-      preLoaderRoute: typeof ChallengeRouteImport
+    '/day-in-the-life': {
+      id: '/day-in-the-life'
+      path: '/day-in-the-life'
+      fullPath: '/day-in-the-life'
+      preLoaderRoute: typeof DayInTheLifeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/create': {
-      id: '/create'
-      path: '/create'
-      fullPath: '/create'
-      preLoaderRoute: typeof CreateRouteImport
+    '/families': {
+      id: '/families'
+      path: '/families'
+      fullPath: '/families'
+      preLoaderRoute: typeof FamiliesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/ideas': {
-      id: '/ideas'
-      path: '/ideas'
-      fullPath: '/ideas'
-      preLoaderRoute: typeof IdeasRouteImport
+    '/faq': {
+      id: '/faq'
+      path: '/faq'
+      fullPath: '/faq'
+      preLoaderRoute: typeof FaqRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/inspire': {
-      id: '/inspire'
-      path: '/inspire'
-      fullPath: '/inspire'
-      preLoaderRoute: typeof InspireRouteImport
+    '/get-started': {
+      id: '/get-started'
+      path: '/get-started'
+      fullPath: '/get-started'
+      preLoaderRoute: typeof GetStartedRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/lessons': {
-      id: '/lessons'
-      path: '/lessons'
-      fullPath: '/lessons'
-      preLoaderRoute: typeof LessonsRouteImport
+    '/how-it-works': {
+      id: '/how-it-works'
+      path: '/how-it-works'
+      fullPath: '/how-it-works'
+      preLoaderRoute: typeof HowItWorksRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/materials': {
-      id: '/materials'
-      path: '/materials'
-      fullPath: '/materials'
-      preLoaderRoute: typeof MaterialsRouteImport
+    '/languages': {
+      id: '/languages'
+      path: '/languages'
+      fullPath: '/languages'
+      preLoaderRoute: typeof LanguagesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/recent-work': {
-      id: '/recent-work'
-      path: '/recent-work'
-      fullPath: '/recent-work'
-      preLoaderRoute: typeof RecentWorkRouteImport
+    '/memories': {
+      id: '/memories'
+      path: '/memories'
+      fullPath: '/memories'
+      preLoaderRoute: typeof MemoriesRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/workspace': {
-      id: '/workspace'
-      path: '/workspace'
-      fullPath: '/workspace'
-      preLoaderRoute: typeof WorkspaceRouteImport
+    '/partners': {
+      id: '/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof PartnersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/pricing': {
+      id: '/pricing'
+      path: '/pricing'
+      fullPath: '/pricing'
+      preLoaderRoute: typeof PricingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/resources': {
+      id: '/resources'
+      path: '/resources'
+      fullPath: '/resources'
+      preLoaderRoute: typeof ResourcesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/safety': {
+      id: '/safety'
+      path: '/safety'
+      fullPath: '/safety'
+      preLoaderRoute: typeof SafetyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/scenarios': {
+      id: '/scenarios'
+      path: '/scenarios'
+      fullPath: '/scenarios'
+      preLoaderRoute: typeof ScenariosRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/seniors': {
+      id: '/seniors'
+      path: '/seniors'
+      fullPath: '/seniors'
+      preLoaderRoute: typeof SeniorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/support': {
+      id: '/support'
+      path: '/support'
+      fullPath: '/support'
+      preLoaderRoute: typeof SupportRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adventures/': {
+      id: '/adventures/'
+      path: '/adventures'
+      fullPath: '/adventures/'
+      preLoaderRoute: typeof AdventuresIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/adventures/$slug': {
+      id: '/adventures/$slug'
+      path: '/adventures/$slug'
+      fullPath: '/adventures/$slug'
+      preLoaderRoute: typeof AdventuresSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -257,16 +457,26 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
-  BuildRoute: BuildRoute,
-  BusyworkRoute: BusyworkRoute,
-  ChallengeRoute: ChallengeRoute,
-  CreateRoute: CreateRoute,
-  IdeasRoute: IdeasRoute,
-  InspireRoute: InspireRoute,
-  LessonsRoute: LessonsRoute,
-  MaterialsRoute: MaterialsRoute,
-  RecentWorkRoute: RecentWorkRoute,
-  WorkspaceRoute: WorkspaceRoute,
+  AboutRoute: AboutRoute,
+  AccessibilityRoute: AccessibilityRoute,
+  DayInTheLifeRoute: DayInTheLifeRoute,
+  FamiliesRoute: FamiliesRoute,
+  FaqRoute: FaqRoute,
+  GetStartedRoute: GetStartedRoute,
+  HowItWorksRoute: HowItWorksRoute,
+  LanguagesRoute: LanguagesRoute,
+  MemoriesRoute: MemoriesRoute,
+  PartnersRoute: PartnersRoute,
+  PricingRoute: PricingRoute,
+  PrivacyRoute: PrivacyRoute,
+  ResourcesRoute: ResourcesRoute,
+  SafetyRoute: SafetyRoute,
+  ScenariosRoute: ScenariosRoute,
+  SeniorsRoute: SeniorsRoute,
+  SupportRoute: SupportRoute,
+  TermsRoute: TermsRoute,
+  AdventuresSlugRoute: AdventuresSlugRoute,
+  AdventuresIndexRoute: AdventuresIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

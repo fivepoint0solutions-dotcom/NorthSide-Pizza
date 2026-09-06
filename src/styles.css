@@ -6,14 +6,31 @@
 
 /*
  * ============================================================
- * GLOBAL DESIGN SYSTEM — Teacher's Creative Copilot
+ * SENIOR SIDEKICK — GLOBAL DESIGN SYSTEM
  * ============================================================
  *
- * Warm, premium, soft-gradient visual language. Colour is built from
- * a small set of brand hues, mixed with `color-mix()` into semantic
- * roles (bg-background, text-primary, border-border, ...). Never
- * hardcode a colour in a component — reach for a semantic utility or
- * one of the mode gradients below.
+ * BRAND SOURCE OF TRUTH
+ * ---------------------
+ * Every colour, gradient, radius, shadow and font in the product is
+ * derived from the small block of `--brand-*` primitives below. Nothing
+ * else in the codebase hardcodes a colour. To re-skin the entire site to
+ * match the srsidekick.org brand exactly, edit ONLY:
+ *
+ *   1. the `--brand-*` primitives in `:root`
+ *   2. `--font-display` / `--font-sans` in `@theme inline`
+ *      (and the matching Google Fonts <link> in src/routes/__root.tsx)
+ *   3. the `--radius` value
+ *
+ * Semantic roles (background, card, primary, border, ...), the adventure
+ * gradients, the elevation ramp and every component read through those
+ * primitives with `color-mix()`, so a palette swap propagates everywhere.
+ *
+ * ACCESSIBILITY IS A TOKEN, NOT A PATCH
+ * -------------------------------------
+ * `html[data-text-scale]`, `html[data-contrast]` and `html[data-motion]`
+ * (set by AccessibilityProvider) re-declare tokens rather than overriding
+ * component styles, so larger type / higher contrast / calmer motion stay
+ * consistent across the whole site.
  */
 
 @theme inline {
@@ -22,18 +39,18 @@
   --radius-md: calc(var(--radius) * 1.4);
   --radius-lg: calc(var(--radius) * 2);
   --radius-xl: 1.25rem;
-  --radius-2xl: 1.5rem;
-  --radius-3xl: 2rem;
-  --radius-4xl: 2.5rem;
+  --radius-2xl: 1.75rem;
+  --radius-3xl: 2.25rem;
+  --radius-4xl: 2.75rem;
   --radius-full: 9999px;
 
-  --font-display: "Fraunces", "Lora", Georgia, serif;
-  --font-sans: "Nunito", "Quicksand", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Outfit", "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: "Plus Jakarta Sans", "Outfit", "Helvetica Neue", Arial, sans-serif;
 
   --spacing-gutter: 1.5rem;
-  --spacing-section: 4rem;
-  --spacing-section-lg: 6rem;
-  --spacing-measure: 40rem;
+  --spacing-section: 4.5rem;
+  --spacing-section-lg: 7rem;
+  --spacing-measure: 42rem;
 
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -57,6 +74,8 @@
   --color-surface-foreground: var(--surface-foreground);
   --color-destructive: var(--destructive);
   --color-destructive-foreground: var(--destructive-foreground);
+  --color-success: var(--success);
+  --color-success-foreground: var(--success-foreground);
   --color-border: var(--border);
   --color-border-strong: var(--border-strong);
   --color-input: var(--input);
@@ -90,6 +109,7 @@
   --animate-curtain: curtain var(--duration-cinematic) var(--ease-cinematic) both;
   --animate-float: float 7s var(--ease-tide) infinite;
   --animate-pop: pop 0.4s var(--ease-editorial) both;
+  --animate-pulse-ring: pulse-ring 2.4s var(--ease-tide) infinite;
 
   @keyframes reveal-up {
     from {
@@ -136,146 +156,191 @@
       transform: scale(1);
     }
   }
+  @keyframes pulse-ring {
+    0% {
+      transform: scale(0.9);
+      opacity: 0.55;
+    }
+    70% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+    100% {
+      transform: scale(1.5);
+      opacity: 0;
+    }
+  }
 }
 
 :root {
-  /* --- Brand primitives (single source of truth) --- */
-  --brand-terracotta: oklch(0.535 0.135 35.6); /* #B1502D */
-  --brand-rust: oklch(0.44 0.115 33.8); /* #8B3A2B */
-  --brand-burgundy: oklch(0.34 0.09 30.2); /* #6E2A1E */
-  --brand-olive: oklch(0.52 0.075 116.8); /* #707C46 */
-  --brand-sage: oklch(0.68 0.07 121.4); /* #93A36E */
-  --brand-gold: oklch(0.78 0.115 76.8); /* #D9A441 */
-  --brand-ink: oklch(0.26 0.03 55); /* warm dark brown ink */
-  --brand-cream: oklch(0.96 0.025 80); /* warm paper */
+  /* ============================================================
+   * 1. BRAND PRIMITIVES — the only place colour is authored.
+   * ============================================================
+   * NOTE: pending confirmation against srsidekick.org. Swap these six
+   * values (and the two font families above) to lock the reference brand.
+   */
+  --brand-teal: oklch(0.5 0.088 195); /* ~#1F7A7D — primary, trustworthy */
+  --brand-deep: oklch(0.34 0.068 215); /* ~#134A5C — depth, headers, night */
+  --brand-amber: oklch(0.81 0.128 76); /* ~#EDAB44 — warmth, accent, sun */
+  --brand-coral: oklch(0.69 0.142 40); /* ~#E58A62 — human, invitation */
+  --brand-plum: oklch(0.5 0.11 320); /* ~#8B5090 — memory, story, evening */
+  --brand-ink: oklch(0.27 0.024 235); /* warm-cool ink for text */
+  --brand-cream: oklch(0.975 0.014 85); /* warm ivory paper */
 
-  --radius: 0.875rem;
+  --radius: 1rem;
 
-  /* --- Mode gradients — the app's visual personality --- */
-  --grad-inspire: linear-gradient(120deg, #e8b84b, #d9973d 45%, #c0682f 100%);
-  --grad-build: linear-gradient(120deg, #b1502d, #96602f 45%, #707c46 100%);
-  --grad-busywork: linear-gradient(120deg, #707c46, #8fa06b 45%, #d9a441 100%);
-  --grad-challenge: linear-gradient(120deg, #b1502d, #8b3a2b 45%, #6e2a1e 100%);
-  --grad-hero: linear-gradient(120deg, #d9a441, #c0682f 35%, #b1502d 65%, #707c46 100%);
+  /* ============================================================
+   * 2. SIGNATURE GRADIENTS
+   * ============================================================ */
+  --grad-hero: linear-gradient(
+    118deg,
+    color-mix(in oklab, var(--brand-teal) 90%, black) 0%,
+    var(--brand-teal) 30%,
+    var(--brand-plum) 62%,
+    var(--brand-coral) 88%,
+    var(--brand-amber) 100%
+  );
+  --grad-sunrise: linear-gradient(
+    120deg,
+    var(--brand-amber),
+    var(--brand-coral) 65%,
+    var(--brand-plum)
+  );
+  --grad-calm: linear-gradient(
+    120deg,
+    var(--brand-deep),
+    var(--brand-teal) 60%,
+    var(--brand-amber)
+  );
+
+  /* Adventure gradients — each experience owns a colour story. */
+  --grad-memory: linear-gradient(125deg, #8b5090, #b06a86 48%, #edab44 100%);
+  --grad-music: linear-gradient(125deg, #1f7a7d, #4f7fa8 45%, #8b5090 100%);
+  --grad-explore: linear-gradient(125deg, #134a5c, #1f7a7d 50%, #6fae86 100%);
+  --grad-games: linear-gradient(125deg, #edab44, #e58a62 55%, #d2646b 100%);
+  --grad-stories: linear-gradient(125deg, #6b4a8f, #a4608a 50%, #e58a62 100%);
+  --grad-talk: linear-gradient(125deg, #1f7a7d, #58a08a 50%, #edab44 100%);
+  --grad-family: linear-gradient(125deg, #e58a62, #edab44 50%, #6fae86 100%);
+
+  /* The living ambient wash behind every page. */
   --grad-ambient:
     radial-gradient(
-      60% 55% at 14% 10%,
-      color-mix(in oklab, var(--brand-gold) 42%, transparent),
+      58% 52% at 12% 8%,
+      color-mix(in oklab, var(--brand-amber) 30%, transparent),
       transparent 72%
     ),
     radial-gradient(
-      55% 50% at 88% 16%,
-      color-mix(in oklab, var(--brand-terracotta) 38%, transparent),
+      52% 48% at 88% 12%,
+      color-mix(in oklab, var(--brand-teal) 26%, transparent),
       transparent 72%
     ),
     radial-gradient(
-      65% 60% at 18% 92%,
-      color-mix(in oklab, var(--brand-olive) 34%, transparent),
-      transparent 72%
+      62% 56% at 16% 92%,
+      color-mix(in oklab, var(--brand-plum) 22%, transparent),
+      transparent 74%
     ),
     radial-gradient(
-      55% 55% at 90% 90%,
-      color-mix(in oklab, var(--brand-sage) 32%, transparent),
-      transparent 72%
-    ),
-    radial-gradient(
-      85% 75% at 50% 50%,
-      color-mix(in oklab, var(--brand-rust) 16%, transparent),
-      transparent 80%
+      52% 52% at 92% 88%,
+      color-mix(in oklab, var(--brand-coral) 24%, transparent),
+      transparent 74%
     );
 
-  /* --- Semantic roles: light --- */
+  /* ============================================================
+   * 3. SEMANTIC ROLES — light
+   * ============================================================ */
   --background: var(--brand-cream);
   --foreground: var(--brand-ink);
 
-  --surface: color-mix(in oklab, var(--brand-cream) 78%, var(--brand-gold) 12%);
+  --surface: color-mix(in oklab, var(--brand-cream) 84%, var(--brand-amber) 9%);
   --surface-foreground: var(--brand-ink);
-  --card: color-mix(in oklab, var(--brand-cream) 72%, var(--brand-gold) 14%);
+  --card: color-mix(in oklab, var(--brand-cream) 80%, var(--brand-amber) 10%);
   --card-foreground: var(--brand-ink);
-  --popover: color-mix(in oklab, var(--brand-cream) 82%, var(--brand-gold) 10%);
+  --popover: color-mix(in oklab, var(--brand-cream) 90%, var(--brand-amber) 6%);
   --popover-foreground: var(--brand-ink);
+
   --grad-card: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-gold) 20%),
-    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-terracotta) 16%) 55%,
-    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-olive) 14%) 100%
+    140deg,
+    color-mix(in oklab, var(--brand-cream) 76%, var(--brand-amber) 15%),
+    color-mix(in oklab, var(--brand-cream) 80%, var(--brand-coral) 11%) 55%,
+    color-mix(in oklab, var(--brand-cream) 78%, var(--brand-teal) 12%) 100%
   );
-  /* Mode-tinted card gradients — same shape as --grad-card, colors keyed to each mode. */
-  --grad-card-inspire: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--brand-cream) 64%, var(--brand-gold) 24%),
-    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-terracotta) 18%) 60%,
-    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-gold) 16%) 100%
+  --grad-card-memory: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--brand-cream) 74%, var(--brand-plum) 17%),
+    color-mix(in oklab, var(--brand-cream) 78%, var(--brand-amber) 15%) 100%
   );
-  --grad-card-build: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--brand-cream) 64%, var(--brand-terracotta) 22%),
-    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-olive) 18%) 100%
+  --grad-card-cool: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--brand-cream) 74%, var(--brand-teal) 17%),
+    color-mix(in oklab, var(--brand-cream) 80%, var(--brand-deep) 10%) 100%
   );
-  --grad-card-busywork: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-olive) 20%),
-    color-mix(in oklab, var(--brand-cream) 66%, var(--brand-sage) 18%) 55%,
-    color-mix(in oklab, var(--brand-cream) 70%, var(--brand-gold) 16%) 100%
-  );
-  --grad-card-challenge: linear-gradient(
-    135deg,
-    color-mix(in oklab, var(--brand-cream) 62%, var(--brand-terracotta) 24%),
-    color-mix(in oklab, var(--brand-cream) 68%, var(--brand-rust) 18%) 100%
+  --grad-card-warm: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--brand-cream) 72%, var(--brand-amber) 20%),
+    color-mix(in oklab, var(--brand-cream) 78%, var(--brand-coral) 16%) 100%
   );
 
-  --primary: var(--brand-terracotta);
+  --primary: var(--brand-teal);
   --primary-foreground: white;
 
-  --secondary: color-mix(in oklab, var(--brand-cream) 78%, var(--brand-terracotta));
-  --secondary-foreground: var(--brand-ink);
+  --secondary: color-mix(in oklab, var(--brand-cream) 82%, var(--brand-teal) 12%);
+  --secondary-foreground: var(--brand-deep);
 
-  --muted: color-mix(in oklab, var(--brand-cream) 85%, var(--brand-ink));
-  --muted-foreground: color-mix(in oklab, var(--brand-ink) 55%, var(--brand-cream));
+  --muted: color-mix(in oklab, var(--brand-cream) 88%, var(--brand-ink) 8%);
+  --muted-foreground: color-mix(in oklab, var(--brand-ink) 62%, var(--brand-cream));
 
-  --accent: var(--brand-gold);
+  --accent: var(--brand-amber);
   --accent-foreground: var(--brand-ink);
 
-  --interactive: var(--brand-terracotta);
+  --interactive: var(--brand-teal);
   --interactive-foreground: white;
 
-  --highlight: var(--brand-olive);
-  --highlight-foreground: white;
+  --highlight: var(--brand-coral);
+  --highlight-foreground: var(--brand-ink);
 
   --destructive: oklch(0.55 0.19 27);
   --destructive-foreground: white;
+  --success: oklch(0.6 0.11 155);
+  --success-foreground: white;
 
-  --border: color-mix(in oklab, var(--brand-terracotta) 16%, var(--brand-ink) 6%);
-  --border-strong: color-mix(in oklab, var(--brand-terracotta) 30%, var(--brand-ink) 14%);
-  --input: color-mix(in oklab, var(--brand-ink) 14%, transparent);
-  --ring: var(--brand-terracotta);
+  --border: color-mix(in oklab, var(--brand-teal) 14%, var(--brand-ink) 7%);
+  --border-strong: color-mix(in oklab, var(--brand-teal) 30%, var(--brand-ink) 16%);
+  --input: color-mix(in oklab, var(--brand-ink) 16%, transparent);
+  --ring: var(--brand-teal);
 
-  --chart-1: var(--brand-terracotta);
-  --chart-2: var(--brand-olive);
-  --chart-3: var(--brand-gold);
-  --chart-4: var(--brand-sage);
-  --chart-5: var(--brand-rust);
+  --chart-1: var(--brand-teal);
+  --chart-2: var(--brand-amber);
+  --chart-3: var(--brand-coral);
+  --chart-4: var(--brand-plum);
+  --chart-5: var(--brand-deep);
 
-  --sidebar: color-mix(in oklab, var(--brand-cream) 80%, var(--brand-gold) 10%);
+  --sidebar: color-mix(in oklab, var(--brand-cream) 86%, var(--brand-teal) 8%);
   --sidebar-foreground: var(--brand-ink);
-  --sidebar-primary: var(--brand-terracotta);
+  --sidebar-primary: var(--brand-teal);
   --sidebar-primary-foreground: white;
-  --sidebar-accent: color-mix(in oklab, var(--brand-cream) 85%, var(--brand-terracotta));
-  --sidebar-accent-foreground: var(--brand-ink);
-  --sidebar-border: color-mix(in oklab, var(--brand-terracotta) 14%, transparent);
-  --sidebar-ring: var(--brand-terracotta);
+  --sidebar-accent: color-mix(in oklab, var(--brand-cream) 84%, var(--brand-teal) 12%);
+  --sidebar-accent-foreground: var(--brand-deep);
+  --sidebar-border: color-mix(in oklab, var(--brand-teal) 14%, transparent);
+  --sidebar-ring: var(--brand-teal);
 
-  /* --- Elevation: soft, warm-tinted, never grey --- */
-  --elevation-1: 0 1px 2px color-mix(in oklab, var(--brand-ink) 8%, transparent);
+  /* ============================================================
+   * 4. ELEVATION — soft, colour-tinted, never grey
+   * ============================================================ */
+  --elevation-1: 0 1px 2px color-mix(in oklab, var(--brand-deep) 10%, transparent);
   --elevation-2:
-    0 3px 8px color-mix(in oklab, var(--brand-terracotta) 10%, transparent),
-    0 10px 24px -14px color-mix(in oklab, var(--brand-terracotta) 24%, transparent);
+    0 3px 10px color-mix(in oklab, var(--brand-deep) 10%, transparent),
+    0 12px 28px -16px color-mix(in oklab, var(--brand-deep) 26%, transparent);
   --elevation-3:
-    0 6px 20px color-mix(in oklab, var(--brand-terracotta) 16%, transparent),
-    0 28px 56px -28px color-mix(in oklab, var(--brand-terracotta) 34%, transparent);
-  --elevation-4: 0 40px 90px -32px color-mix(in oklab, var(--brand-terracotta) 42%, transparent);
+    0 8px 24px color-mix(in oklab, var(--brand-deep) 14%, transparent),
+    0 32px 64px -30px color-mix(in oklab, var(--brand-deep) 34%, transparent);
+  --elevation-4: 0 44px 96px -34px color-mix(in oklab, var(--brand-deep) 44%, transparent);
+  --glow-accent:
+    0 0 0 1px color-mix(in oklab, var(--brand-amber) 45%, transparent),
+    0 10px 40px -12px color-mix(in oklab, var(--brand-amber) 60%, transparent);
 
-  /* --- Motion tokens --- */
+  /* ============================================================
+   * 5. MOTION
+   * ============================================================ */
   --duration-instant: 90ms;
   --duration-fast: 180ms;
   --duration-base: 320ms;
@@ -283,7 +348,7 @@
   --duration-cinematic: 900ms;
   --duration-gradient: 16s;
   --duration-gradient-soft: 26s;
-  --duration-ambient: 42s;
+  --duration-ambient: 44s;
   --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-cinematic: cubic-bezier(0.65, 0, 0.35, 1);
   --ease-tide: cubic-bezier(0.4, 0, 0.2, 1);
@@ -294,55 +359,171 @@
     opacity var(--duration-fast) var(--ease-tide),
     transform var(--duration-base) var(--ease-editorial),
     box-shadow var(--duration-base) var(--ease-editorial);
+
+  /* ============================================================
+   * 6. ACCESSIBILITY TOKENS (driven by <html data-*>)
+   * ============================================================ */
+  --text-scale: 1;
+  --tap-min: 2.75rem;
 }
 
 .dark {
-  --background: color-mix(in oklab, var(--brand-ink) 92%, black);
+  --background: color-mix(in oklab, var(--brand-deep) 62%, black);
   --foreground: color-mix(in oklab, var(--brand-cream) 96%, white);
 
-  --surface: color-mix(in oklab, var(--brand-ink) 82%, black);
+  --surface: color-mix(in oklab, var(--brand-deep) 52%, black);
   --surface-foreground: var(--brand-cream);
-  --card: color-mix(in oklab, var(--brand-ink) 78%, black);
+  --card: color-mix(in oklab, var(--brand-deep) 48%, black);
   --card-foreground: var(--brand-cream);
-  --popover: color-mix(in oklab, var(--brand-ink) 72%, black);
+  --popover: color-mix(in oklab, var(--brand-deep) 44%, black);
   --popover-foreground: var(--brand-cream);
 
-  --primary: var(--brand-terracotta);
-  --primary-foreground: white;
+  --grad-card: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--brand-deep) 48%, black),
+    color-mix(in oklab, var(--brand-plum) 22%, black) 55%,
+    color-mix(in oklab, var(--brand-teal) 22%, black) 100%
+  );
+  --grad-card-memory: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--brand-plum) 30%, black),
+    color-mix(in oklab, var(--brand-deep) 44%, black) 100%
+  );
+  --grad-card-cool: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--brand-teal) 26%, black),
+    color-mix(in oklab, var(--brand-deep) 50%, black) 100%
+  );
+  --grad-card-warm: linear-gradient(
+    140deg,
+    color-mix(in oklab, var(--brand-amber) 24%, black),
+    color-mix(in oklab, var(--brand-coral) 22%, black) 100%
+  );
 
-  --secondary: color-mix(in oklab, var(--brand-ink) 68%, var(--brand-terracotta));
+  --primary: color-mix(in oklab, var(--brand-teal) 74%, white);
+  --primary-foreground: color-mix(in oklab, var(--brand-deep) 80%, black);
+
+  --secondary: color-mix(in oklab, var(--brand-deep) 40%, var(--brand-teal) 18%);
   --secondary-foreground: var(--brand-cream);
 
-  --muted: color-mix(in oklab, var(--brand-ink) 70%, black);
-  --muted-foreground: color-mix(in oklab, var(--brand-cream) 62%, var(--brand-ink));
+  --muted: color-mix(in oklab, var(--brand-deep) 56%, black);
+  --muted-foreground: color-mix(in oklab, var(--brand-cream) 68%, var(--brand-deep));
 
-  --accent: var(--brand-gold);
-  --accent-foreground: var(--brand-ink);
+  --accent: var(--brand-amber);
+  --accent-foreground: color-mix(in oklab, var(--brand-deep) 80%, black);
 
-  --interactive: color-mix(in oklab, var(--brand-terracotta) 78%, white);
-  --interactive-foreground: var(--brand-ink);
+  --interactive: color-mix(in oklab, var(--brand-teal) 76%, white);
+  --interactive-foreground: color-mix(in oklab, var(--brand-deep) 82%, black);
 
-  --highlight: var(--brand-sage);
-  --highlight-foreground: var(--brand-ink);
+  --highlight: var(--brand-coral);
+  --highlight-foreground: color-mix(in oklab, var(--brand-deep) 80%, black);
 
-  --border: color-mix(in oklab, var(--brand-cream) 14%, transparent);
-  --border-strong: color-mix(in oklab, var(--brand-cream) 28%, transparent);
-  --input: color-mix(in oklab, var(--brand-cream) 18%, transparent);
-  --ring: color-mix(in oklab, var(--brand-terracotta) 70%, white);
+  --border: color-mix(in oklab, var(--brand-cream) 16%, transparent);
+  --border-strong: color-mix(in oklab, var(--brand-cream) 32%, transparent);
+  --input: color-mix(in oklab, var(--brand-cream) 20%, transparent);
+  --ring: color-mix(in oklab, var(--brand-teal) 72%, white);
 
-  --sidebar: color-mix(in oklab, var(--brand-ink) 86%, black);
+  --sidebar: color-mix(in oklab, var(--brand-deep) 58%, black);
   --sidebar-foreground: var(--brand-cream);
-  --sidebar-primary: var(--brand-terracotta);
-  --sidebar-primary-foreground: white;
-  --sidebar-accent: color-mix(in oklab, var(--brand-ink) 70%, var(--brand-terracotta));
+  --sidebar-primary: color-mix(in oklab, var(--brand-teal) 74%, white);
+  --sidebar-primary-foreground: color-mix(in oklab, var(--brand-deep) 80%, black);
+  --sidebar-accent: color-mix(in oklab, var(--brand-deep) 42%, var(--brand-teal) 16%);
   --sidebar-accent-foreground: var(--brand-cream);
-  --sidebar-border: color-mix(in oklab, var(--brand-cream) 12%, transparent);
-  --sidebar-ring: color-mix(in oklab, var(--brand-terracotta) 70%, white);
+  --sidebar-border: color-mix(in oklab, var(--brand-cream) 14%, transparent);
+  --sidebar-ring: color-mix(in oklab, var(--brand-teal) 72%, white);
 
-  --elevation-1: 0 1px 2px oklch(0 0 0 / 30%);
-  --elevation-2: 0 3px 8px oklch(0 0 0 / 30%), 0 10px 24px -14px oklch(0 0 0 / 45%);
-  --elevation-3: 0 6px 20px oklch(0 0 0 / 34%), 0 28px 56px -28px oklch(0 0 0 / 55%);
-  --elevation-4: 0 40px 90px -32px oklch(0 0 0 / 65%);
+  --elevation-1: 0 1px 2px oklch(0 0 0 / 34%);
+  --elevation-2: 0 3px 10px oklch(0 0 0 / 34%), 0 12px 28px -16px oklch(0 0 0 / 50%);
+  --elevation-3: 0 8px 24px oklch(0 0 0 / 38%), 0 32px 64px -30px oklch(0 0 0 / 58%);
+  --elevation-4: 0 44px 96px -34px oklch(0 0 0 / 68%);
+}
+
+/* ============================================================
+ * ACCESSIBILITY MODES
+ * ============================================================ */
+
+/* Type scale — every size below is authored in rem, so one variable
+   moves the whole site without breaking layout. */
+html[data-text-scale="large"] {
+  --text-scale: 1.15;
+  --tap-min: 3.25rem;
+}
+html[data-text-scale="xlarge"] {
+  --text-scale: 1.32;
+  --tap-min: 3.75rem;
+}
+html[data-text-scale="large"],
+html[data-text-scale="xlarge"] {
+  font-size: calc(100% * var(--text-scale));
+}
+
+/* High contrast — deepen ink, harden borders, drop decorative washes. */
+html[data-contrast="high"] {
+  --background: oklch(1 0 0);
+  --foreground: oklch(0.16 0.02 235);
+  --muted-foreground: oklch(0.3 0.02 235);
+  --card: oklch(1 0 0);
+  --surface: oklch(1 0 0);
+  --border: oklch(0.32 0.02 235);
+  --border-strong: oklch(0.16 0.02 235);
+  --primary: oklch(0.36 0.09 205);
+  --interactive: oklch(0.36 0.09 205);
+  --accent: oklch(0.52 0.13 62);
+  --accent-foreground: oklch(1 0 0);
+  --grad-card: none;
+  --elevation-1: 0 0 0 1px oklch(0.32 0.02 235);
+  --elevation-2: 0 0 0 1px oklch(0.32 0.02 235);
+  --elevation-3: 0 0 0 2px oklch(0.16 0.02 235);
+  --elevation-4: 0 0 0 2px oklch(0.16 0.02 235);
+}
+html[data-contrast="high"] body::before {
+  display: none;
+}
+html[data-contrast="high"] .card-soft,
+html[data-contrast="high"] .card-elevated,
+html[data-contrast="high"] .glass-panel {
+  background-image: none;
+  background-color: var(--card);
+  animation: none;
+}
+/* `@apply shimmer-sweep` inlines the sweep into each surface's own ::after,
+   so every surface that uses it has to be named here. */
+html[data-contrast="high"] .shimmer-sweep::after,
+html[data-contrast="high"] .card-soft::after,
+html[data-contrast="high"] .card-elevated::after,
+html[data-contrast="high"] .big-cta::after {
+  display: none;
+}
+html[data-contrast="high"] [data-decorative="true"] {
+  display: none;
+}
+
+/* At the largest text size six nav labels no longer fit on one line, so the
+   header falls back to the menu panel rather than wrapping or overflowing. */
+html[data-text-scale="xlarge"] .nav-desktop {
+  display: none;
+}
+html[data-text-scale="xlarge"] .nav-toggle {
+  display: inline-flex;
+}
+
+/* User-chosen calm motion, independent of the OS setting. */
+html[data-motion="reduced"] *,
+html[data-motion="reduced"] *::before,
+html[data-motion="reduced"] *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+html[data-motion="reduced"] .reveal,
+html[data-motion="reduced"] .reveal-curtain {
+  opacity: 1 !important;
+  transform: none !important;
+  clip-path: none !important;
+}
+html[data-motion="reduced"] .parallax-layer {
+  transform: none !important;
 }
 
 @layer base {
@@ -360,13 +541,14 @@
     background-color: var(--color-background);
     color: var(--color-foreground);
     font-family: var(--font-sans);
-    font-size: 1rem;
-    line-height: 1.6;
+    font-size: 1.0625rem;
+    line-height: 1.65;
     letter-spacing: -0.001em;
     position: relative;
+    overflow-x: hidden;
   }
 
-  /* The living gradient wash — fixed behind every screen, never just flat cream. */
+  /* The living gradient wash — fixed behind every screen. */
   body::before {
     content: "";
     position: fixed;
@@ -379,7 +561,7 @@
   }
 
   .dark body::before {
-    opacity: 0.55;
+    opacity: 0.5;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -395,8 +577,8 @@
   h4 {
     font-family: var(--font-display);
     font-weight: 600;
-    line-height: 1.12;
-    letter-spacing: -0.02em;
+    line-height: 1.1;
+    letter-spacing: -0.022em;
     text-wrap: balance;
   }
 
@@ -410,8 +592,9 @@
   }
 
   :focus-visible {
-    outline: 2px solid var(--ring);
+    outline: 3px solid var(--ring);
     outline-offset: 3px;
+    border-radius: var(--radius-xs);
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -436,25 +619,33 @@
 @utility text-display {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.5rem, 6vw, 4.25rem);
+  font-size: clamp(2.6rem, 6.2vw, 4.75rem);
   line-height: 1.02;
-  letter-spacing: -0.03em;
+  letter-spacing: -0.032em;
 }
 
 @utility text-headline {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.75rem, 3.6vw, 2.75rem);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.85rem, 3.8vw, 3rem);
+  line-height: 1.08;
+  letter-spacing: -0.024em;
+}
+
+@utility text-subhead {
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  line-height: 1.2;
+  letter-spacing: -0.018em;
 }
 
 @utility text-title {
   font-family: var(--font-display);
   font-weight: 600;
-  font-size: clamp(1.15rem, 1.8vw, 1.4rem);
-  line-height: 1.24;
-  letter-spacing: -0.01em;
+  font-size: clamp(1.15rem, 1.8vw, 1.375rem);
+  line-height: 1.26;
+  letter-spacing: -0.012em;
 }
 
 @utility text-eyebrow {
@@ -462,28 +653,36 @@
   font-weight: 700;
   font-size: 0.75rem;
   line-height: 1.2;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.1em;
   text-transform: uppercase;
 }
 
 @utility text-lede {
   font-family: var(--font-sans);
   font-weight: 400;
-  font-size: clamp(1.0625rem, 1.4vw, 1.1875rem);
-  line-height: 1.6;
+  font-size: clamp(1.125rem, 1.5vw, 1.3125rem);
+  line-height: 1.62;
 }
 
 @utility text-body {
   font-family: var(--font-sans);
-  font-size: 1rem;
-  line-height: 1.65;
+  font-size: 1.0625rem;
+  line-height: 1.68;
 }
 
 @utility text-caption {
   font-family: var(--font-sans);
-  font-size: 0.8125rem;
+  font-size: 0.875rem;
   line-height: 1.5;
-  letter-spacing: 0.01em;
+  letter-spacing: 0.005em;
+}
+
+/* Senior-facing surfaces run one full step larger than marketing copy. */
+@utility text-senior {
+  font-family: var(--font-sans);
+  font-size: clamp(1.25rem, 1.8vw, 1.5rem);
+  font-weight: 500;
+  line-height: 1.5;
 }
 
 @utility measure {
@@ -504,7 +703,17 @@
 @utility container-app {
   width: 100%;
   margin-inline: auto;
-  max-width: 76rem;
+  max-width: 78rem;
+  padding-inline: var(--spacing-gutter);
+  @media (min-width: 1024px) {
+    padding-inline: 2.5rem;
+  }
+}
+
+@utility container-wide {
+  width: 100%;
+  margin-inline: auto;
+  max-width: 90rem;
   padding-inline: var(--spacing-gutter);
   @media (min-width: 1024px) {
     padding-inline: 2.5rem;
@@ -513,6 +722,15 @@
 
 @utility hairline {
   border-block-end: 1px solid var(--border);
+}
+
+/* Minimum comfortable target for anything a senior taps. */
+@utility tap-target {
+  min-height: var(--tap-min);
+  min-width: var(--tap-min);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 /* ============================================================
@@ -574,26 +792,6 @@
   }
 }
 
-@utility cursor-refined {
-  cursor: none;
-}
-
-@utility cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 9999;
-  pointer-events: none;
-  mix-blend-mode: difference;
-  border-radius: var(--radius-full);
-  background-color: white;
-  will-change: transform, width, height, opacity;
-  transition:
-    width var(--duration-base) var(--ease-editorial),
-    height var(--duration-base) var(--ease-editorial),
-    opacity var(--duration-fast) var(--ease-tide);
-}
-
 /* ============================================================
  * SCROLL REVEAL / PARALLAX
  * ============================================================ */
@@ -638,7 +836,7 @@
 }
 
 /* ============================================================
- * GRADIENT SYSTEM — the app's visual personality
+ * GRADIENT SYSTEM
  * ============================================================ */
 
 @utility gradient-motion {
@@ -671,7 +869,6 @@
   }
 }
 
-/* A soft diagonal light sweep, layered on top of gradient surfaces. */
 @utility shimmer-sweep {
   position: relative;
   isolation: isolate;
@@ -684,12 +881,12 @@
     background: linear-gradient(
       100deg,
       transparent,
-      color-mix(in oklab, white 65%, var(--brand-gold)) 50%,
+      color-mix(in oklab, white 68%, var(--brand-amber)) 50%,
       transparent
     );
-    opacity: 0.4;
+    opacity: 0.32;
     transform: translateX(-140%) rotate(8deg);
-    animation: shimmer-sweep 6s ease-in-out infinite;
+    animation: shimmer-sweep 7s ease-in-out infinite;
     pointer-events: none;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -703,39 +900,26 @@
 @utility gradient-hero {
   background-image: var(--grad-hero);
 }
-
-@utility gradient-inspire {
-  background-image: var(--grad-inspire);
+@utility gradient-sunrise {
+  background-image: var(--grad-sunrise);
+}
+@utility gradient-calm {
+  background-image: var(--grad-calm);
 }
 
-@utility gradient-build {
-  background-image: var(--grad-build);
+/* Card tints — scope a subtree to one of the palette stories. */
+@utility card-tint-memory {
+  --grad-card: var(--grad-card-memory);
 }
-
-@utility gradient-busywork {
-  background-image: var(--grad-busywork);
+@utility card-tint-cool {
+  --grad-card: var(--grad-card-cool);
 }
-
-@utility gradient-challenge {
-  background-image: var(--grad-challenge);
-}
-
-/* Scope card-soft/card-elevated/glass-panel to a mode's palette wherever this wraps them. */
-@utility card-tint-inspire {
-  --grad-card: var(--grad-card-inspire);
-}
-@utility card-tint-build {
-  --grad-card: var(--grad-card-build);
-}
-@utility card-tint-busywork {
-  --grad-card: var(--grad-card-busywork);
-}
-@utility card-tint-challenge {
-  --grad-card: var(--grad-card-challenge);
+@utility card-tint-warm {
+  --grad-card: var(--grad-card-warm);
 }
 
 /* ============================================================
- * SURFACES — soft, elevated, glassy
+ * SURFACES
  * ============================================================ */
 
 @utility card-soft {
@@ -766,11 +950,8 @@
 
 @utility glass-panel {
   border-radius: var(--radius-3xl);
-  background-image: var(--grad-card);
-  background-size: 180% 180%;
-  animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  opacity: 0.94;
-  backdrop-filter: blur(20px) saturate(140%);
+  background-color: color-mix(in oklab, var(--card) 78%, transparent);
+  backdrop-filter: blur(22px) saturate(150%);
   border: 1px solid color-mix(in oklab, var(--border) 90%, transparent);
   box-shadow: var(--elevation-2);
 }
@@ -778,7 +959,7 @@
 @utility big-cta {
   @apply shimmer-sweep;
   border-radius: var(--radius-3xl);
-  border: 1px solid color-mix(in oklab, var(--brand-gold) 55%, transparent);
+  border: 1px solid color-mix(in oklab, var(--brand-amber) 45%, transparent);
   color: white;
   box-shadow: var(--elevation-3);
   transition: var(--transition-hover);
@@ -794,10 +975,10 @@
 @utility chip {
   display: inline-flex;
   align-items: center;
-  gap: 0.4rem;
+  gap: 0.45rem;
   border-radius: var(--radius-full);
-  padding: 0.5rem 1rem;
-  font-size: 0.8125rem;
+  padding: 0.55rem 1.05rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   background-color: var(--secondary);
   color: var(--secondary-foreground);
@@ -817,11 +998,11 @@
   align-items: center;
   gap: 0.375rem;
   border-radius: var(--radius-full);
-  padding: 0.3125rem 0.75rem;
+  padding: 0.35rem 0.8rem;
   font-family: var(--font-sans);
   font-size: 0.6875rem;
   font-weight: 700;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
 }
 
@@ -829,7 +1010,40 @@
   border-radius: var(--radius-xl);
   background-color: color-mix(in oklab, var(--card) 80%, transparent);
   border: 1px solid var(--border);
-  padding: 1rem 1.25rem;
+  padding: 1.1rem 1.3rem;
+}
+
+/* Device chrome for product mockups. */
+@utility device-phone {
+  border-radius: 2.75rem;
+  border: 10px solid color-mix(in oklab, var(--brand-deep) 88%, black);
+  background-color: var(--background);
+  box-shadow: var(--elevation-4);
+  overflow: hidden;
+}
+
+@utility device-tablet {
+  border-radius: 2rem;
+  border: 12px solid color-mix(in oklab, var(--brand-deep) 88%, black);
+  background-color: var(--background);
+  box-shadow: var(--elevation-4);
+  overflow: hidden;
+}
+
+@utility device-desktop {
+  border-radius: 1.25rem;
+  border: 1px solid var(--border-strong);
+  background-color: var(--background);
+  box-shadow: var(--elevation-3);
+  overflow: hidden;
+}
+
+/* The scrollable screen inside a device frame. */
+@utility device-screen {
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--foreground) 22%, transparent) transparent;
 }
 
 @utility animate-float {
@@ -838,4 +1052,24 @@
 
 @utility animate-pop {
   animation: pop 0.4s var(--ease-editorial) both;
+}
+
+@utility animate-pulse-ring {
+  animation: pulse-ring 2.4s var(--ease-tide) infinite;
+}
+
+/* Skip link — visible only on keyboard focus. */
+@utility skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0.75rem;
+  z-index: 100;
+  &:focus {
+    left: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--radius-full);
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    box-shadow: var(--elevation-3);
+  }
 }
