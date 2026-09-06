@@ -12,12 +12,14 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as BuildRouteImport } from './routes/build'
 import { Route as BusyworkRouteImport } from './routes/busywork'
+import { Route as CaregiverRouteImport } from './routes/caregiver'
 import { Route as ChallengeRouteImport } from './routes/challenge'
 import { Route as CreateRouteImport } from './routes/create'
 import { Route as IdeasRouteImport } from './routes/ideas'
 import { Route as InspireRouteImport } from './routes/inspire'
 import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as MaterialsRouteImport } from './routes/materials'
+import { Route as NavigateRouteImport } from './routes/navigate'
 import { Route as RecentWorkRouteImport } from './routes/recent-work'
 import { Route as WorkspaceRouteImport } from './routes/workspace'
 
@@ -34,6 +36,11 @@ const BuildRoute = BuildRouteImport.update({
 const BusyworkRoute = BusyworkRouteImport.update({
   id: '/busywork',
   path: '/busywork',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CaregiverRoute = CaregiverRouteImport.update({
+  id: '/caregiver',
+  path: '/caregiver',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ChallengeRoute = ChallengeRouteImport.update({
@@ -66,6 +73,11 @@ const MaterialsRoute = MaterialsRouteImport.update({
   path: '/materials',
   getParentRoute: () => rootRouteImport,
 } as any)
+const NavigateRoute = NavigateRouteImport.update({
+  id: '/navigate',
+  path: '/navigate',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RecentWorkRoute = RecentWorkRouteImport.update({
   id: '/recent-work',
   path: '/recent-work',
@@ -81,12 +93,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/build': typeof BuildRoute
   '/busywork': typeof BusyworkRoute
+  '/caregiver': typeof CaregiverRoute
   '/challenge': typeof ChallengeRoute
   '/create': typeof CreateRoute
   '/ideas': typeof IdeasRoute
   '/inspire': typeof InspireRoute
   '/lessons': typeof LessonsRoute
   '/materials': typeof MaterialsRoute
+  '/navigate': typeof NavigateRoute
   '/recent-work': typeof RecentWorkRoute
   '/workspace': typeof WorkspaceRoute
 }
@@ -94,12 +108,14 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/build': typeof BuildRoute
   '/busywork': typeof BusyworkRoute
+  '/caregiver': typeof CaregiverRoute
   '/challenge': typeof ChallengeRoute
   '/create': typeof CreateRoute
   '/ideas': typeof IdeasRoute
   '/inspire': typeof InspireRoute
   '/lessons': typeof LessonsRoute
   '/materials': typeof MaterialsRoute
+  '/navigate': typeof NavigateRoute
   '/recent-work': typeof RecentWorkRoute
   '/workspace': typeof WorkspaceRoute
 }
@@ -108,12 +124,14 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/build': typeof BuildRoute
   '/busywork': typeof BusyworkRoute
+  '/caregiver': typeof CaregiverRoute
   '/challenge': typeof ChallengeRoute
   '/create': typeof CreateRoute
   '/ideas': typeof IdeasRoute
   '/inspire': typeof InspireRoute
   '/lessons': typeof LessonsRoute
   '/materials': typeof MaterialsRoute
+  '/navigate': typeof NavigateRoute
   '/recent-work': typeof RecentWorkRoute
   '/workspace': typeof WorkspaceRoute
 }
@@ -123,12 +141,14 @@ export interface FileRouteTypes {
     | '/'
     | '/build'
     | '/busywork'
+    | '/caregiver'
     | '/challenge'
     | '/create'
     | '/ideas'
     | '/inspire'
     | '/lessons'
     | '/materials'
+    | '/navigate'
     | '/recent-work'
     | '/workspace'
   fileRoutesByTo: FileRoutesByTo
@@ -136,12 +156,14 @@ export interface FileRouteTypes {
     | '/'
     | '/build'
     | '/busywork'
+    | '/caregiver'
     | '/challenge'
     | '/create'
     | '/ideas'
     | '/inspire'
     | '/lessons'
     | '/materials'
+    | '/navigate'
     | '/recent-work'
     | '/workspace'
   id:
@@ -149,12 +171,14 @@ export interface FileRouteTypes {
     | '/'
     | '/build'
     | '/busywork'
+    | '/caregiver'
     | '/challenge'
     | '/create'
     | '/ideas'
     | '/inspire'
     | '/lessons'
     | '/materials'
+    | '/navigate'
     | '/recent-work'
     | '/workspace'
   fileRoutesById: FileRoutesById
@@ -163,12 +187,14 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   BuildRoute: typeof BuildRoute
   BusyworkRoute: typeof BusyworkRoute
+  CaregiverRoute: typeof CaregiverRoute
   ChallengeRoute: typeof ChallengeRoute
   CreateRoute: typeof CreateRoute
   IdeasRoute: typeof IdeasRoute
   InspireRoute: typeof InspireRoute
   LessonsRoute: typeof LessonsRoute
   MaterialsRoute: typeof MaterialsRoute
+  NavigateRoute: typeof NavigateRoute
   RecentWorkRoute: typeof RecentWorkRoute
   WorkspaceRoute: typeof WorkspaceRoute
 }
@@ -194,6 +220,13 @@ declare module '@tanstack/react-router' {
       path: '/busywork'
       fullPath: '/busywork'
       preLoaderRoute: typeof BusyworkRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/caregiver': {
+      id: '/caregiver'
+      path: '/caregiver'
+      fullPath: '/caregiver'
+      preLoaderRoute: typeof CaregiverRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/challenge': {
@@ -238,6 +271,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MaterialsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/navigate': {
+      id: '/navigate'
+      path: '/navigate'
+      fullPath: '/navigate'
+      preLoaderRoute: typeof NavigateRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/recent-work': {
       id: '/recent-work'
       path: '/recent-work'
@@ -259,12 +299,14 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   BuildRoute: BuildRoute,
   BusyworkRoute: BusyworkRoute,
+  CaregiverRoute: CaregiverRoute,
   ChallengeRoute: ChallengeRoute,
   CreateRoute: CreateRoute,
   IdeasRoute: IdeasRoute,
   InspireRoute: InspireRoute,
   LessonsRoute: LessonsRoute,
   MaterialsRoute: MaterialsRoute,
+  NavigateRoute: NavigateRoute,
   RecentWorkRoute: RecentWorkRoute,
   WorkspaceRoute: WorkspaceRoute,
 }

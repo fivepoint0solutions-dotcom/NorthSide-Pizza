@@ -16,6 +16,7 @@ import { AppHeader } from "../components/navigation/AppHeader";
 import { AskTeachersPet } from "../components/copilot/AskTeachersPet";
 import { Toaster } from "../components/ui/sonner";
 import { LanguageProvider } from "../lib/i18n";
+import { FeatureFlagsProvider } from "../lib/settings/featureFlags";
 
 function NotFoundComponent() {
   return (
@@ -137,12 +138,14 @@ function RootComponent() {
   return (
     <QueryClientProvider client={queryClient}>
       <LanguageProvider>
-        <RefinedCursor />
-        <AppHeader />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <AskTeachersPet />
-        <Toaster position="bottom-right" />
+        <FeatureFlagsProvider>
+          <RefinedCursor />
+          <AppHeader />
+          {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+          <Outlet />
+          <AskTeachersPet />
+          <Toaster position="bottom-right" />
+        </FeatureFlagsProvider>
       </LanguageProvider>
     </QueryClientProvider>
   );
