@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { SAFETY_PRINCIPLES } from "@/lib/site/trust";
 import {
   CheckList,
@@ -13,16 +14,13 @@ import { Icon } from "@/components/site/Icon";
 import { SidekickAvatar } from "@/components/product/SidekickAvatar";
 
 export const Route = createFileRoute("/safety")({
-  head: () => ({
-    meta: [
-      { title: "Safety philosophy — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "What Senior Sidekick is, what it is not, and how it escalates. Not a medical device, not an emergency service, and honest about both.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/safety",
+      title: "Safety philosophy — Senior Sidekick",
+      description:
+        "What Senior Sidekick is, what it is not, and how it escalates. Not a medical device, not an emergency service, and honest about both.",
+    }),
   component: SafetyPage,
 });
 

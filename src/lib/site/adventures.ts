@@ -23,6 +23,8 @@ export interface AdventureBeat {
 
 export interface Adventure {
   slug: AdventureSlug;
+  /** English name, used where a translation function isn't available (metadata). */
+  englishName: string;
   nameKey: TranslationKey;
   taglineKey: TranslationKey;
   /** CSS custom property holding this adventure's gradient. */
@@ -46,6 +48,7 @@ export interface Adventure {
 export const ADVENTURES: Adventure[] = [
   {
     slug: "memory-lane",
+    englishName: "Memory Lane",
     nameKey: "adventure.memory.name",
     taglineKey: "adventure.memory.tagline",
     gradient: "var(--grad-memory)",
@@ -82,6 +85,7 @@ export const ADVENTURES: Adventure[] = [
   },
   {
     slug: "music",
+    englishName: "Music",
     nameKey: "adventure.music.name",
     taglineKey: "adventure.music.tagline",
     gradient: "var(--grad-music)",
@@ -117,6 +121,7 @@ export const ADVENTURES: Adventure[] = [
   },
   {
     slug: "explore",
+    englishName: "Explore",
     nameKey: "adventure.explore.name",
     taglineKey: "adventure.explore.tagline",
     gradient: "var(--grad-explore)",
@@ -152,6 +157,7 @@ export const ADVENTURES: Adventure[] = [
   },
   {
     slug: "games",
+    englishName: "Games",
     nameKey: "adventure.games.name",
     taglineKey: "adventure.games.tagline",
     gradient: "var(--grad-games)",
@@ -186,6 +192,7 @@ export const ADVENTURES: Adventure[] = [
   },
   {
     slug: "stories",
+    englishName: "Stories",
     nameKey: "adventure.stories.name",
     taglineKey: "adventure.stories.tagline",
     gradient: "var(--grad-stories)",
@@ -220,6 +227,7 @@ export const ADVENTURES: Adventure[] = [
   },
   {
     slug: "talk",
+    englishName: "Let's Talk",
     nameKey: "adventure.talk.name",
     taglineKey: "adventure.talk.tagline",
     gradient: "var(--grad-talk)",
@@ -253,6 +261,7 @@ export const ADVENTURES: Adventure[] = [
   },
   {
     slug: "family",
+    englishName: "Family",
     nameKey: "adventure.family.name",
     taglineKey: "adventure.family.tagline",
     gradient: "var(--grad-family)",

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { ACCESSIBILITY_COMMITMENTS } from "@/lib/site/trust";
 import { BRAND } from "@/lib/brand";
 import { useAccessibility } from "@/lib/accessibility";
@@ -15,16 +16,13 @@ import { Icon } from "@/components/site/Icon";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/accessibility")({
-  head: () => ({
-    meta: [
-      { title: "Accessibility — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "Accessibility as a product principle: large type by default, 7:1 contrast, 60px targets, voice-first input, screen reader support and calm motion. WCAG 2.2 AA as a floor.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/accessibility",
+      title: "Accessibility — Senior Sidekick",
+      description:
+        "Accessibility as a product principle: large type by default, 7:1 contrast, 60px targets, voice-first input, screen reader support and calm motion. WCAG 2.2 AA as a floor.",
+    }),
   component: AccessibilityPage,
 });
 

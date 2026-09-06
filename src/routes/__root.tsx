@@ -12,6 +12,7 @@ import { useEffect, type ReactNode } from "react";
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "../lib/i18n";
+import { organisationJsonLd, websiteJsonLd, SITE_URL } from "../lib/site/seo";
 import { AccessibilityProvider } from "../lib/accessibility";
 import { SiteHeader } from "../components/site/SiteHeader";
 import { SiteFooter } from "../components/site/SiteFooter";
@@ -101,12 +102,14 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { property: "og:title", content: "Senior Sidekick" },
       { property: "og:description", content: SITE_DESCRIPTION },
       { property: "og:type", content: "website" },
+      // og:locale:alternate is intentionally omitted: repeated meta properties
+      // collapse to one here, and hreflang alternates already declare the set.
       { property: "og:locale", content: "en_US" },
-      { property: "og:locale:alternate", content: "fr_FR" },
-      { property: "og:locale:alternate", content: "es_ES" },
-      { property: "og:locale:alternate", content: "hi_IN" },
       { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: `${SITE_URL}/brand/og-image.png` },
+      { name: "twitter:image", content: `${SITE_URL}/brand/og-image.png` },
       { name: "theme-color", content: "#1F7A7D" },
+      { name: "robots", content: "index, follow, max-image-preview:large" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
@@ -120,6 +123,9 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "icon", href: "/brand/sidekick-mark.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/brand/sidekick-mark.svg" },
     ],
+    // Site-wide structured data. Page-specific graphs (FAQ, offers) are
+    // declared by the routes that own them.
+    scripts: [organisationJsonLd(), websiteJsonLd()],
   }),
 
   shellComponent: RootShell,

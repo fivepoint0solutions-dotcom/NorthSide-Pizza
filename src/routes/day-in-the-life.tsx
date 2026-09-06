@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { useT } from "@/lib/i18n";
 import { CtaBand, PageHero, Section, SectionHeading } from "@/components/site/Primitives";
 import { DayTimeline } from "@/components/product/DayTimeline";
@@ -6,16 +7,13 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/site/Icon";
 
 export const Route = createFileRoute("/day-in-the-life")({
-  head: () => ({
-    meta: [
-      { title: "A day with Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "The same Tuesday from both sides: Margaret at home, and her daughter Clare four hundred miles away.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/day-in-the-life",
+      title: "A day with Senior Sidekick",
+      description:
+        "The same Tuesday from both sides: Margaret at home, and her daughter Clare four hundred miles away.",
+    }),
   component: DayPage,
 });
 

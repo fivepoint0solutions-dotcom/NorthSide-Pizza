@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { useT } from "@/lib/i18n";
 import { CAREGIVER_VALUE, CAREGIVER_DAY } from "@/lib/site/content";
 import { PERMISSIONS } from "@/lib/site/trust";
@@ -19,16 +20,13 @@ import { formatTime, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/families")({
-  head: () => ({
-    meta: [
-      { title: "For families & caregivers — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "A caregiver dashboard built to be impossible to mistake for surveillance: connection, visibility your parent granted, and only the notifications you asked for.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/families",
+      title: "For families & caregivers — Senior Sidekick",
+      description:
+        "A caregiver dashboard built to be impossible to mistake for surveillance: connection, visibility your parent granted, and only the notifications you asked for.",
+    }),
   component: FamiliesPage,
 });
 

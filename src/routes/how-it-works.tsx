@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { useT } from "@/lib/i18n";
 import { PRODUCT_JOURNEY } from "@/lib/site/content";
 import { MEMORY_SYSTEM, PERSONALISATION } from "@/lib/site/trust";
@@ -19,16 +20,13 @@ import { SeniorExperience } from "@/components/product/SeniorExperience";
 import { SidekickAvatar } from "@/components/product/SidekickAvatar";
 
 export const Route = createFileRoute("/how-it-works")({
-  head: () => ({
-    meta: [
-      { title: "How Senior Sidekick works — voice-first companionship" },
-      {
-        name: "description",
-        content:
-          "Say a sentence and something happens. How Senior Sidekick listens, remembers, personalises and grows — and what it deliberately never does.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/how-it-works",
+      title: "How Senior Sidekick works — voice-first companionship",
+      description:
+        "Say a sentence and something happens. How Senior Sidekick listens, remembers, personalises and grows — and what it deliberately never does.",
+    }),
   component: HowItWorksPage,
 });
 

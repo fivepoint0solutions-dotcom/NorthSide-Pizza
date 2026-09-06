@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { SUPPORT_CHANNELS } from "@/lib/site/knowledge";
 import { BRAND } from "@/lib/brand";
 import { LANGUAGES } from "@/lib/i18n";
@@ -13,16 +14,13 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/site/Icon";
 
 export const Route = createFileRoute("/support")({
-  head: () => ({
-    meta: [
-      { title: "Support & contact — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "A phone number answered by a person, seven days a week, in four languages — plus help articles, accessibility support and account help.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/support",
+      title: "Support & contact — Senior Sidekick",
+      description:
+        "A phone number answered by a person, seven days a week, in four languages — plus help articles, accessibility support and account help.",
+    }),
   component: SupportPage,
 });
 

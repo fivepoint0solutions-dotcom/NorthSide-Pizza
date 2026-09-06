@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { useT } from "@/lib/i18n";
 import { ADVENTURES } from "@/lib/site/adventures";
 import { SENIOR_VALUE } from "@/lib/site/content";
@@ -20,16 +21,13 @@ import { AdventureCard } from "@/components/adventures/AdventureCard";
 import { SidekickAvatar } from "@/components/product/SidekickAvatar";
 
 export const Route = createFileRoute("/seniors")({
-  head: () => ({
-    meta: [
-      { title: "For seniors — the Senior Sidekick experience" },
-      {
-        name: "description",
-        content:
-          "Huge controls, voice-first interaction, a personalised home screen and seven adventures. Built around independence and dignity, not supervision.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/seniors",
+      title: "For seniors — the Senior Sidekick experience",
+      description:
+        "Huge controls, voice-first interaction, a personalised home screen and seven adventures. Built around independence and dignity, not supervision.",
+    }),
   component: SeniorsPage,
 });
 

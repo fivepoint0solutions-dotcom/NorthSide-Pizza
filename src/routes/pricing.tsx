@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { productJsonLd, seoHead } from "@/lib/site/seo";
 import { PLANS, PRICING_NOTES } from "@/lib/site/plans";
 import { FAQ_GROUPS } from "@/lib/site/knowledge";
 import {
@@ -15,13 +16,20 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/pricing")({
   head: () => ({
-    meta: [
-      { title: "Plans & pricing — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "From $19 a month for one person, $29 for a family. Thirty days free, no card to start, and cancellation in one step.",
-      },
+    ...seoHead({
+      path: "/pricing",
+      title: "Plans & pricing — Senior Sidekick",
+      description:
+        "From $19 a month for one person, $29 for a family. Thirty days free, no card to start, and cancellation in one step.",
+    }),
+    scripts: [
+      productJsonLd(
+        PLANS.filter((plan) => plan.price.startsWith("$")).map((plan) => ({
+          name: plan.name,
+          price: plan.price,
+          description: plan.summary,
+        })),
+      ),
     ],
   }),
   component: PricingPage,

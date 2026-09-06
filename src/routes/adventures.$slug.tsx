@@ -1,4 +1,5 @@
 import { createFileRoute, notFound, Link } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { ADVENTURES, adventureBySlug } from "@/lib/site/adventures";
 import { useT } from "@/lib/i18n";
 import { Reveal } from "@/components/motion/Reveal";
@@ -13,6 +14,17 @@ export const Route = createFileRoute("/adventures/$slug")({
     const adventure = adventureBySlug(params.slug);
     if (!adventure) throw notFound();
     return { slug: adventure.slug };
+  },
+  head: ({ params }) => {
+    const adventure = adventureBySlug(params.slug);
+    if (!adventure) return {};
+    // The English name is used in metadata: search results are indexed per
+    // locale through the hreflang alternates, not by translating the title.
+    return seoHead({
+      path: `/adventures/${adventure.slug}`,
+      title: `${adventure.englishName} — a Senior Sidekick adventure`,
+      description: adventure.description.split(". ").slice(0, 2).join(". ") + ".",
+    });
   },
   component: AdventureDetailPage,
 });

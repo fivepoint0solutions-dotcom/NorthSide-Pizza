@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { SCENARIOS } from "@/lib/site/content";
 import { firstOf } from "@/lib/collections";
 import { CheckList, CtaBand, PageHero, Section } from "@/components/site/Primitives";
@@ -8,16 +9,13 @@ import { Icon } from "@/components/site/Icon";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/scenarios")({
-  head: () => ({
-    meta: [
-      { title: "Real-world situations — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "Living independently, long-distance families, busy caregivers, multilingual households, senior living communities — what Senior Sidekick does in each.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/scenarios",
+      title: "Real-world situations — Senior Sidekick",
+      description:
+        "Living independently, long-distance families, busy caregivers, multilingual households, senior living communities — what Senior Sidekick does in each.",
+    }),
   component: ScenariosPage,
 });
 

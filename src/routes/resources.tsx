@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { RESOURCES } from "@/lib/site/knowledge";
 import { CtaBand, PageHero, Section, SectionHeading } from "@/components/site/Primitives";
 import { Reveal } from "@/components/motion/Reveal";
@@ -7,16 +8,13 @@ import { Icon } from "@/components/site/Icon";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/resources")({
-  head: () => ({
-    meta: [
-      { title: "Resources — guides for families, caregivers and seniors" },
-      {
-        name: "description",
-        content:
-          "Practical guides on caregiving, family connection, memory preservation, accessible technology and multilingual households.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/resources",
+      title: "Resources — guides for families, caregivers and seniors",
+      description:
+        "Practical guides on caregiving, family connection, memory preservation, accessible technology and multilingual households.",
+    }),
   component: ResourcesPage,
 });
 

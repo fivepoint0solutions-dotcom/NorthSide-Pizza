@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { PERMISSIONS, PRIVACY_PRINCIPLES } from "@/lib/site/trust";
 import { BRAND } from "@/lib/brand";
 import {
@@ -14,16 +15,13 @@ import { Icon } from "@/components/site/Icon";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/privacy")({
-  head: () => ({
-    meta: [
-      { title: "Privacy — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "The senior owns their data, sharing is a decision every time, conversations are never a feed, and nothing is sold. In plain language.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/privacy",
+      title: "Privacy — Senior Sidekick",
+      description:
+        "The senior owns their data, sharing is a decision every time, conversations are never a feed, and nothing is sold. In plain language.",
+    }),
   component: PrivacyPage,
 });
 

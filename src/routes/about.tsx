@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { TRUST_PILLARS } from "@/lib/site/content";
 import { BRAND } from "@/lib/brand";
 import {
@@ -14,16 +15,13 @@ import { Icon } from "@/components/site/Icon";
 import { SidekickAvatar } from "@/components/product/SidekickAvatar";
 
 export const Route = createFileRoute("/about")({
-  head: () => ({
-    meta: [
-      { title: "About Senior Sidekick — why we built it" },
-      {
-        name: "description",
-        content:
-          "Why Senior Sidekick exists, what we believe about designing for older adults, and the principles we won't trade away.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/about",
+      title: "About Senior Sidekick — why we built it",
+      description:
+        "Why Senior Sidekick exists, what we believe about designing for older adults, and the principles we won't trade away.",
+    }),
   component: AboutPage,
 });
 

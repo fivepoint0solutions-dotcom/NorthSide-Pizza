@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { useT } from "@/lib/i18n";
 import { LEGACY_ARTIFACTS, MEMORY_SYSTEM } from "@/lib/site/trust";
 import {
@@ -14,16 +15,13 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/site/Icon";
 
 export const Route = createFileRoute("/memories")({
-  head: () => ({
-    meta: [
-      { title: "Memories & legacy — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "A memory system that turns daily conversation into a family archive: photos, stories in their own voice, people, places and dates — owned by the senior, kept by the family.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/memories",
+      title: "Memories & legacy — Senior Sidekick",
+      description:
+        "A memory system that turns daily conversation into a family archive: photos, stories in their own voice, people, places and dates — owned by the senior, kept by the family.",
+    }),
   component: MemoriesPage,
 });
 

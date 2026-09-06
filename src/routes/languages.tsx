@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { LANGUAGES, formatLongDate, useT, type LanguageCode } from "@/lib/i18n";
 import {
   CheckList,
@@ -16,16 +17,13 @@ import { Icon } from "@/components/site/Icon";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/languages")({
-  head: () => ({
-    meta: [
-      { title: "Languages & global localisation — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "English, French, Spanish and Hindi — localised in voice, conversation, activities, stories, dates and cultural references, not just menus.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/languages",
+      title: "Languages & global localisation — Senior Sidekick",
+      description:
+        "English, French, Spanish and Hindi — localised in voice, conversation, activities, stories, dates and cultural references, not just menus.",
+    }),
   component: LanguagesPage,
 });
 

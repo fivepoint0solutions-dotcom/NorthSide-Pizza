@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { PARTNER_TRACKS } from "@/lib/site/plans";
 import { BRAND } from "@/lib/brand";
 import {
@@ -12,16 +13,13 @@ import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/site/Icon";
 
 export const Route = createFileRoute("/partners")({
-  head: () => ({
-    meta: [
-      { title: "Partnerships — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "Senior living communities, care organisations, community groups and technology partners deploying Senior Sidekick — with residents holding the permissions.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/partners",
+      title: "Partnerships — Senior Sidekick",
+      description:
+        "Senior living communities, care organisations, community groups and technology partners deploying Senior Sidekick — with residents holding the permissions.",
+    }),
   component: PartnersPage,
 });
 

@@ -102,6 +102,22 @@ English key set, so a missing key is a compile error. Dates and times are format
 `Intl`, and the language picker states plainly that voice, activities and stories change with the
 language — not just the menus.
 
+## SEO & discoverability
+
+- Per-route title, description, canonical and Open Graph tags via `seoHead()` in
+  `src/lib/site/seo.ts` — one call per route, so metadata can't drift from the page.
+- `?lang=fr|es|hi` selects a language on load and is written into the URL when the picker is used,
+  which makes localised pages linkable, shareable and crawlable. Every route declares hreflang
+  alternates for all four languages plus `x-default`.
+- Structured data: Organization and WebSite site-wide, FAQPage on `/faq`, Product with offers on
+  `/pricing`.
+- `public/sitemap.xml` is regenerated on every build (`prebuild` → `scripts/generate-sitemap.mjs`)
+  from the routes that actually exist on disk plus the adventure slugs, with hreflang alternates per
+  URL. `robots.txt` points at it.
+- Social card: `public/brand/og-image.png`, authored in `scripts/og-image.html`. Re-render that file
+  at 1200×630 after any brand change (the committed PNG was rendered without the brand webfonts,
+  which this environment can't reach).
+
 ## Development
 
 ```sh

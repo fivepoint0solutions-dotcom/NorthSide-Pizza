@@ -1,17 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { BRAND } from "@/lib/brand";
 import { PageHero, Section, SecondaryAction } from "@/components/site/Primitives";
 
 export const Route = createFileRoute("/terms")({
-  head: () => ({
-    meta: [
-      { title: "Terms of service — Senior Sidekick" },
-      {
-        name: "description",
-        content: "The plain-language summary of the Senior Sidekick terms of service.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/terms",
+      title: "Terms of service — Senior Sidekick",
+      description: "The plain-language summary of the Senior Sidekick terms of service.",
+    }),
   component: TermsPage,
 });
 

@@ -1,5 +1,6 @@
 import { useMemo, useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { ADVENTURES } from "@/lib/site/adventures";
 import { PERMISSIONS } from "@/lib/site/trust";
 import { LANGUAGES, useLanguage, useT, type LanguageCode } from "@/lib/i18n";
@@ -9,16 +10,13 @@ import { Icon } from "@/components/site/Icon";
 import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/get-started")({
-  head: () => ({
-    meta: [
-      { title: "Get started — meet your Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "Eight short steps, about four minutes: who it's for, the language, the interests, the people and the permissions. Then the first conversation.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/get-started",
+      title: "Get started — meet your Senior Sidekick",
+      description:
+        "Eight short steps, about four minutes: who it's for, the language, the interests, the people and the permissions. Then the first conversation.",
+    }),
   component: GetStartedPage,
 });
 

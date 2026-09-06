@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { createFileRoute } from "@tanstack/react-router";
+import { faqJsonLd, seoHead } from "@/lib/site/seo";
 import { FAQ_GROUPS } from "@/lib/site/knowledge";
 import { firstOf } from "@/lib/collections";
 import {
@@ -14,14 +15,14 @@ import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/faq")({
   head: () => ({
-    meta: [
-      { title: "Frequently asked questions — Senior Sidekick" },
-      {
-        name: "description",
-        content:
-          "Answers for seniors, families, caregivers and organisations: privacy, safety, languages, plans and technology.",
-      },
-    ],
+    ...seoHead({
+      path: "/faq",
+      title: "Frequently asked questions — Senior Sidekick",
+      description:
+        "Answers for seniors, families, caregivers and organisations: privacy, safety, languages, plans and technology.",
+    }),
+    // Every answer on the page, offered to search as a FAQ graph.
+    scripts: [faqJsonLd(FAQ_GROUPS.flatMap((group) => group.items))],
   }),
   component: FaqPage,
 });

@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { useT } from "@/lib/i18n";
 import { ADVENTURES } from "@/lib/site/adventures";
 import { CtaBand, PageHero, Section, SectionHeading } from "@/components/site/Primitives";
@@ -9,16 +10,13 @@ import { Reveal } from "@/components/motion/Reveal";
 import { CheckList } from "@/components/site/Primitives";
 
 export const Route = createFileRoute("/adventures/")({
-  head: () => ({
-    meta: [
-      { title: "Adventures — the Senior Sidekick experience system" },
-      {
-        name: "description",
-        content:
-          "Memory Lane, Music, Explore, Games, Stories, Let's Talk and Family. Seven destinations, each opened by a sentence rather than a menu.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/adventures",
+      title: "Adventures — the Senior Sidekick experience system",
+      description:
+        "Memory Lane, Music, Explore, Games, Stories, Let's Talk and Family. Seven destinations, each opened by a sentence rather than a menu.",
+    }),
   component: AdventuresPage,
 });
 

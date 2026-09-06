@@ -33,11 +33,28 @@ export function translate(
   return raw.replace(/\{(\w+)\}/g, (match, name) => (name in vars ? String(vars[name]) : match));
 }
 
-function readStoredLanguage(): LanguageCode {
+/**
+ * Resolution order: an explicit `?lang=` in the URL, then the visitor's
+ * stored choice, then their browser. The URL wins so a localised page can be
+ * linked, shared and crawled — which is also what the hreflang alternates in
+ * `lib/site/seo.ts` point at.
+ */
+function readInitialLanguage(): LanguageCode {
   if (typeof window === "undefined") return DEFAULT_LANGUAGE;
+  const fromUrl = new URLSearchParams(window.location.search).get("lang");
+  if (fromUrl && isLanguageCode(fromUrl)) return fromUrl;
   const stored = window.localStorage.getItem(STORAGE_KEY);
   if (stored && isLanguageCode(stored)) return stored;
   return detectBrowserLanguage();
+}
+
+/** Keeps `?lang=` in step with the choice, without a navigation. */
+function syncLanguageParam(language: LanguageCode) {
+  if (typeof window === "undefined") return;
+  const url = new URL(window.location.href);
+  if (language === DEFAULT_LANGUAGE) url.searchParams.delete("lang");
+  else url.searchParams.set("lang", language);
+  window.history.replaceState(window.history.state, "", url);
 }
 
 interface LanguageContextValue {
@@ -53,7 +70,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
   const [language, setLanguageState] = useState<LanguageCode>(DEFAULT_LANGUAGE);
 
   useEffect(() => {
-    setLanguageState(readStoredLanguage());
+    setLanguageState(readInitialLanguage());
   }, []);
 
   // Keep the document in sync so screen readers announce content in the right
@@ -66,7 +83,13 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
 
   const setLanguage = useCallback((next: LanguageCode) => {
     setLanguageState(next);
-    if (typeof window !== "undefined") window.localStorage.setItem(STORAGE_KEY, next);
+    if (typeof window === "undefined") return;
+    try {
+      window.localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      /* private mode: the choice still applies, it just doesn't persist */
+    }
+    syncLanguageParam(next);
   }, []);
 
   const value = useMemo(() => ({ language, setLanguage }), [language, setLanguage]);

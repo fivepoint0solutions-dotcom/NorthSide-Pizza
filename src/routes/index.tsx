@@ -1,4 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { seoHead } from "@/lib/site/seo";
 import { useT } from "@/lib/i18n";
 import { Hero } from "@/components/home/Hero";
 import {
@@ -16,21 +17,13 @@ import {
 import { CtaBand } from "@/components/site/Primitives";
 
 export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Senior Sidekick — a companion for older adults, and peace of mind for families" },
-      {
-        name: "description",
-        content:
-          "A warm, voice-first companion for older adults: conversation, music, memories, games and family connection — with a caregiver experience families can trust. English, French, Spanish and Hindi.",
-      },
-      { property: "og:title", content: "Senior Sidekick" },
-      {
-        property: "og:description",
-        content: "The companion that learns how to be there for you.",
-      },
-    ],
-  }),
+  head: () =>
+    seoHead({
+      path: "/",
+      title: "Senior Sidekick — a companion for older adults, and peace of mind for families",
+      description:
+        "A warm, voice-first companion for older adults: conversation, music, memories, games and family connection — with a caregiver experience families can trust. English, French, Spanish and Hindi.",
+    }),
   component: HomePage,
 });
 
