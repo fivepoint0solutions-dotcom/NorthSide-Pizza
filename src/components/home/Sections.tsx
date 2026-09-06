@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { Fragment, useState } from "react";
 import { useT } from "@/lib/i18n";
 import { ADVENTURES } from "@/lib/site/adventures";
+import { PILLARS } from "@/lib/site/pillars";
 import {
   CAREGIVER_VALUE,
   COMPARISON,
@@ -99,6 +100,41 @@ export function MeetSection() {
 }
 
 /* ------------------------------------------------------------------ *
+ * The platform — the six things it actually does
+ * ------------------------------------------------------------------ */
+
+export function PlatformSection() {
+  return (
+    <Section id="platform">
+      <SectionHeading
+        eyebrow="Senior care & safety platform"
+        title="Six things, and the first three are about feeling safe."
+        lede="Companionship only works once someone knows where they are, who's around them, and that help is one tap away. Orientation and safety come first; calm and engagement follow."
+      />
+      <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {PILLARS.map((pillar, index) => (
+          <Reveal key={pillar.slug} delay={index * 60} className="h-full">
+            <article className="card-elevated flex h-full flex-col gap-3 p-6">
+              <span
+                className="gradient-motion inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-raised"
+                style={{ backgroundImage: pillar.gradient }}
+              >
+                <Icon name={pillar.icon} className="h-7 w-7" />
+              </span>
+              <h3 className="text-title text-foreground">{pillar.name}</h3>
+              <p className="text-body text-muted-foreground">{pillar.summary}</p>
+              <p className="text-caption font-display mt-auto pt-3 text-foreground/70 italic">
+                {pillar.invocation}
+              </p>
+            </article>
+          </Reveal>
+        ))}
+      </div>
+    </Section>
+  );
+}
+
+/* ------------------------------------------------------------------ *
  * The product, on both sides of the relationship
  * ------------------------------------------------------------------ */
 
@@ -133,7 +169,7 @@ export function ProductShowcase() {
             className={cn(
               "tap-target gap-2 rounded-full px-6 py-3 text-[0.9375rem] font-semibold transition-refined",
               view === option.id
-                ? "gradient-hero gradient-motion text-white"
+                ? "gradient-action gradient-motion text-white"
                 : "text-muted-foreground",
             )}
           >
@@ -192,7 +228,7 @@ export function ProductShowcase() {
                   "Photos, songs, quizzes and calls, sent in seconds",
                   "Permissions set by the senior and visible to everyone",
                   "Only the notifications you asked for",
-                  "No location tracking. No health monitoring. No scores.",
+                  "Location shared only if they said so. No health monitoring. No scores.",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
                     <Icon name="check" className="mt-1 h-5 w-5 shrink-0 text-primary" />
@@ -365,7 +401,7 @@ export function WhySection() {
           <div className="bg-muted/60 px-5 py-4 lg:px-8">
             <h3 className="text-title text-muted-foreground">{t("why.traditional")}</h3>
           </div>
-          <div className="gradient-hero gradient-motion px-5 py-4 lg:px-8">
+          <div className="gradient-action gradient-motion px-5 py-4 lg:px-8">
             <h3 className="text-title text-white">{t("why.sidekick")}</h3>
           </div>
           {/* Rendered as a flat sequence of cells so the two columns stay

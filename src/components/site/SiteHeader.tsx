@@ -4,6 +4,7 @@ import { PRIMARY_NAV } from "@/lib/site/navigation";
 import { useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { SidekickLogo } from "@/components/brand/SidekickLogo";
+import { FeatherMark } from "@/components/brand/FeatherMark";
 import { LanguagePicker } from "./LanguagePicker";
 import { AccessibilityMenu } from "./AccessibilityMenu";
 import { Icon } from "./Icon";
@@ -51,8 +52,9 @@ export function SiteHeader() {
         )}
       >
         <div className="container-wide flex h-20 items-center justify-between gap-4">
+          <FeatherMark className="hidden h-9 w-9 opacity-80 lg:block" />
           <Link to="/" className="shrink-0" aria-label="Senior Sidekick — home">
-            <SidekickLogo markClassName="h-9 w-9" />
+            <SidekickLogo variant="wordmark" />
           </Link>
 
           {/* nav-desktop / nav-toggle are swapped by CSS at the largest text
@@ -82,10 +84,11 @@ export function SiteHeader() {
             <LanguagePicker className="hidden sm:inline-flex" />
             <Link
               to="/get-started"
-              className="tap-target gradient-hero gradient-motion hidden rounded-full px-6 py-3 text-[0.9375rem] font-semibold whitespace-nowrap text-white shadow-raised transition-refined hover:-translate-y-0.5 lg:inline-flex"
+              className="tap-target gradient-action gradient-motion hidden rounded-full px-6 py-3 text-[0.9375rem] font-semibold whitespace-nowrap text-white shadow-raised transition-refined hover:-translate-y-0.5 lg:inline-flex"
             >
               {t("nav.getStarted")}
             </Link>
+            <FeatherMark flip className="hidden h-9 w-9 opacity-80 lg:block" />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
@@ -118,7 +121,7 @@ export function SiteHeader() {
             ))}
             <Link
               to="/get-started"
-              className="tap-target gradient-hero gradient-motion mt-3 rounded-2xl px-5 py-4 text-lg font-semibold text-white"
+              className="tap-target gradient-action gradient-motion mt-3 rounded-2xl px-5 py-4 text-lg font-semibold text-white"
             >
               {t("nav.getStarted")}
             </Link>

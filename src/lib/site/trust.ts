@@ -81,6 +81,11 @@ export const SAFETY_PRINCIPLES: Principle[] = [
     icon: "shield-alert",
   },
   {
+    title: "Help, not surveillance",
+    body: "Location safety and emergency help exist for the person using them: Sidekick always answers “where am I?” to them. Whether a caregiver also sees it is theirs to decide, and there is no silent watching either way.",
+    icon: "map-pin",
+  },
+  {
     title: "Never a substitute for a visit",
     body: "The product is measured on whether human contact goes up. If a companion becomes a reason to visit less, it has failed at its job.",
     icon: "users",
@@ -98,7 +103,7 @@ export const PERMISSIONS: PermissionRow[] = [
   {
     what: "That they're up and using Sidekick today",
     familyDefault: "always",
-    detail: "A presence signal only — no times, no locations, no detail.",
+    detail: "A presence signal — that the day has started. Not a timeline of it.",
   },
   {
     what: "Photos and messages the family sent",
@@ -136,9 +141,16 @@ export const PERMISSIONS: PermissionRow[] = [
     detail: "No transcripts, no summaries, no exceptions. Not available to families, staff or us.",
   },
   {
-    what: "Location and movement tracking",
+    what: "Where they are right now",
+    familyDefault: "with-permission",
+    detail:
+      "Orientation is a core feature — Sidekick always tells the senior where they are. Whether a caregiver can also see it is the senior's decision, shown on their own screen and revocable by saying so.",
+  },
+  {
+    what: "A history of everywhere they've been",
     familyDefault: "never",
-    detail: "Senior Sidekick does not track location. There is no setting to enable it.",
+    detail:
+      "Location is answered in the moment — “you are at home”, “here's the way back”. No movement history is kept for anyone to scroll.",
   },
   {
     what: "Game scores and cognitive performance",

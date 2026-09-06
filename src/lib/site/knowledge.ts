@@ -60,7 +60,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
       },
       {
         q: "Will it tell me if something's wrong?",
-        a: "Only within the escalation plan agreed during setup. Senior Sidekick is not a monitoring or alerting system, and does not track location or health data. What it can do is contact a named person when a conversation suggests distress, if the senior has asked it to.",
+        a: "Within the escalation plan agreed during setup. Sidekick can call a named person when help is requested, or when a conversation suggests distress, and can share where they are if the senior has agreed to that. What it will not do is watch continuously: there is no movement history, no health monitoring and no fall detection.",
       },
     ],
   },
@@ -75,6 +75,10 @@ export const FAQ_GROUPS: FaqGroup[] = [
       {
         q: "Is anything sold or used for advertising?",
         a: "No. There is no advertising, no data brokerage and no third-party profiling. Subscriptions are the entire business model.",
+      },
+      {
+        q: "Does it know where they are?",
+        a: "Yes — that is one of the things it is for. It answers “where am I?” plainly, gives directions to saved places, and can walk someone home. Whether a family member can also see their location is a separate, explicit permission the senior sets and can revoke by saying so.",
       },
       {
         q: "Is it a medical device?",

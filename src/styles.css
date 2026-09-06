@@ -44,8 +44,8 @@
   --radius-4xl: 2.75rem;
   --radius-full: 9999px;
 
-  --font-display: "Outfit", "Plus Jakarta Sans", "Helvetica Neue", Arial, sans-serif;
-  --font-sans: "Plus Jakarta Sans", "Outfit", "Helvetica Neue", Arial, sans-serif;
+  --font-display: "Playfair Display", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Poppins", "Helvetica Neue", Arial, sans-serif;
 
   --spacing-gutter: 1.5rem;
   --spacing-section: 4.5rem;
@@ -179,161 +179,169 @@
    * NOTE: pending confirmation against srsidekick.org. Swap these six
    * values (and the two font families above) to lock the reference brand.
    */
-  --brand-teal: oklch(0.5 0.088 195); /* ~#1F7A7D — primary, trustworthy */
-  --brand-deep: oklch(0.34 0.068 215); /* ~#134A5C — depth, headers, night */
-  --brand-amber: oklch(0.81 0.128 76); /* ~#EDAB44 — warmth, accent, sun */
-  --brand-coral: oklch(0.69 0.142 40); /* ~#E58A62 — human, invitation */
-  --brand-plum: oklch(0.5 0.11 320); /* ~#8B5090 — memory, story, evening */
-  --brand-ink: oklch(0.27 0.024 235); /* warm-cool ink for text */
-  --brand-cream: oklch(0.975 0.014 85); /* warm ivory paper */
+  /* Extracted from srsidekick.org: a pearl ground, rose→blue gradients on
+     every surface, amber borders, and a serif voice. */
+  --brand-rose: oklch(0.62 0.088 5); /* ~#C0708A — the signature rose */
+  --brand-rose-deep: oklch(0.52 0.098 2); /* ~#A85C77 — pressed / text on pearl */
+  --brand-blue: oklch(0.6 0.072 265); /* ~#6C86B4 — slate blue */
+  --brand-blue-deep: oklch(0.47 0.082 265); /* ~#4F6B99 */
+  --brand-lavender: oklch(0.6 0.072 305); /* ~#8B7BA8 — the card middle */
+  --brand-lavender-deep: oklch(0.47 0.086 305); /* ~#6A5A85 — for text-bearing surfaces */
+  --brand-teal: oklch(0.62 0.052 235); /* ~#5E8CA6 — Help / calm cards */
+  --brand-amber: oklch(0.71 0.115 65); /* ~#D8933F — borders and accents */
+  --brand-ink: oklch(0.26 0.028 265); /* ~#1B2430 — navy-black */
+  --brand-pearl: oklch(0.98 0.008 70); /* ~#FAF6F0 — warm pearl ground */
 
-  --radius: 1rem;
+  --radius: 1.5rem;
 
   /* ============================================================
    * 2. SIGNATURE GRADIENTS
    * ============================================================ */
   --grad-hero: linear-gradient(
     118deg,
-    color-mix(in oklab, var(--brand-teal) 90%, black) 0%,
-    var(--brand-teal) 30%,
-    var(--brand-plum) 62%,
-    var(--brand-coral) 88%,
-    var(--brand-amber) 100%
+    var(--brand-rose) 0%,
+    var(--brand-lavender) 48%,
+    var(--brand-blue) 100%
   );
-  --grad-sunrise: linear-gradient(
-    120deg,
-    var(--brand-amber),
-    var(--brand-coral) 65%,
-    var(--brand-plum)
+  --grad-sunrise: linear-gradient(120deg, var(--brand-amber), var(--brand-rose) 70%);
+  /* The same ramp, dropped far enough for white text to clear 4.5:1 on every
+     stop. Used by anything that carries a label. */
+  --grad-action: linear-gradient(
+    118deg,
+    var(--brand-rose-deep) 0%,
+    var(--brand-lavender-deep) 50%,
+    var(--brand-blue-deep) 100%
   );
   --grad-calm: linear-gradient(
     120deg,
-    var(--brand-deep),
-    var(--brand-teal) 60%,
-    var(--brand-amber)
+    var(--brand-blue-deep),
+    var(--brand-lavender) 55%,
+    var(--brand-rose)
   );
 
-  /* Adventure gradients — each experience owns a colour story. */
-  --grad-memory: linear-gradient(125deg, #8b5090, #b06a86 48%, #edab44 100%);
-  --grad-music: linear-gradient(125deg, #1f7a7d, #4f7fa8 45%, #8b5090 100%);
-  --grad-explore: linear-gradient(125deg, #134a5c, #1f7a7d 50%, #6fae86 100%);
-  --grad-games: linear-gradient(125deg, #edab44, #e58a62 55%, #d2646b 100%);
-  --grad-stories: linear-gradient(125deg, #6b4a8f, #a4608a 50%, #e58a62 100%);
-  --grad-talk: linear-gradient(125deg, #1f7a7d, #58a08a 50%, #edab44 100%);
-  --grad-family: linear-gradient(125deg, #e58a62, #edab44 50%, #6fae86 100%);
+  /* Adventure gradients — the app's card colours, one story each. */
+  --grad-memory: linear-gradient(125deg, #a85c77, #8b7ba8 55%, #6c86b4 100%);
+  --grad-music: linear-gradient(125deg, #6c86b4, #8b7ba8 50%, #c0708a 100%);
+  --grad-explore: linear-gradient(125deg, #4f6b99, #5e8ca6 55%, #8b7ba8 100%);
+  --grad-games: linear-gradient(125deg, #d8933f, #c88a5e 55%, #c0708a 100%);
+  --grad-stories: linear-gradient(125deg, #8b7ba8, #a85c77 55%, #d8933f 100%);
+  --grad-talk: linear-gradient(125deg, #5e8ca6, #8b7ba8 55%, #c0708a 100%);
+  --grad-family: linear-gradient(125deg, #c0708a, #d8933f 60%, #8b7ba8 100%);
 
   /* The living ambient wash behind every page. */
   --grad-ambient:
     radial-gradient(
-      58% 52% at 12% 8%,
-      color-mix(in oklab, var(--brand-amber) 30%, transparent),
+      54% 48% at 10% 6%,
+      color-mix(in oklab, var(--brand-rose) 24%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      50% 46% at 90% 10%,
+      color-mix(in oklab, var(--brand-blue) 22%, transparent),
+      transparent 70%
+    ),
+    radial-gradient(
+      58% 52% at 14% 94%,
+      color-mix(in oklab, var(--brand-lavender) 20%, transparent),
       transparent 72%
     ),
     radial-gradient(
-      52% 48% at 88% 12%,
-      color-mix(in oklab, var(--brand-teal) 26%, transparent),
+      50% 50% at 92% 90%,
+      color-mix(in oklab, var(--brand-amber) 20%, transparent),
       transparent 72%
-    ),
-    radial-gradient(
-      62% 56% at 16% 92%,
-      color-mix(in oklab, var(--brand-plum) 22%, transparent),
-      transparent 74%
-    ),
-    radial-gradient(
-      52% 52% at 92% 88%,
-      color-mix(in oklab, var(--brand-coral) 24%, transparent),
-      transparent 74%
     );
 
   /* ============================================================
    * 3. SEMANTIC ROLES — light
    * ============================================================ */
-  --background: var(--brand-cream);
+  --background: var(--brand-pearl);
   --foreground: var(--brand-ink);
 
-  --surface: color-mix(in oklab, var(--brand-cream) 84%, var(--brand-amber) 9%);
+  --surface: color-mix(in oklab, var(--brand-pearl) 84%, var(--brand-amber) 9%);
   --surface-foreground: var(--brand-ink);
-  --card: color-mix(in oklab, var(--brand-cream) 80%, var(--brand-amber) 10%);
+  --card: color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-amber) 10%);
   --card-foreground: var(--brand-ink);
-  --popover: color-mix(in oklab, var(--brand-cream) 90%, var(--brand-amber) 6%);
+  --popover: color-mix(in oklab, var(--brand-pearl) 90%, var(--brand-amber) 6%);
   --popover-foreground: var(--brand-ink);
 
   --grad-card: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-cream) 76%, var(--brand-amber) 15%),
-    color-mix(in oklab, var(--brand-cream) 80%, var(--brand-coral) 11%) 55%,
-    color-mix(in oklab, var(--brand-cream) 78%, var(--brand-teal) 12%) 100%
+    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-rose) 12%),
+    color-mix(in oklab, var(--brand-pearl) 84%, var(--brand-lavender) 10%) 55%,
+    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-blue) 12%) 100%
   );
   --grad-card-memory: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-cream) 74%, var(--brand-plum) 17%),
-    color-mix(in oklab, var(--brand-cream) 78%, var(--brand-amber) 15%) 100%
+    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-lavender) 16%),
+    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-rose) 14%) 100%
   );
   --grad-card-cool: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-cream) 74%, var(--brand-teal) 17%),
-    color-mix(in oklab, var(--brand-cream) 80%, var(--brand-deep) 10%) 100%
+    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-blue) 16%),
+    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-teal) 12%) 100%
   );
   --grad-card-warm: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-cream) 72%, var(--brand-amber) 20%),
-    color-mix(in oklab, var(--brand-cream) 78%, var(--brand-coral) 16%) 100%
+    color-mix(in oklab, var(--brand-pearl) 76%, var(--brand-amber) 18%),
+    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-rose) 14%) 100%
   );
 
-  --primary: var(--brand-teal);
+  --primary: var(--brand-rose-deep);
   --primary-foreground: white;
 
-  --secondary: color-mix(in oklab, var(--brand-cream) 82%, var(--brand-teal) 12%);
-  --secondary-foreground: var(--brand-deep);
+  --secondary: color-mix(in oklab, var(--brand-pearl) 84%, var(--brand-rose) 12%);
+  --secondary-foreground: var(--brand-blue-deep);
 
-  --muted: color-mix(in oklab, var(--brand-cream) 88%, var(--brand-ink) 8%);
-  --muted-foreground: color-mix(in oklab, var(--brand-ink) 62%, var(--brand-cream));
+  --muted: color-mix(in oklab, var(--brand-pearl) 88%, var(--brand-ink) 8%);
+  --muted-foreground: color-mix(in oklab, var(--brand-ink) 62%, var(--brand-pearl));
 
   --accent: var(--brand-amber);
   --accent-foreground: var(--brand-ink);
 
-  --interactive: var(--brand-teal);
+  --interactive: var(--brand-blue-deep);
   --interactive-foreground: white;
 
-  --highlight: var(--brand-coral);
-  --highlight-foreground: var(--brand-ink);
+  --highlight: var(--brand-teal);
+  --highlight-foreground: white;
 
   --destructive: oklch(0.55 0.19 27);
   --destructive-foreground: white;
   --success: oklch(0.6 0.11 155);
   --success-foreground: white;
 
-  --border: color-mix(in oklab, var(--brand-teal) 14%, var(--brand-ink) 7%);
-  --border-strong: color-mix(in oklab, var(--brand-teal) 30%, var(--brand-ink) 16%);
+  /* The reference site draws a visible contrasting edge on every surface,
+     so borders here are amber rather than a neutral hairline. */
+  --border: color-mix(in oklab, var(--brand-amber) 34%, transparent);
+  --border-strong: color-mix(in oklab, var(--brand-amber) 72%, transparent);
   --input: color-mix(in oklab, var(--brand-ink) 16%, transparent);
-  --ring: var(--brand-teal);
+  --ring: var(--brand-rose-deep);
 
-  --chart-1: var(--brand-teal);
-  --chart-2: var(--brand-amber);
-  --chart-3: var(--brand-coral);
-  --chart-4: var(--brand-plum);
-  --chart-5: var(--brand-deep);
+  --chart-1: var(--brand-rose);
+  --chart-2: var(--brand-blue);
+  --chart-3: var(--brand-amber);
+  --chart-4: var(--brand-lavender);
+  --chart-5: var(--brand-teal);
 
-  --sidebar: color-mix(in oklab, var(--brand-cream) 86%, var(--brand-teal) 8%);
+  --sidebar: color-mix(in oklab, var(--brand-pearl) 86%, var(--brand-teal) 8%);
   --sidebar-foreground: var(--brand-ink);
   --sidebar-primary: var(--brand-teal);
   --sidebar-primary-foreground: white;
-  --sidebar-accent: color-mix(in oklab, var(--brand-cream) 84%, var(--brand-teal) 12%);
-  --sidebar-accent-foreground: var(--brand-deep);
+  --sidebar-accent: color-mix(in oklab, var(--brand-pearl) 84%, var(--brand-teal) 12%);
+  --sidebar-accent-foreground: var(--brand-blue-deep);
   --sidebar-border: color-mix(in oklab, var(--brand-teal) 14%, transparent);
   --sidebar-ring: var(--brand-teal);
 
   /* ============================================================
    * 4. ELEVATION — soft, colour-tinted, never grey
    * ============================================================ */
-  --elevation-1: 0 1px 2px color-mix(in oklab, var(--brand-deep) 10%, transparent);
+  --elevation-1: 0 1px 2px color-mix(in oklab, var(--brand-blue-deep) 10%, transparent);
   --elevation-2:
-    0 3px 10px color-mix(in oklab, var(--brand-deep) 10%, transparent),
-    0 12px 28px -16px color-mix(in oklab, var(--brand-deep) 26%, transparent);
+    0 3px 10px color-mix(in oklab, var(--brand-blue-deep) 10%, transparent),
+    0 12px 28px -16px color-mix(in oklab, var(--brand-blue-deep) 26%, transparent);
   --elevation-3:
-    0 8px 24px color-mix(in oklab, var(--brand-deep) 14%, transparent),
-    0 32px 64px -30px color-mix(in oklab, var(--brand-deep) 34%, transparent);
-  --elevation-4: 0 44px 96px -34px color-mix(in oklab, var(--brand-deep) 44%, transparent);
+    0 8px 24px color-mix(in oklab, var(--brand-blue-deep) 14%, transparent),
+    0 32px 64px -30px color-mix(in oklab, var(--brand-blue-deep) 34%, transparent);
+  --elevation-4: 0 44px 96px -34px color-mix(in oklab, var(--brand-blue-deep) 44%, transparent);
   --glow-accent:
     0 0 0 1px color-mix(in oklab, var(--brand-amber) 45%, transparent),
     0 10px 40px -12px color-mix(in oklab, var(--brand-amber) 60%, transparent);
@@ -368,68 +376,68 @@
 }
 
 .dark {
-  --background: color-mix(in oklab, var(--brand-deep) 62%, black);
-  --foreground: color-mix(in oklab, var(--brand-cream) 96%, white);
+  --background: color-mix(in oklab, var(--brand-blue-deep) 62%, black);
+  --foreground: color-mix(in oklab, var(--brand-pearl) 96%, white);
 
-  --surface: color-mix(in oklab, var(--brand-deep) 52%, black);
-  --surface-foreground: var(--brand-cream);
-  --card: color-mix(in oklab, var(--brand-deep) 48%, black);
-  --card-foreground: var(--brand-cream);
-  --popover: color-mix(in oklab, var(--brand-deep) 44%, black);
-  --popover-foreground: var(--brand-cream);
+  --surface: color-mix(in oklab, var(--brand-blue-deep) 52%, black);
+  --surface-foreground: var(--brand-pearl);
+  --card: color-mix(in oklab, var(--brand-blue-deep) 48%, black);
+  --card-foreground: var(--brand-pearl);
+  --popover: color-mix(in oklab, var(--brand-blue-deep) 44%, black);
+  --popover-foreground: var(--brand-pearl);
 
   --grad-card: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-deep) 48%, black),
-    color-mix(in oklab, var(--brand-plum) 22%, black) 55%,
+    color-mix(in oklab, var(--brand-blue-deep) 48%, black),
+    color-mix(in oklab, var(--brand-lavender) 22%, black) 55%,
     color-mix(in oklab, var(--brand-teal) 22%, black) 100%
   );
   --grad-card-memory: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-plum) 30%, black),
-    color-mix(in oklab, var(--brand-deep) 44%, black) 100%
+    color-mix(in oklab, var(--brand-lavender) 30%, black),
+    color-mix(in oklab, var(--brand-blue-deep) 44%, black) 100%
   );
   --grad-card-cool: linear-gradient(
     140deg,
     color-mix(in oklab, var(--brand-teal) 26%, black),
-    color-mix(in oklab, var(--brand-deep) 50%, black) 100%
+    color-mix(in oklab, var(--brand-blue-deep) 50%, black) 100%
   );
   --grad-card-warm: linear-gradient(
     140deg,
     color-mix(in oklab, var(--brand-amber) 24%, black),
-    color-mix(in oklab, var(--brand-coral) 22%, black) 100%
+    color-mix(in oklab, var(--brand-rose) 22%, black) 100%
   );
 
   --primary: color-mix(in oklab, var(--brand-teal) 74%, white);
-  --primary-foreground: color-mix(in oklab, var(--brand-deep) 80%, black);
+  --primary-foreground: color-mix(in oklab, var(--brand-blue-deep) 80%, black);
 
-  --secondary: color-mix(in oklab, var(--brand-deep) 40%, var(--brand-teal) 18%);
-  --secondary-foreground: var(--brand-cream);
+  --secondary: color-mix(in oklab, var(--brand-blue-deep) 40%, var(--brand-teal) 18%);
+  --secondary-foreground: var(--brand-pearl);
 
-  --muted: color-mix(in oklab, var(--brand-deep) 56%, black);
-  --muted-foreground: color-mix(in oklab, var(--brand-cream) 68%, var(--brand-deep));
+  --muted: color-mix(in oklab, var(--brand-blue-deep) 56%, black);
+  --muted-foreground: color-mix(in oklab, var(--brand-pearl) 68%, var(--brand-blue-deep));
 
   --accent: var(--brand-amber);
-  --accent-foreground: color-mix(in oklab, var(--brand-deep) 80%, black);
+  --accent-foreground: color-mix(in oklab, var(--brand-blue-deep) 80%, black);
 
   --interactive: color-mix(in oklab, var(--brand-teal) 76%, white);
-  --interactive-foreground: color-mix(in oklab, var(--brand-deep) 82%, black);
+  --interactive-foreground: color-mix(in oklab, var(--brand-blue-deep) 82%, black);
 
-  --highlight: var(--brand-coral);
-  --highlight-foreground: color-mix(in oklab, var(--brand-deep) 80%, black);
+  --highlight: var(--brand-rose);
+  --highlight-foreground: color-mix(in oklab, var(--brand-blue-deep) 80%, black);
 
-  --border: color-mix(in oklab, var(--brand-cream) 16%, transparent);
-  --border-strong: color-mix(in oklab, var(--brand-cream) 32%, transparent);
-  --input: color-mix(in oklab, var(--brand-cream) 20%, transparent);
+  --border: color-mix(in oklab, var(--brand-pearl) 16%, transparent);
+  --border-strong: color-mix(in oklab, var(--brand-pearl) 32%, transparent);
+  --input: color-mix(in oklab, var(--brand-pearl) 20%, transparent);
   --ring: color-mix(in oklab, var(--brand-teal) 72%, white);
 
-  --sidebar: color-mix(in oklab, var(--brand-deep) 58%, black);
-  --sidebar-foreground: var(--brand-cream);
+  --sidebar: color-mix(in oklab, var(--brand-blue-deep) 58%, black);
+  --sidebar-foreground: var(--brand-pearl);
   --sidebar-primary: color-mix(in oklab, var(--brand-teal) 74%, white);
-  --sidebar-primary-foreground: color-mix(in oklab, var(--brand-deep) 80%, black);
-  --sidebar-accent: color-mix(in oklab, var(--brand-deep) 42%, var(--brand-teal) 16%);
-  --sidebar-accent-foreground: var(--brand-cream);
-  --sidebar-border: color-mix(in oklab, var(--brand-cream) 14%, transparent);
+  --sidebar-primary-foreground: color-mix(in oklab, var(--brand-blue-deep) 80%, black);
+  --sidebar-accent: color-mix(in oklab, var(--brand-blue-deep) 42%, var(--brand-teal) 16%);
+  --sidebar-accent-foreground: var(--brand-pearl);
+  --sidebar-border: color-mix(in oklab, var(--brand-pearl) 14%, transparent);
   --sidebar-ring: color-mix(in oklab, var(--brand-teal) 72%, white);
 
   --elevation-1: 0 1px 2px oklch(0 0 0 / 34%);
@@ -619,17 +627,17 @@ html[data-motion="reduced"] .parallax-layer {
 @utility text-display {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(2.6rem, 6.2vw, 4.75rem);
-  line-height: 1.02;
-  letter-spacing: -0.032em;
+  font-size: clamp(2.5rem, 5.8vw, 4.5rem);
+  line-height: 1.06;
+  letter-spacing: -0.018em;
 }
 
 @utility text-headline {
   font-family: var(--font-display);
   font-weight: 700;
-  font-size: clamp(1.85rem, 3.8vw, 3rem);
-  line-height: 1.08;
-  letter-spacing: -0.024em;
+  font-size: clamp(1.85rem, 3.8vw, 2.9rem);
+  line-height: 1.12;
+  letter-spacing: -0.014em;
 }
 
 @utility text-subhead {
@@ -900,6 +908,9 @@ html[data-motion="reduced"] .parallax-layer {
 @utility gradient-hero {
   background-image: var(--grad-hero);
 }
+@utility gradient-action {
+  background-image: var(--grad-action);
+}
 @utility gradient-sunrise {
   background-image: var(--grad-sunrise);
 }
@@ -928,7 +939,7 @@ html[data-motion="reduced"] .parallax-layer {
   background-image: var(--grad-card);
   background-size: 180% 180%;
   animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   box-shadow: var(--elevation-1);
   transition: var(--transition-hover);
 }
@@ -939,7 +950,7 @@ html[data-motion="reduced"] .parallax-layer {
   background-image: var(--grad-card);
   background-size: 180% 180%;
   animation: gradient-flow var(--duration-gradient-soft) ease-in-out infinite;
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   box-shadow: var(--elevation-2);
   transition: var(--transition-hover);
   &:hover {
@@ -959,7 +970,7 @@ html[data-motion="reduced"] .parallax-layer {
 @utility big-cta {
   @apply shimmer-sweep;
   border-radius: var(--radius-3xl);
-  border: 1px solid color-mix(in oklab, var(--brand-amber) 45%, transparent);
+  border: 2px solid color-mix(in oklab, var(--brand-amber) 60%, transparent);
   color: white;
   box-shadow: var(--elevation-3);
   transition: var(--transition-hover);
@@ -982,7 +993,7 @@ html[data-motion="reduced"] .parallax-layer {
   font-weight: 600;
   background-color: var(--secondary);
   color: var(--secondary-foreground);
-  border: 1px solid var(--border);
+  border: 2px solid var(--border);
   transition: var(--transition-hover);
   cursor: pointer;
   white-space: nowrap;
@@ -1016,7 +1027,7 @@ html[data-motion="reduced"] .parallax-layer {
 /* Device chrome for product mockups. */
 @utility device-phone {
   border-radius: 2.75rem;
-  border: 10px solid color-mix(in oklab, var(--brand-deep) 88%, black);
+  border: 10px solid color-mix(in oklab, var(--brand-blue-deep) 88%, black);
   background-color: var(--background);
   box-shadow: var(--elevation-4);
   overflow: hidden;
@@ -1024,7 +1035,7 @@ html[data-motion="reduced"] .parallax-layer {
 
 @utility device-tablet {
   border-radius: 2rem;
-  border: 12px solid color-mix(in oklab, var(--brand-deep) 88%, black);
+  border: 12px solid color-mix(in oklab, var(--brand-blue-deep) 88%, black);
   background-color: var(--background);
   box-shadow: var(--elevation-4);
   overflow: hidden;
@@ -1036,6 +1047,16 @@ html[data-motion="reduced"] .parallax-layer {
   background-color: var(--background);
   box-shadow: var(--elevation-3);
   overflow: hidden;
+}
+
+/* Words painted in the brand ramp — the reference site's signature headline
+   treatment ("Good Morning, My Beautiful Mother"). */
+@utility text-gradient {
+  background-image: var(--grad-hero);
+  background-size: 180% 180%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 /* The scrollable screen inside a device frame. */

@@ -4,6 +4,7 @@ import { Parallax } from "@/components/motion/Parallax";
 import { PrimaryAction, SecondaryAction, Eyebrow } from "@/components/site/Primitives";
 import { ConversationDemo } from "@/components/product/ConversationDemo";
 import { Icon } from "@/components/site/Icon";
+import { FeatherMark } from "@/components/brand/FeatherMark";
 
 /**
  * The homepage hero.
@@ -31,6 +32,15 @@ export function Hero() {
           className="gradient-motion parallax-layer absolute -bottom-52 -left-40 h-[34rem] w-[34rem] rounded-full opacity-[0.14] blur-3xl"
           style={{ backgroundImage: "var(--grad-sunrise)" }}
         />
+        {/* The site's own watermark: one oversized feather behind the copy.
+            Wrapped so high-contrast mode can drop it with the other decoration. */}
+        <span
+          aria-hidden="true"
+          data-decorative="true"
+          className="parallax-layer absolute -top-24 -left-24 opacity-[0.07]"
+        >
+          <FeatherMark tone="soft" className="h-[44rem] w-[44rem]" />
+        </span>
       </Parallax>
 
       <div className="container-app grid items-center gap-12 lg:grid-cols-[1.05fr_1fr] lg:gap-16">
@@ -43,10 +53,7 @@ export function Hero() {
             <h1 className="text-display text-foreground">
               {t("hero.headline")}
               <br />
-              <span
-                className="bg-clip-text text-transparent"
-                style={{ backgroundImage: "var(--grad-hero)" }}
-              >
+              <span className="text-gradient gradient-motion italic">
                 {t("hero.headlineAccent")}
               </span>
             </h1>

@@ -13,7 +13,7 @@ const buttonVariants = cva(
         /** Primary CTA — violet, with a lifting hover. */
         cta: "bg-interactive text-interactive-foreground shadow-subtle hover-lift hover:bg-interactive/92",
         /** Animated hero gradient — the single most important action on a screen. */
-        hero: "gradient-hero gradient-motion text-white shadow-glow hover-lift",
+        hero: "gradient-action gradient-motion text-white shadow-glow hover-lift",
         /** Warm secondary — coral. */
         coral: "bg-accent text-accent-foreground shadow-subtle hover:bg-accent/90",
         /** Natural highlight — teal, used sparingly. */

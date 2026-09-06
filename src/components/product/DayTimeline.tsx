@@ -40,7 +40,7 @@ export function DayTimeline({ className }: { className?: string }) {
             className={cn(
               "tap-target rounded-full px-6 py-2.5 text-[0.9375rem] font-semibold transition-refined",
               side === option
-                ? "gradient-hero gradient-motion text-white"
+                ? "gradient-action gradient-motion text-white"
                 : "text-muted-foreground",
             )}
           >

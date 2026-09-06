@@ -45,6 +45,7 @@ export function SidekickAvatar({
         style={{
           backgroundImage: "var(--grad-hero)",
           backgroundSize: "220% 220%",
+          border: "2px solid color-mix(in oklab, var(--brand-blue) 70%, transparent)",
           boxShadow: "var(--elevation-3)",
           transform: state === "listening" ? "scale(1.05)" : undefined,
         }}

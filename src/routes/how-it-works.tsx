@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { seoHead } from "@/lib/site/seo";
 import { useT } from "@/lib/i18n";
 import { PRODUCT_JOURNEY } from "@/lib/site/content";
+import { PILLARS } from "@/lib/site/pillars";
 import { MEMORY_SYSTEM, PERSONALISATION } from "@/lib/site/trust";
 import { Reveal } from "@/components/motion/Reveal";
 import {
@@ -81,6 +82,37 @@ function HowItWorksPage() {
           <Reveal delay={80}>
             <ConversationDemo />
           </Reveal>
+        </div>
+      </Section>
+
+      {/* The six pillars, in detail */}
+      <Section id="platform">
+        <SectionHeading
+          eyebrow="What it does"
+          title="Orientation and safety first. Calm and engagement after."
+          lede="The order matters. Nobody enjoys a song while they're trying to work out where they are."
+        />
+        <div className="mt-10 grid gap-4 lg:grid-cols-2">
+          {PILLARS.map((pillar, index) => (
+            <Reveal key={pillar.slug} delay={index * 60} className="h-full">
+              <article className="card-elevated flex h-full flex-col gap-4 p-7">
+                <span
+                  className="gradient-motion inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-raised"
+                  style={{ backgroundImage: pillar.gradient }}
+                >
+                  <Icon name={pillar.icon} className="h-7 w-7" />
+                </span>
+                <div>
+                  <h3 className="text-subhead text-foreground">{pillar.name}</h3>
+                  <p className="text-body text-muted-foreground">{pillar.summary}</p>
+                </div>
+                <CheckList items={pillar.detail} />
+                <p className="text-caption font-display mt-auto pt-2 text-foreground/70 italic">
+                  {pillar.invocation}
+                </p>
+              </article>
+            </Reveal>
+          ))}
         </div>
       </Section>
 
@@ -208,7 +240,7 @@ function HowItWorksPage() {
             <ul className="flex flex-col gap-3">
               {[
                 "A medical device, or a substitute for professional care",
-                "A monitoring or location-tracking system",
+                "A continuous monitoring or movement-tracking system",
                 "An emergency service",
                 "A replacement for the people who love them",
               ].map((item) => (

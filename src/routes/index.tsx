@@ -8,6 +8,7 @@ import {
   GlobalSection,
   JourneySection,
   MeetSection,
+  PlatformSection,
   ProductShowcase,
   TestimonialsSection,
   TrustSection,
@@ -39,6 +40,7 @@ function HomePage() {
     <>
       <Hero />
       <MeetSection />
+      <PlatformSection />
       <ProductShowcase />
       <TwoSidedSection />
       <AdventuresSection />

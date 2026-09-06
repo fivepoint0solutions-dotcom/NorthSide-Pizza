@@ -13,7 +13,7 @@
  */
 
 const en = {
-  "brand.tagline": "The companion that learns how to be there for you.",
+  "brand.tagline": "A calm daily companion for orientation, safety, and emotional connection.",
 
   "nav.product": "How it works",
   "nav.seniors": "For seniors",
@@ -154,7 +154,7 @@ export type TranslationKey = keyof typeof en;
 type Dictionary = Record<TranslationKey, string>;
 
 const fr: Dictionary = {
-  "brand.tagline": "Le compagnon qui apprend à être là pour vous.",
+  "brand.tagline": "Un compagnon apaisant, au quotidien : repères, sécurité et lien affectif.",
 
   "nav.product": "Comment ça marche",
   "nav.seniors": "Pour les aînés",
@@ -293,7 +293,7 @@ const fr: Dictionary = {
 };
 
 const es: Dictionary = {
-  "brand.tagline": "El compañero que aprende a estar ahí para ti.",
+  "brand.tagline": "Un compañero tranquilo cada día: orientación, seguridad y conexión emocional.",
 
   "nav.product": "Cómo funciona",
   "nav.seniors": "Para mayores",
@@ -432,7 +432,7 @@ const es: Dictionary = {
 };
 
 const hi: Dictionary = {
-  "brand.tagline": "वह साथी जो आपके साथ रहना सीख जाता है।",
+  "brand.tagline": "हर दिन का शांत साथी — दिशा, सुरक्षा और अपनेपन के लिए।",
 
   "nav.product": "यह कैसे काम करता है",
   "nav.seniors": "बुज़ुर्गों के लिए",

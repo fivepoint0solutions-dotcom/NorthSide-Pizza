@@ -87,7 +87,7 @@ function LanguagesPage() {
               className={cn(
                 "tap-target rounded-full border px-6 py-3 text-[1.0625rem] font-semibold transition-refined",
                 preview === language.code
-                  ? "gradient-hero gradient-motion border-transparent text-white"
+                  ? "gradient-action gradient-motion border-transparent text-white"
                   : "border-border text-muted-foreground hover:border-interactive hover:text-interactive",
               )}
             >

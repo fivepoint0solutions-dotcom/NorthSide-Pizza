@@ -16,9 +16,10 @@ const TABS: { id: Tab; label: string; icon: string }[] = [
  * The family-facing dashboard.
  *
  * The design brief for this screen was: it must be impossible to mistake for
- * a monitoring product. No location, no vitals, no scores, no timeline of
- * everything they did — a sense of how the week has gone, the things they
- * chose to share, and the controls that make those limits visible.
+ * a surveillance product. No vitals, no scores, no movement history and no
+ * timeline of everything they did — a sense of how the week has gone, the
+ * things they chose to share, and the controls that make those limits
+ * visible. Location appears here only where the senior has granted it.
  */
 export function CaregiverDashboard({ className }: { className?: string }) {
   const [tab, setTab] = useState<Tab>("overview");
@@ -306,8 +307,9 @@ function AlertsTab() {
       </ul>
       <p className="text-caption flex items-start gap-2 rounded-2xl border border-border bg-surface/60 p-4 text-muted-foreground">
         <Icon name="shield" className="mt-0.5 h-4 w-4 shrink-0" />
-        There is no location alert, no fall detection and no health monitoring. Senior Sidekick is a
-        companion, not a medical or safety device.
+        There is no fall detection, no health monitoring and no movement history. Location is shown
+        only where Margaret has granted it. Senior Sidekick is a care and safety companion, not a
+        medical device.
       </p>
     </div>
   );

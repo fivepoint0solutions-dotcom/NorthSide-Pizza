@@ -34,7 +34,7 @@ function NotFoundComponent() {
         <div className="mt-7 flex flex-wrap justify-center gap-3">
           <Link
             to="/"
-            className="tap-target gradient-hero gradient-motion rounded-full px-7 py-3.5 text-base font-semibold text-white"
+            className="tap-target gradient-action gradient-motion rounded-full px-7 py-3.5 text-base font-semibold text-white"
           >
             Go home
           </Link>
@@ -70,7 +70,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
               router.invalidate();
               reset();
             }}
-            className="tap-target gradient-hero gradient-motion rounded-full px-7 py-3.5 text-base font-semibold text-white"
+            className="tap-target gradient-action gradient-motion rounded-full px-7 py-3.5 text-base font-semibold text-white"
           >
             Try again
           </button>
@@ -108,7 +108,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { name: "twitter:card", content: "summary_large_image" },
       { property: "og:image", content: `${SITE_URL}/brand/og-image.png` },
       { name: "twitter:image", content: `${SITE_URL}/brand/og-image.png` },
-      { name: "theme-color", content: "#1F7A7D" },
+      { name: "theme-color", content: "#C0708A" },
       { name: "robots", content: "index, follow, max-image-preview:large" },
     ],
     links: [
@@ -118,7 +118,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       {
         // Two families only, weights trimmed to what the design system uses.
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Poppins:wght@400;500;600;700&display=swap",
       },
       { rel: "icon", href: "/brand/sidekick-mark.svg", type: "image/svg+xml" },
       { rel: "apple-touch-icon", href: "/brand/sidekick-mark.svg" },

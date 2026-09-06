@@ -33,7 +33,7 @@ export function Section({
       )}
       style={
         tone === "deep"
-          ? { backgroundImage: "var(--grad-calm)", backgroundSize: "180% 180%" }
+          ? { backgroundImage: "var(--grad-action)", backgroundSize: "180% 180%" }
           : undefined
       }
     >
@@ -128,7 +128,7 @@ export function PrimaryAction({
 }: ActionProps) {
   const classes = cn(
     actionBase,
-    "gradient-hero gradient-motion text-white shadow-raised hover:-translate-y-0.5 hover:shadow-glow",
+    "gradient-action gradient-motion text-white shadow-raised hover:-translate-y-0.5 hover:shadow-glow",
     size === "lg" ? "px-8 py-4 text-[1.0625rem]" : "px-6 py-3 text-base",
     className,
   );
@@ -326,7 +326,7 @@ export function CtaBand({
     <section className="section-y">
       <div className="container-app">
         <Reveal>
-          <div className="gradient-hero gradient-motion big-cta relative overflow-hidden px-7 py-14 text-center lg:px-16 lg:py-20">
+          <div className="gradient-action gradient-motion big-cta relative overflow-hidden px-7 py-14 text-center lg:px-16 lg:py-20">
             <div className="relative z-10 mx-auto flex max-w-2xl flex-col items-center gap-5">
               <h2 className="text-headline text-white">{title}</h2>
               <p className="text-lede text-white/85">{lede}</p>

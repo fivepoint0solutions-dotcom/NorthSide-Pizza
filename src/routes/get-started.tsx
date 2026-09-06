@@ -337,7 +337,7 @@ function GetStartedPage() {
                   type="button"
                   onClick={() => setStep((s) => Math.min(TOTAL_STEPS, s + 1))}
                   disabled={!canContinue}
-                  className="tap-target gradient-hero gradient-motion gap-2 rounded-full px-8 py-3.5 font-semibold text-white transition-refined disabled:opacity-40"
+                  className="tap-target gradient-action gradient-motion gap-2 rounded-full px-8 py-3.5 font-semibold text-white transition-refined disabled:opacity-40"
                 >
                   {t("common.next")}
                   <Icon name="arrow-right" className="h-4.5 w-4.5" />

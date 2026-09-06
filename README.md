@@ -11,25 +11,49 @@ wired into the design tokens instead of bolted on at the end.
 
 ---
 
-## ⚠️ Brand tokens need one confirmation pass
+## Brand
 
-The build was asked to match `srsidekick.org` exactly as the visual source of truth. **That domain is
-blocked by this environment's network egress policy**, so the reference palette, fonts and logo could
-not be extracted. Everything is therefore built against a documented, deliberately isolated brand
-layer so locking the real brand is a small, contained edit rather than a rewrite:
+The visual identity is taken from srsidekick.org (supplied as screenshots — the domain itself is
+blocked by this environment's egress proxy). What the site adopts:
 
-| What                     | Where                                                                                                                             | How to swap                                                                                                                    |
-| ------------------------ | --------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
-| Colour palette           | `src/styles.css` → `:root` → "1. BRAND PRIMITIVES"                                                                                | Replace the seven `--brand-*` values. Every semantic role, gradient, shadow and component derives from them via `color-mix()`. |
-| Gradients                | `src/styles.css` → "2. SIGNATURE GRADIENTS"                                                                                       | Built from the primitives; adjust only if the reference uses different gradient geometry.                                      |
-| Fonts                    | `src/styles.css` → `@theme inline` (`--font-display`, `--font-sans`) **and** the Google Fonts `<link>` in `src/routes/__root.tsx` | Change both together.                                                                                                          |
-| Corner radius            | `src/styles.css` → `--radius`                                                                                                     | The whole radius scale is derived from it.                                                                                     |
-| Logo                     | `src/lib/brand.ts` → `BRAND.logo.src`                                                                                             | Drop the asset in `public/brand/` and set the path. Until then, `<SidekickLogo />` draws a built-in vector mark.               |
-| Names, taglines, contact | `src/lib/brand.ts`                                                                                                                | Single source of truth for brand copy.                                                                                         |
+| Token              | Value      | Where it shows on the reference                   |
+| ------------------ | ---------- | ------------------------------------------------- |
+| `--brand-rose`     | ~`#C0708A` | Nav pill, greeting, "Tap to talk", card gradients |
+| `--brand-blue`     | ~`#6C86B4` | The other half of every gradient, control borders |
+| `--brand-lavender` | ~`#8B7BA8` | The middle of the rose→blue ramp                  |
+| `--brand-teal`     | ~`#5E8CA6` | Help cards ("Call Caregiver")                     |
+| `--brand-amber`    | ~`#D8933F` | The contrasting border on nearly every surface    |
+| `--brand-ink`      | ~`#1B2430` | Body and date type                                |
+| `--brand-pearl`    | ~`#FAF6F0` | The warm pearl ground                             |
 
-Nothing else in the codebase hardcodes a colour, font or logo.
+Also carried over: the serif display voice (Playfair Display, italic for expressive lines) over a
+geometric sans (Poppins); large radii with pill buttons; 2px contrasting borders instead of
+hairlines; gradient-painted headline words (`text-gradient`); and the feather motif, which flanks
+the header and sits as a watermark behind the hero (`FeatherMark`).
 
----
+`--grad-action` is the same rose→blue ramp dropped in lightness so white labels clear 4.5:1 — the
+reference's brighter ramp is kept for decorative surfaces that carry no text.
+
+**Two things still open:**
+
+1. **The name.** The reference brand is _SR Sidekick_; the brief for this site says _Senior
+   Sidekick_ throughout, so that's what's built. Changing it is one edit in `src/lib/brand.ts` plus
+   the `brand.tagline` keys in the four translation dictionaries.
+2. **The logo.** No wordmark asset was available, so `<SidekickLogo />` sets the name in the brand
+   serif beside the feather mark. Drop a file in `public/brand/` and set `BRAND.logo.src` to use the
+   real one — every usage on the site goes through that component.
+
+## Product scope
+
+The screenshots also settled what the product _is_: a senior care and safety platform, not only a
+companion. `src/lib/site/pillars.ts` carries the six pillars from the reference deck — Location
+Safety, People Identifier, Audio Therapy, Brain Games, Schedule & Reminders, Emergency Help — and
+the senior mockup mirrors the shipping app's four tabs (Now, Schedule, People, Help), its
+"Right now: you are at home" orientation card, and its permanent Tap-to-talk and Caregiver controls.
+
+Because orientation is a real feature, the privacy and safety copy says so plainly: Sidekick always
+tells the senior where they are, a caregiver sees location only by explicit permission, and no
+movement history is kept for anyone to scroll.
 
 ## Architecture
 

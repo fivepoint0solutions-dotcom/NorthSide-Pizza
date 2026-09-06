@@ -44,7 +44,7 @@ function ResourcesPage() {
               className={cn(
                 "tap-target rounded-full border px-5 py-2.5 text-[0.9375rem] font-semibold transition-refined",
                 filter === audience
-                  ? "gradient-hero gradient-motion border-transparent text-white"
+                  ? "gradient-action gradient-motion border-transparent text-white"
                   : "border-border text-muted-foreground hover:border-interactive hover:text-interactive",
               )}
             >
