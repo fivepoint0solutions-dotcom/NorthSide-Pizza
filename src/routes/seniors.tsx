@@ -24,7 +24,7 @@ export const Route = createFileRoute("/seniors")({
   head: () =>
     seoHead({
       path: "/seniors",
-      title: "For seniors — the Senior Sidekick experience",
+      title: "For seniors — the SR Sidekick experience",
       description:
         "Huge controls, voice-first interaction, a personalised home screen and seven adventures. Built around independence and dignity, not supervision.",
     }),
@@ -77,7 +77,7 @@ function SeniorsPage() {
           <div className="flex flex-col gap-6">
             <SectionHeading
               eyebrow="Voice first"
-              title="“Hey Senior Sidekick…”"
+              title="“Hey SR Sidekick…”"
               lede="Everything in the product can be done by saying it. That includes the things technology usually makes hardest: calling someone, finding a photo, setting a reminder, changing a setting."
             />
             <div className="grid gap-3 sm:grid-cols-2">
@@ -169,8 +169,8 @@ function SeniorsPage() {
           <div className="card-soft card-tint-warm mx-auto max-w-3xl p-8 text-center lg:p-12">
             <Icon name="heart" className="mx-auto h-8 w-8 text-primary" />
             <p className="text-subhead mt-5 text-foreground">
-              Nothing in Senior Sidekick will ever tell you that you're old, remind you what you can
-              no longer do, or report your afternoon to anyone.
+              Nothing in SR Sidekick will ever tell you that you're old, remind you what you can no
+              longer do, or report your afternoon to anyone.
             </p>
             <p className="text-lede mt-4 text-muted-foreground">
               It's a companion, and companions treat people as adults.

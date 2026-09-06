@@ -1,6 +1,6 @@
-# Senior Sidekick
+# SR Sidekick
 
-A premium, global marketing and product-experience site for **Senior Sidekick** — a warm, voice-first
+A premium, global marketing and product-experience site for **SR Sidekick** — a warm, voice-first
 companion for older adults, and a quiet line of connection for the families around them.
 
 > The companion that learns how to be there for you.

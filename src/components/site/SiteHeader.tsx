@@ -53,7 +53,7 @@ export function SiteHeader() {
       >
         <div className="container-wide flex h-20 items-center justify-between gap-4">
           <FeatherMark className="hidden h-9 w-9 opacity-80 lg:block" />
-          <Link to="/" className="shrink-0" aria-label="Senior Sidekick — home">
+          <Link to="/" className="shrink-0" aria-label="SR Sidekick — home">
             <SidekickLogo variant="wordmark" />
           </Link>
 

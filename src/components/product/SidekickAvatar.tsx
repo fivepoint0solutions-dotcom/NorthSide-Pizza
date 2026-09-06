@@ -27,7 +27,7 @@ export function SidekickAvatar({
       className={cn("relative inline-flex shrink-0 items-center justify-center", className)}
       style={{ width: size, height: size }}
       role="img"
-      aria-label="Senior Sidekick"
+      aria-label="SR Sidekick"
     >
       {active ? (
         <span

@@ -16,9 +16,9 @@ export const Route = createFileRoute("/partners")({
   head: () =>
     seoHead({
       path: "/partners",
-      title: "Partnerships — Senior Sidekick",
+      title: "Partnerships — SR Sidekick",
       description:
-        "Senior living communities, care organisations, community groups and technology partners deploying Senior Sidekick — with residents holding the permissions.",
+        "Senior living communities, care organisations, community groups and technology partners deploying SR Sidekick — with residents holding the permissions.",
     }),
   component: PartnersPage,
 });

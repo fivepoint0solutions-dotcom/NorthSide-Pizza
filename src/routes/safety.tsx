@@ -17,9 +17,9 @@ export const Route = createFileRoute("/safety")({
   head: () =>
     seoHead({
       path: "/safety",
-      title: "Safety philosophy — Senior Sidekick",
+      title: "Safety philosophy — SR Sidekick",
       description:
-        "What Senior Sidekick is, what it is not, and how it escalates. Not a medical device, not an emergency service, and honest about both.",
+        "What SR Sidekick is, what it is not, and how it escalates. Not a medical device, not an emergency service, and honest about both.",
     }),
   component: SafetyPage,
 });
@@ -30,7 +30,7 @@ function SafetyPage() {
       <PageHero
         eyebrow="Safety"
         title="Supportive, responsible, and clear about its limits."
-        lede="A companion that overstates what it can do is dangerous to exactly the people it's meant to help. So Senior Sidekick is unusually direct about where it stops."
+        lede="A companion that overstates what it can do is dangerous to exactly the people it's meant to help. So SR Sidekick is unusually direct about where it stops."
       />
 
       <Section>

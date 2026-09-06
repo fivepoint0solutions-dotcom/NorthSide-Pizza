@@ -18,7 +18,7 @@ export const Route = createFileRoute("/memories")({
   head: () =>
     seoHead({
       path: "/memories",
-      title: "Memories & legacy — Senior Sidekick",
+      title: "Memories & legacy — SR Sidekick",
       description:
         "A memory system that turns daily conversation into a family archive: photos, stories in their own voice, people, places and dates — owned by the senior, kept by the family.",
     }),
@@ -33,7 +33,7 @@ function MemoriesPage() {
       <PageHero
         eyebrow="Memory & legacy"
         title="The stories were always there. Nobody was ever in the room with a recorder."
-        lede="Senior Sidekick asks the questions a curious grandchild would ask, every day, and keeps the answers somewhere the family will still have them in thirty years."
+        lede="SR Sidekick asks the questions a curious grandchild would ask, every day, and keeps the answers somewhere the family will still have them in thirty years."
         gradient="var(--grad-memory)"
       />
 

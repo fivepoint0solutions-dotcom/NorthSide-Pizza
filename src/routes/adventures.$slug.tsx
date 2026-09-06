@@ -22,7 +22,7 @@ export const Route = createFileRoute("/adventures/$slug")({
     // locale through the hreflang alternates, not by translating the title.
     return seoHead({
       path: `/adventures/${adventure.slug}`,
-      title: `${adventure.englishName} — a Senior Sidekick adventure`,
+      title: `${adventure.englishName} — a SR Sidekick adventure`,
       description: adventure.description.split(". ").slice(0, 2).join(". ") + ".",
     });
   },

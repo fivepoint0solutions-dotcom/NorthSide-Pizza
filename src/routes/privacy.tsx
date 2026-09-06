@@ -18,7 +18,7 @@ export const Route = createFileRoute("/privacy")({
   head: () =>
     seoHead({
       path: "/privacy",
-      title: "Privacy — Senior Sidekick",
+      title: "Privacy — SR Sidekick",
       description:
         "The senior owns their data, sharing is a decision every time, conversations are never a feed, and nothing is sold. In plain language.",
     }),

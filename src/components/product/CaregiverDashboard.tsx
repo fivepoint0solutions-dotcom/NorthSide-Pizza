@@ -308,7 +308,7 @@ function AlertsTab() {
       <p className="text-caption flex items-start gap-2 rounded-2xl border border-border bg-surface/60 p-4 text-muted-foreground">
         <Icon name="shield" className="mt-0.5 h-4 w-4 shrink-0" />
         There is no fall detection, no health monitoring and no movement history. Location is shown
-        only where Margaret has granted it. Senior Sidekick is a care and safety companion, not a
+        only where Margaret has granted it. SR Sidekick is a care and safety companion, not a
         medical device.
       </p>
     </div>

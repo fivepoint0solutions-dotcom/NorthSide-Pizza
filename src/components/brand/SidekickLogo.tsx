@@ -47,14 +47,15 @@ export function SidekickLogo({
   return (
     <span className={cn("inline-flex items-center gap-2.5", className)}>
       {showMark ? mark : null}
+      {/* The reference sets the wordmark as one line of dark serif — the
+          feather carries the colour, not the type. */}
       <span
         className={cn(
           "font-display text-[1.25rem] leading-none font-bold tracking-tight sm:text-[1.375rem]",
           tone === "inverse" ? "text-white" : "text-foreground",
         )}
       >
-        Senior{" "}
-        <span className={tone === "inverse" ? "text-white/85" : "text-primary"}>Sidekick</span>
+        SR Sidekick
       </span>
       <span className="sr-only">{BRAND.logo.alt}</span>
     </span>

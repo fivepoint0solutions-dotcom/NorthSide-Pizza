@@ -13,7 +13,7 @@ export const Route = createFileRoute("/adventures/")({
   head: () =>
     seoHead({
       path: "/adventures",
-      title: "Adventures — the Senior Sidekick experience system",
+      title: "Adventures — the SR Sidekick experience system",
       description:
         "Memory Lane, Music, Explore, Games, Stories, Let's Talk and Family. Seven destinations, each opened by a sentence rather than a menu.",
     }),

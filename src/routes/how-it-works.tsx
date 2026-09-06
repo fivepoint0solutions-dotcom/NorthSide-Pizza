@@ -24,9 +24,9 @@ export const Route = createFileRoute("/how-it-works")({
   head: () =>
     seoHead({
       path: "/how-it-works",
-      title: "How Senior Sidekick works — voice-first companionship",
+      title: "How SR Sidekick works — voice-first companionship",
       description:
-        "Say a sentence and something happens. How Senior Sidekick listens, remembers, personalises and grows — and what it deliberately never does.",
+        "Say a sentence and something happens. How SR Sidekick listens, remembers, personalises and grows — and what it deliberately never does.",
     }),
   component: HowItWorksPage,
 });
@@ -69,7 +69,7 @@ function HowItWorksPage() {
             <SectionHeading
               eyebrow="Voice first"
               title="The only interface most people ever need is a sentence."
-              lede="Typing is optional everywhere in Senior Sidekick, including setup. Voice isn't an accessibility feature bolted on at the end — it's the primary way the product works, which is why it works for people who never got on with a smartphone."
+              lede="Typing is optional everywhere in SR Sidekick, including setup. Voice isn't an accessibility feature bolted on at the end — it's the primary way the product works, which is why it works for people who never got on with a smartphone."
             />
             <ul className="flex flex-wrap gap-2">
               {VOICE_EXAMPLES.map((example) => (
@@ -146,7 +146,7 @@ function HowItWorksPage() {
             <SectionHeading
               eyebrow="A personalised day"
               title="Not a dashboard. A day that arrives already shaped."
-              lede="Most technology hands people an empty screen and waits. Senior Sidekick opens with something worth doing — chosen from what they enjoyed last week, what's happening in the family, and how this particular morning is going."
+              lede="Most technology hands people an empty screen and waits. SR Sidekick opens with something worth doing — chosen from what they enjoyed last week, what's happening in the family, and how this particular morning is going."
             />
             <CheckList
               items={[
@@ -202,7 +202,7 @@ function HowItWorksPage() {
             <SectionHeading
               eyebrow="Adaptive by design"
               title="More personal, never more complicated."
-              lede="The usual trap in personalisation is that the product grows features. Senior Sidekick grows understanding: the screen on day four hundred looks exactly like day one, and gets almost everything right."
+              lede="The usual trap in personalisation is that the product grows features. SR Sidekick grows understanding: the screen on day four hundred looks exactly like day one, and gets almost everything right."
             />
             <div className="grid gap-4 sm:grid-cols-2">
               {PERSONALISATION.map((item) => (

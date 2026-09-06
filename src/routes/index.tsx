@@ -21,7 +21,7 @@ export const Route = createFileRoute("/")({
   head: () =>
     seoHead({
       path: "/",
-      title: "Senior Sidekick — a companion for older adults, and peace of mind for families",
+      title: "SR Sidekick — a companion for older adults, and peace of mind for families",
       description:
         "A warm, voice-first companion for older adults: conversation, music, memories, games and family connection — with a caregiver experience families can trust. English, French, Spanish and Hindi.",
     }),

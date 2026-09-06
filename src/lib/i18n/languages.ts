@@ -1,5 +1,5 @@
 /**
- * Supported languages for the Senior Sidekick global experience.
+ * Supported languages for the SR Sidekick global experience.
  *
  * Launch set: English, French, Spanish, Hindi. Each entry carries the
  * locale tag used for date/number formatting and the writing direction,

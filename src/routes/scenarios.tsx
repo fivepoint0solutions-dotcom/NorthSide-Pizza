@@ -12,9 +12,9 @@ export const Route = createFileRoute("/scenarios")({
   head: () =>
     seoHead({
       path: "/scenarios",
-      title: "Real-world situations — Senior Sidekick",
+      title: "Real-world situations — SR Sidekick",
       description:
-        "Living independently, long-distance families, busy caregivers, multilingual households, senior living communities — what Senior Sidekick does in each.",
+        "Living independently, long-distance families, busy caregivers, multilingual households, senior living communities — what SR Sidekick does in each.",
     }),
   component: ScenariosPage,
 });

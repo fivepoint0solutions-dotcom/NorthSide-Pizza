@@ -18,7 +18,7 @@ export const Route = createFileRoute("/pricing")({
   head: () => ({
     ...seoHead({
       path: "/pricing",
-      title: "Plans & pricing — Senior Sidekick",
+      title: "Plans & pricing — SR Sidekick",
       description:
         "From $19 a month for one person, $29 for a family. Thirty days free, no card to start, and cancellation in one step.",
     }),
@@ -43,7 +43,7 @@ function PricingPage() {
       <PageHero
         eyebrow="Plans"
         title="One price. No advertising, no data sales, no upsells inside the product."
-        lede="What the household pays is the entire business model — which is why nothing in Senior Sidekick is ever trying to sell anyone anything."
+        lede="What the household pays is the entire business model — which is why nothing in SR Sidekick is ever trying to sell anyone anything."
       />
 
       <Section>

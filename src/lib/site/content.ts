@@ -228,7 +228,7 @@ export const CAREGIVER_DAY: DayMoment[] = [
 ];
 
 /* ------------------------------------------------------------------ *
- * Why Senior Sidekick — the comparison
+ * Why SR Sidekick — the comparison
  * ------------------------------------------------------------------ */
 
 export const COMPARISON: { traditional: string; sidekick: string }[] = [

@@ -1,7 +1,7 @@
 /**
  * THE PLATFORM PILLARS
  *
- * Senior Sidekick is a senior care and safety platform, not only a
+ * SR Sidekick is a senior care and safety platform, not only a
  * conversation companion: orientation and safety sit alongside calm and
  * engagement. These six are the product's own framing — the adventure system
  * in `adventures.ts` is how the engagement half is entered day to day.
@@ -105,7 +105,7 @@ export const PILLARS: Pillar[] = [
       "Request Help — someone will talk with you, without needing the right words first",
       "“What's happening?” for the moments where the room stops making sense",
       "An escalation plan agreed in advance: who is contacted, for what, and how",
-      "Emergency services signposted clearly — Senior Sidekick never pretends to be one",
+      "Emergency services signposted clearly — SR Sidekick never pretends to be one",
     ],
     invocation: "“I need help.”",
   },

@@ -20,7 +20,7 @@ export const Route = createFileRoute("/languages")({
   head: () =>
     seoHead({
       path: "/languages",
-      title: "Languages & global localisation — Senior Sidekick",
+      title: "Languages & global localisation — SR Sidekick",
       description:
         "English, French, Spanish and Hindi — localised in voice, conversation, activities, stories, dates and cultural references, not just menus.",
     }),
@@ -282,7 +282,7 @@ function LanguagesPage() {
       <Section id="regions">
         <SectionHeading
           eyebrow="Availability"
-          title="Where Senior Sidekick is today, and where it's going."
+          title="Where SR Sidekick is today, and where it's going."
         />
         <Reveal className="mt-10">
           <WorldMap />

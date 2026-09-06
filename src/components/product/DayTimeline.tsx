@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import { Icon } from "@/components/site/Icon";
 
 /**
- * "A day with Senior Sidekick", told from both sides of the relationship.
+ * "A day with SR Sidekick", told from both sides of the relationship.
  *
  * Two parallel timelines the visitor clicks through. Keeping them side by
  * side is the point: the same Tuesday produces a full day for one person and

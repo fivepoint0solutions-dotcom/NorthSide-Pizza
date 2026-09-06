@@ -13,7 +13,7 @@ export const Route = createFileRoute("/get-started")({
   head: () =>
     seoHead({
       path: "/get-started",
-      title: "Get started — meet your Senior Sidekick",
+      title: "Get started — meet your SR Sidekick",
       description:
         "Eight short steps, about four minutes: who it's for, the language, the interests, the people and the permissions. Then the first conversation.",
     }),

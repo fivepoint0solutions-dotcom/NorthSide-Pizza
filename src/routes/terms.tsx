@@ -7,8 +7,8 @@ export const Route = createFileRoute("/terms")({
   head: () =>
     seoHead({
       path: "/terms",
-      title: "Terms of service — Senior Sidekick",
-      description: "The plain-language summary of the Senior Sidekick terms of service.",
+      title: "Terms of service — SR Sidekick",
+      description: "The plain-language summary of the SR Sidekick terms of service.",
     }),
   component: TermsPage,
 });
@@ -16,15 +16,15 @@ export const Route = createFileRoute("/terms")({
 const SECTIONS = [
   {
     title: "What we provide",
-    body: "Senior Sidekick is a conversational companion service for older adults, together with a connected experience for family members and, where applicable, care organisations. It is a companionship and connection product. It is not a medical device, a monitoring service, an alarm system or an emergency service.",
+    body: "SR Sidekick is a conversational companion service for older adults, together with a connected experience for family members and, where applicable, care organisations. It is a companionship and connection product. It is not a medical device, a monitoring service, an alarm system or an emergency service.",
   },
   {
     title: "Who holds the account",
-    body: "The account belongs to the person using Senior Sidekick. Where a family member sets it up or pays for it, they are the billing contact — not the owner of the content. Photos, recordings, stories and conversation history belong to the senior and are governed by the permissions they set.",
+    body: "The account belongs to the person using SR Sidekick. Where a family member sets it up or pays for it, they are the billing contact — not the owner of the content. Photos, recordings, stories and conversation history belong to the senior and are governed by the permissions they set.",
   },
   {
     title: "Acceptable use",
-    body: "Don't use Senior Sidekick to harass, deceive or coerce anyone, to impersonate another person, or to obtain information about someone without their consent. Attempting to use a family account to monitor a senior beyond the permissions they have granted is a breach of these terms.",
+    body: "Don't use SR Sidekick to harass, deceive or coerce anyone, to impersonate another person, or to obtain information about someone without their consent. Attempting to use a family account to monitor a senior beyond the permissions they have granted is a breach of these terms.",
   },
   {
     title: "Plans, billing and cancellation",
@@ -32,7 +32,7 @@ const SECTIONS = [
   },
   {
     title: "Availability",
-    body: "We aim for continuous availability but do not guarantee uninterrupted service, and Senior Sidekick must never be relied upon for any safety-critical purpose. Households should keep an independent means of contacting help.",
+    body: "We aim for continuous availability but do not guarantee uninterrupted service, and SR Sidekick must never be relied upon for any safety-critical purpose. Households should keep an independent means of contacting help.",
   },
   {
     title: "Your content",

@@ -387,7 +387,7 @@ export function DaySection() {
 }
 
 /* ------------------------------------------------------------------ *
- * Why Senior Sidekick
+ * Why SR Sidekick
  * ------------------------------------------------------------------ */
 
 export function WhySection() {

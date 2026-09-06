@@ -23,7 +23,7 @@ export const Route = createFileRoute("/families")({
   head: () =>
     seoHead({
       path: "/families",
-      title: "For families & caregivers — Senior Sidekick",
+      title: "For families & caregivers — SR Sidekick",
       description:
         "A caregiver dashboard built to be impossible to mistake for surveillance: connection, visibility your parent granted, and only the notifications you asked for.",
     }),
