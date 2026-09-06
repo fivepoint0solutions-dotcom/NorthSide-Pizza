@@ -3,6 +3,8 @@ import { seoHead } from "@/lib/site/seo";
 import { useT } from "@/lib/i18n";
 import { PRODUCT_JOURNEY } from "@/lib/site/content";
 import { PILLARS } from "@/lib/site/pillars";
+import { LocationSafetyDemo } from "@/components/product/LocationSafetyDemo";
+import { AudioTherapyDemo } from "@/components/product/AudioTherapyDemo";
 import { MEMORY_SYSTEM, PERSONALISATION } from "@/lib/site/trust";
 import { Reveal } from "@/components/motion/Reveal";
 import {
@@ -44,6 +46,9 @@ const VOICE_EXAMPLES = [
 
 function HowItWorksPage() {
   const t = useT();
+  const locationSafety = PILLARS.find((p) => p.slug === "orientation")!;
+  const audioTherapy = PILLARS.find((p) => p.slug === "audio")!;
+  const otherPillars = PILLARS.filter((p) => p.slug !== "orientation" && p.slug !== "audio");
 
   return (
     <>
@@ -85,28 +90,61 @@ function HowItWorksPage() {
         </div>
       </Section>
 
-      {/* The six pillars, in detail */}
+      {/* The two flagship features, given the room they need */}
+      <Section id="location-safety">
+        <SectionHeading
+          eyebrow="Flagship feature · Location Safety"
+          title="Before anything else, it answers where am I."
+          lede="This is the first pillar for a reason: companionship means nothing if someone is disoriented. It's answered plainly, on the senior's own screen, without anyone having to ask a person."
+        />
+        <div className="mt-10 grid items-center gap-10 lg:grid-cols-[minmax(0,22rem)_1fr]">
+          <Reveal className="mx-auto lg:mx-0">
+            <DeviceFrame kind="phone">
+              <LocationSafetyDemo />
+            </DeviceFrame>
+          </Reveal>
+          <Reveal delay={80}>
+            <CheckList items={locationSafety.detail} />
+          </Reveal>
+        </div>
+      </Section>
+
+      <Section tone="surface" id="audio-therapy">
+        <SectionHeading
+          eyebrow="Flagship feature · Audio Therapy"
+          title="Music built for memory, and sound built for the hard hours."
+          lede="A nostalgia playlist the family actually chose, plus a bank of calming, therapeutic audio for restlessness, sundowning and settling at night."
+        />
+        <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1fr_minmax(0,22rem)]">
+          <Reveal>
+            <CheckList items={audioTherapy.detail} />
+          </Reveal>
+          <Reveal delay={80} className="mx-auto lg:mx-0">
+            <DeviceFrame kind="phone">
+              <AudioTherapyDemo />
+            </DeviceFrame>
+          </Reveal>
+        </div>
+      </Section>
+
+      {/* The remaining four pillars */}
       <Section id="platform">
         <SectionHeading
-          eyebrow="What it does"
-          title="Orientation and safety first. Calm and engagement after."
-          lede="The order matters. Nobody enjoys a song while they're trying to work out where they are."
+          eyebrow="The rest of the platform"
+          title="Four more things it does every day."
         />
-        <div className="mt-10 grid gap-4 lg:grid-cols-2">
-          {PILLARS.map((pillar, index) => (
+        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {otherPillars.map((pillar, index) => (
             <Reveal key={pillar.slug} delay={index * 60} className="h-full">
-              <article className="card-elevated flex h-full flex-col gap-4 p-7">
+              <article className="card-elevated flex h-full flex-col gap-3 p-6">
                 <span
-                  className="gradient-motion inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-raised"
+                  className="gradient-motion inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-raised"
                   style={{ backgroundImage: pillar.gradient }}
                 >
-                  <Icon name={pillar.icon} className="h-7 w-7" />
+                  <Icon name={pillar.icon} className="h-6 w-6" />
                 </span>
-                <div>
-                  <h3 className="text-subhead text-foreground">{pillar.name}</h3>
-                  <p className="text-body text-muted-foreground">{pillar.summary}</p>
-                </div>
-                <CheckList items={pillar.detail} />
+                <h3 className="text-title text-foreground">{pillar.name}</h3>
+                <p className="text-body text-muted-foreground">{pillar.summary}</p>
                 <p className="text-caption font-display mt-auto pt-2 text-foreground/70 italic">
                   {pillar.invocation}
                 </p>

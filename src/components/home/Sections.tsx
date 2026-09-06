@@ -20,6 +20,8 @@ import {
   SecondaryAction,
 } from "@/components/site/Primitives";
 import { Icon } from "@/components/site/Icon";
+import { LocationSafetyDemo } from "@/components/product/LocationSafetyDemo";
+import { AudioTherapyDemo } from "@/components/product/AudioTherapyDemo";
 import { AdventureCard } from "@/components/adventures/AdventureCard";
 import { SidekickAvatar } from "@/components/product/SidekickAvatar";
 import { DeviceFrame } from "@/components/product/DeviceFrame";
@@ -96,6 +98,76 @@ export function MeetSection() {
         ))}
       </div>
     </Section>
+  );
+}
+
+/* ------------------------------------------------------------------ *
+ * The two flagship features
+ * ------------------------------------------------------------------ */
+
+export function FlagshipSection() {
+  const orientation = PILLARS.find((p) => p.slug === "orientation")!;
+  const audio = PILLARS.find((p) => p.slug === "audio")!;
+
+  return (
+    <Section id="flagship">
+      <SectionHeading
+        eyebrow="The flagship features"
+        title="Orientation and music, done properly, before anything else."
+        lede="These two aren't a card in a grid. They're what the product is actually for: knowing where you are, and having music that reaches you when nothing else does."
+      />
+
+      <div className="mt-12 flex flex-col gap-16">
+        <FlagshipRow pillar={orientation} reverse={false}>
+          <LocationSafetyDemo />
+        </FlagshipRow>
+        <FlagshipRow pillar={audio} reverse={true}>
+          <AudioTherapyDemo />
+        </FlagshipRow>
+      </div>
+    </Section>
+  );
+}
+
+function FlagshipRow({
+  pillar,
+  reverse,
+  children,
+}: {
+  pillar: (typeof PILLARS)[number];
+  reverse: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        "grid items-center gap-10 lg:grid-cols-[minmax(0,22rem)_1fr]",
+        reverse && "lg:[&>*:first-child]:order-2",
+      )}
+    >
+      <Reveal delay={reverse ? 80 : 0} className="mx-auto lg:mx-0">
+        <DeviceFrame kind="phone">{children}</DeviceFrame>
+      </Reveal>
+      <Reveal delay={reverse ? 0 : 80} className="flex flex-col gap-5">
+        <span
+          className="gradient-motion inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-raised"
+          style={{ backgroundImage: pillar.gradient }}
+        >
+          <Icon name={pillar.icon} className="h-7 w-7" />
+        </span>
+        <h3 className="text-subhead text-foreground">{pillar.name}</h3>
+        <p className="text-lede text-muted-foreground">{pillar.summary}</p>
+        <ul className="flex flex-col gap-2.5">
+          {pillar.detail.slice(0, 4).map((item) => (
+            <li key={item} className="flex items-start gap-3">
+              <Icon name="check" className="mt-1 h-5 w-5 shrink-0 text-primary" />
+              <span className="text-body text-muted-foreground">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <p className="font-display text-lg text-foreground/70 italic">{pillar.invocation}</p>
+      </Reveal>
+    </div>
   );
 }
 

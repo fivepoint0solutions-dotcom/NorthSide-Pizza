@@ -30,7 +30,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { to: "/how-it-works", label: "How it works" },
       { to: "/adventures", label: "Adventures" },
       { to: "/memories", label: "Memories & legacy" },
-      { to: "/day-in-the-life", label: "A day with Sidekick" },
+      { to: "/day-in-the-life", label: "A day with SR Sidekick" },
       { to: "/pricing", label: "Plans & pricing" },
       { to: "/get-started", label: "Get started" },
     ],
@@ -39,6 +39,8 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
     headingKey: "footer.seniors",
     links: [
       { to: "/seniors", label: "The senior experience" },
+      { to: "/how-it-works#location-safety", label: "Location Safety" },
+      { to: "/how-it-works#audio-therapy", label: "Audio Therapy & music" },
       { to: "/seniors#voice", label: "Voice-first" },
       { to: "/adventures", label: "Things to do" },
       { to: "/accessibility", label: "Accessibility" },

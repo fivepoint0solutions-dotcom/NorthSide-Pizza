@@ -7,6 +7,7 @@ import {
   DaySection,
   GlobalSection,
   JourneySection,
+  FlagshipSection,
   MeetSection,
   PlatformSection,
   ProductShowcase,
@@ -40,6 +41,7 @@ function HomePage() {
     <>
       <Hero />
       <MeetSection />
+      <FlagshipSection />
       <PlatformSection />
       <ProductShowcase />
       <TwoSidedSection />
