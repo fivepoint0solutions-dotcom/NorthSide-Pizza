@@ -161,18 +161,13 @@ function RootComponent() {
     <QueryClientProvider client={queryClient}>
       <AccessibilityProvider>
         <LanguageProvider>
-          {/* relative + the full document height, so FeatherField (absolute,
-              inset-0) spans and scrolls with the whole page rather than one
-              screen's worth of it. */}
-          <div className="relative">
-            <FeatherField />
-            <SiteHeader />
-            <main id="main">
-              {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-              <Outlet />
-            </main>
-            <SiteFooter />
-          </div>
+          <FeatherField />
+          <SiteHeader />
+          <main id="main">
+            {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+            <Outlet />
+          </main>
+          <SiteFooter />
           <Toaster position="bottom-right" />
         </LanguageProvider>
       </AccessibilityProvider>
