@@ -248,9 +248,13 @@ export function CheckList({
           >
             <Icon name="check" className="h-3.5 w-3.5" strokeWidth={2.6} />
           </span>
+          {/* min-w-0 is load-bearing: without it, a flex child's implicit
+              min-width is its unwrapped text width, so a long line pushes
+              the li (and the page) wider instead of wrapping — the exact
+              cause of the horizontal-scroll bug on narrow phones. */}
           <span
             className={cn(
-              "text-body",
+              "min-w-0 flex-1 text-body",
               tone === "inverse" ? "text-white/85" : "text-muted-foreground",
             )}
           >
