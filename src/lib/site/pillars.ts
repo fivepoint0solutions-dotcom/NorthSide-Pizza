@@ -106,6 +106,7 @@ export const PILLARS: Pillar[] = [
       "“What's happening?” for the moments where the room stops making sense",
       "An escalation plan agreed in advance: who is contacted, for what, and how",
       "Emergency services signposted clearly — Senior Sidekick never pretends to be one",
+      "The home screen itself is configurable — start with Emergency and the microphone alone, or add Games, To-Do and more as they're ready for them",
     ],
     invocation: "“I need help.”",
   },

@@ -205,6 +205,11 @@ export const ACCESSIBILITY_COMMITMENTS: Principle[] = [
     body: "Every release is tested with adults over seventy, including participants with low vision, hearing loss, tremor and early cognitive change.",
     icon: "users",
   },
+  {
+    title: "A home screen you choose",
+    body: "Every button is optional — start with just Emergency and the microphone, or add Games, To-Do and more. Any prompt that doesn't fit, like being asked who you are, can simply be turned off.",
+    icon: "sliders-horizontal",
+  },
 ];
 
 /* ------------------------------------------------------------------ *
