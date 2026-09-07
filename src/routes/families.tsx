@@ -47,12 +47,12 @@ function FamiliesPage() {
       {/* Dashboard */}
       <Section id="dashboard">
         <SectionHeading
-          eyebrow="The caregiver dashboard"
-          title="A sense of the week. Never a transcript of it."
-          lede="Click through the tabs — this is the real dashboard, including the permissions view your parent controls."
+          eyebrow="Caregiver mode"
+          title="The same app, unlocked with your code."
+          lede="Not a separate product to learn — you set things up from the phone in your hand. Click through the tabs: who's in their life, where they go, what plays, and the permissions your parent controls."
         />
-        <Reveal className="mt-8">
-          <DeviceFrame kind="desktop" label="family.srsidekick.org — Margaret">
+        <Reveal className="mx-auto mt-8 max-w-lg">
+          <DeviceFrame kind="tablet">
             <CaregiverDashboard />
           </DeviceFrame>
         </Reveal>

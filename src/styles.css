@@ -201,6 +201,7 @@
   --brand-olive: oklch(0.53 0.075 125); /* ~#657034 — Audio Therapy */
   --brand-slate: oklch(0.53 0.055 220); /* ~#476876 — Brain Games */
   --brand-khaki: oklch(0.72 0.06 90); /* ~#AC9865 — Schedule & Reminders */
+  --brand-petrol: oklch(0.35 0.045 210); /* ~#17454F — solid action buttons */
 
   --radius: 1.5rem;
 
@@ -234,6 +235,10 @@
   --grad-warm: linear-gradient(120deg, var(--brand-ochre), var(--brand-rust) 100%);
   --grad-sage: linear-gradient(120deg, var(--brand-olive), var(--brand-khaki) 100%);
   --grad-earth: linear-gradient(135deg, var(--brand-rust), var(--brand-olive) 100%);
+  /* The two other pairs the app leans on hardest: a deep blue-teal, and
+     rust running into plum. */
+  --grad-tide: linear-gradient(135deg, var(--brand-slate), var(--brand-teal) 100%);
+  --grad-plum: linear-gradient(135deg, var(--brand-rust), var(--brand-lavender-deep) 100%);
 
   /* Adventure gradients — the app's card colours, one story each. */
   --grad-memory: linear-gradient(125deg, #a85c77, #8b7ba8 55%, #6c86b4 100%);
@@ -1031,6 +1036,12 @@ html[data-motion="reduced"] button:not(:disabled):hover {
 }
 @utility gradient-earth {
   background-image: var(--grad-earth);
+}
+@utility gradient-tide {
+  background-image: var(--grad-tide);
+}
+@utility gradient-plum {
+  background-image: var(--grad-plum);
 }
 
 /* Card tints — scope a subtree to one of the palette stories. */

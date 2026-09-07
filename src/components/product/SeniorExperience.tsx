@@ -89,13 +89,62 @@ function TabBar({ tab, onChange }: { tab: Tab; onChange: (tab: Tab) => void }) {
   );
 }
 
-/** Everything on the home screen besides orientation and the permanent
- *  talk/caregiver controls — the part each family configures for the
- *  person using it, so nobody sees a tile that doesn't fit them. */
-type HomeItemId = "songs" | "my-day" | Adventure["slug"];
+/** Everything on the home screen besides orientation, Call Emergency and
+ *  the permanent talk/caregiver controls — the part each family configures
+ *  for the person using it, so nobody sees a tile that doesn't fit them. */
+type HomeItemId =
+  "to-do" | "who-am-i" | "where-am-i" | "talk" | "help" | "brain-games" | "music" | "my-day";
+
+interface HomeTile {
+  id: HomeItemId;
+  label: string;
+  note?: string;
+  icon: string;
+  /** A gradient utility class — the app pairs a different two colours per
+   *  tile rather than running one ramp down the whole screen. */
+  tone: string;
+  /** Opens this adventure's detail view where one lines up. */
+  adventure?: Adventure["slug"];
+}
+
+const HOME_TILES: HomeTile[] = [
+  { id: "to-do", label: "To-Do-List", icon: "list", tone: "gradient-plum" },
+  { id: "who-am-i", label: "Who am I?", icon: "user", tone: "gradient-tide" },
+  { id: "where-am-i", label: "Where am I?", icon: "map-pin", tone: "gradient-earth" },
+  {
+    id: "talk",
+    label: "Talk to Senior Sidekick",
+    note: "Ask a question out loud",
+    icon: "mic",
+    tone: "gradient-tide",
+    adventure: "talk",
+  },
+  {
+    id: "help",
+    label: "Help",
+    note: "Get reassurance or call someone",
+    icon: "life-buoy",
+    tone: "gradient-sage",
+  },
+  {
+    id: "brain-games",
+    label: "Brain games",
+    note: "Word find, photo match & family quiz",
+    icon: "puzzle",
+    tone: "gradient-plum",
+    adventure: "games",
+  },
+  {
+    id: "music",
+    label: "Music",
+    note: "Songs picked just for you",
+    icon: "music",
+    tone: "gradient-earth",
+    adventure: "music",
+  },
+];
 
 function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
-  const t = useT();
   const { language } = useLanguage();
   const now = new Date();
   const [customizing, setCustomizing] = useState(false);
@@ -109,9 +158,9 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
     return () => window.clearInterval(id);
   }, []);
   const [enabled, setEnabled] = useState<Record<HomeItemId, boolean>>(() => {
-    const state = { songs: true, "my-day": true } as Record<HomeItemId, boolean>;
-    ADVENTURES.forEach((adventure) => {
-      state[adventure.slug] = true;
+    const state = { "my-day": true } as Record<HomeItemId, boolean>;
+    HOME_TILES.forEach((tile) => {
+      state[tile.id] = true;
     });
     return state;
   });
@@ -169,105 +218,95 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
         </p>
       ) : null}
 
-      <HomeToggleRow
-        label="Songs picked just for you"
-        active={customizing}
-        checked={enabled.songs}
-        onChange={() => toggle("songs")}
-        tone="earth"
-      />
-      <HomeToggleRow
-        label="View My Day (memory journal)"
-        active={customizing}
-        checked={enabled["my-day"]}
-        onChange={() => toggle("my-day")}
-        tone="sage"
-      />
+      {/* Emergency is the one tile that is always there, whatever else has
+          been turned off — the baseline the screen can never fall below. */}
+      <button
+        type="button"
+        className="tap-target w-full items-center gap-4 rounded-3xl border-2 border-accent bg-accent p-5 text-left text-accent-foreground"
+      >
+        <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/25">
+          <Icon name="alert-circle" className="h-7 w-7" />
+        </span>
+        <span className="flex min-w-0 flex-col">
+          <span className="text-2xl font-bold">Call Emergency</span>
+          <span className="text-lg opacity-80">Police, fire or ambulance</span>
+        </span>
+      </button>
 
-      {customizing || ADVENTURES.some((a) => enabled[a.slug]) ? (
-        <section className="flex flex-col gap-3">
-          <h4 className="text-title text-foreground">{t("adventures.title")}</h4>
-          <ul className="grid grid-cols-2 gap-3">
-            {ADVENTURES.filter((adventure) => customizing || enabled[adventure.slug]).map(
-              (adventure) => (
-                <li key={adventure.slug}>
-                  <div
-                    className={cn(
-                      "gradient-motion relative w-full rounded-3xl border-2 border-accent p-4 text-center text-white transition-refined",
-                      !enabled[adventure.slug] && customizing && "opacity-45",
-                    )}
-                    style={{ backgroundImage: adventure.gradient }}
-                  >
-                    {customizing ? (
-                      <Switch
-                        checked={enabled[adventure.slug]}
-                        onCheckedChange={() => toggle(adventure.slug)}
-                        aria-label={`Show ${t(adventure.nameKey)} on the home screen`}
-                        className="pointer-events-none absolute top-2 right-2"
-                      />
-                    ) : null}
-                    <button
-                      type="button"
-                      onClick={() => (customizing ? toggle(adventure.slug) : onOpen(adventure))}
-                      className="hover-lift flex w-full flex-col items-center gap-2"
-                    >
-                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 text-white">
-                        <Icon name={adventure.icon} className="h-6 w-6" />
-                      </span>
-                      <span className="text-base leading-tight font-semibold text-white">
-                        {t(adventure.nameKey)}
-                      </span>
-                    </button>
-                  </div>
-                </li>
-              ),
-            )}
-          </ul>
-        </section>
+      {HOME_TILES.filter((tile) => customizing || enabled[tile.id]).map((tile) => (
+        <div
+          key={tile.id}
+          className={cn(
+            "gradient-motion relative rounded-3xl border-2 border-accent transition-refined",
+            tile.tone,
+            !enabled[tile.id] && customizing && "opacity-45",
+          )}
+        >
+          {customizing ? (
+            <Switch
+              checked={enabled[tile.id]}
+              onCheckedChange={() => toggle(tile.id)}
+              aria-label={`Show ${tile.label} on the home screen`}
+              className="pointer-events-none absolute top-3 right-3 z-10"
+            />
+          ) : null}
+          <button
+            type="button"
+            onClick={() => {
+              if (customizing) {
+                toggle(tile.id);
+                return;
+              }
+              const adventure = ADVENTURES.find((a) => a.slug === tile.adventure);
+              if (adventure) onOpen(adventure);
+            }}
+            className="tap-target w-full items-center gap-4 p-5 text-left text-white"
+          >
+            <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/20">
+              <Icon name={tile.icon} className="h-7 w-7" />
+            </span>
+            <span className="flex min-w-0 flex-col">
+              <span className="text-2xl font-bold">{tile.label}</span>
+              {tile.note ? <span className="text-lg text-white/85">{tile.note}</span> : null}
+            </span>
+          </button>
+        </div>
+      ))}
+
+      {/* A plain line rather than a tile, the way the product has it. */}
+      {customizing || enabled["my-day"] ? (
+        <div
+          className={cn(
+            "flex items-center justify-between gap-3",
+            !enabled["my-day"] && customizing && "opacity-45",
+          )}
+        >
+          <button
+            type="button"
+            onClick={() => customizing && toggle("my-day")}
+            className="tap-target text-xl font-bold text-foreground/80"
+          >
+            View My Day (memory journal)
+          </button>
+          {customizing ? (
+            <Switch
+              checked={enabled["my-day"]}
+              onCheckedChange={() => toggle("my-day")}
+              aria-label="Show View My Day on the home screen"
+            />
+          ) : null}
+        </div>
       ) : null}
 
-      {/* Offset from the greeting's line so the two are never the same. */}
+      {/* Set large and centred with no card around it, the way the product
+          closes the screen. Offset from the greeting's line so the two are
+          never showing the same words. */}
       <p
         key={`quote-${affirmation}`}
-        className="font-display animate-fade-in rounded-3xl border-2 border-accent p-5 text-center text-2xl text-primary italic"
+        className="font-display text-gradient gradient-motion animate-fade-in px-2 py-6 text-center text-3xl leading-tight font-semibold italic"
       >
         “{affirmationAt(affirmation + 4)}”
       </p>
-    </div>
-  );
-}
-
-function HomeToggleRow({
-  label,
-  active,
-  checked,
-  onChange,
-  tone,
-}: {
-  label: string;
-  active: boolean;
-  checked: boolean;
-  onChange: () => void;
-  tone?: "earth" | "sage";
-}) {
-  if (!active && !checked) return null;
-  return (
-    <div
-      className={cn(
-        "tap-target flex w-full items-center justify-between gap-3 rounded-3xl border-2 border-accent px-5 py-4 text-left text-xl font-semibold text-white transition-refined",
-        tone === "earth" && "gradient-earth gradient-motion",
-        tone === "sage" && "gradient-sage gradient-motion",
-        !checked && active && "opacity-45",
-      )}
-    >
-      <span>{label}</span>
-      {active ? (
-        <Switch
-          checked={checked}
-          onCheckedChange={onChange}
-          aria-label={`Show "${label}" on the home screen`}
-        />
-      ) : null}
     </div>
   );
 }

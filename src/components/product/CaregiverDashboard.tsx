@@ -1,245 +1,352 @@
 import { useState } from "react";
 import { PERMISSIONS } from "@/lib/site/trust";
+import { demoPhoto } from "@/lib/site/demoPhotos";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/site/Icon";
 
-type Tab = "overview" | "share" | "permissions" | "alerts";
+type Tab = "overview" | "location" | "people" | "trusted" | "permissions" | "music";
 
-const TABS: { id: Tab; label: string; icon: string }[] = [
-  { id: "overview", label: "Overview", icon: "layout-dashboard" },
-  { id: "share", label: "Share & connect", icon: "image-plus" },
-  { id: "permissions", label: "Permissions", icon: "shield-check" },
-  { id: "alerts", label: "Notifications", icon: "bell" },
+const TABS: { id: Tab; label: string }[] = [
+  { id: "overview", label: "Overview" },
+  { id: "location", label: "Location" },
+  { id: "people", label: "People & Places" },
+  { id: "trusted", label: "Trusted Locations" },
+  { id: "permissions", label: "Permissions" },
+  { id: "music", label: "Music" },
 ];
 
 /**
- * The family-facing dashboard.
+ * Caregiver mode — the same app, unlocked with the caregiver code, on the
+ * same phone. Not a separate desktop product: whoever helps set things up
+ * does it from here, on the device in their hand.
  *
- * The design brief for this screen was: it must be impossible to mistake for
- * a surveillance product. No vitals, no scores, no movement history and no
- * timeline of everything they did — a sense of how the week has gone, the
- * things they chose to share, and the controls that make those limits
- * visible. Location appears here only where the senior has granted it.
+ * The design brief for this screen was: it must be impossible to mistake
+ * for a surveillance product. No vitals, no scores, no movement history and
+ * no timeline of everything they did — the things a family actually
+ * maintains (who's in their life, where they go, what plays, what's
+ * coming), and the permissions that make the limits visible. Location
+ * appears only where the senior has granted it.
  */
 export function CaregiverDashboard({ className }: { className?: string }) {
   const [tab, setTab] = useState<Tab>("overview");
 
   return (
-    <div className={cn("flex min-h-[30rem] flex-col bg-background lg:flex-row", className)}>
-      <nav
-        aria-label="Dashboard sections"
-        className="flex gap-1 overflow-x-auto border-b border-border p-3 lg:w-56 lg:flex-col lg:border-r lg:border-b-0"
-      >
-        <p className="text-eyebrow hidden px-3 py-2 text-muted-foreground lg:block">Margaret</p>
-        {TABS.map((item) => (
-          <button
-            key={item.id}
-            type="button"
-            onClick={() => setTab(item.id)}
-            aria-current={tab === item.id ? "page" : undefined}
-            className={cn(
-              "flex shrink-0 items-center gap-2.5 rounded-xl px-3.5 py-2.5 text-left text-sm font-semibold transition-refined",
-              tab === item.id
-                ? "bg-primary/12 text-primary"
-                : "text-muted-foreground hover:bg-secondary hover:text-foreground",
-            )}
-          >
-            <Icon name={item.icon} className="h-4.5 w-4.5" />
-            {item.label}
-          </button>
-        ))}
-      </nav>
+    <div className={cn("relative flex min-h-full flex-col bg-background", className)}>
+      <div className="sticky top-0 z-10 flex flex-col gap-3 bg-background/90 px-4 py-3 backdrop-blur">
+        <span className="gradient-tide gradient-motion mx-auto rounded-full border-2 border-accent px-6 py-2 text-base font-bold text-white">
+          Exit caregiver
+        </span>
 
-      <div className="flex-1 p-5 lg:p-7">
+        <div className="flex items-start justify-between gap-3">
+          <button
+            type="button"
+            className="tap-target shrink-0 rounded-full border-2 border-accent bg-background px-4 py-2 text-base font-bold"
+          >
+            ‹ Back
+          </button>
+          <div className="min-w-0 text-center">
+            <p className="text-eyebrow text-accent-foreground/80">Caregiver mode</p>
+            <p className="font-display text-2xl leading-tight font-bold text-foreground">
+              Sharon's dashboard
+            </p>
+          </div>
+          <span className="flex shrink-0 items-center gap-2 rounded-full border-2 border-border bg-background px-3 py-1.5 text-sm font-bold">
+            <Initial>T</Initial>
+            Todd
+          </span>
+        </div>
+
+        <nav aria-label="Caregiver sections" className="-mx-1 flex gap-2 overflow-x-auto px-1 pb-1">
+          {TABS.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              onClick={() => setTab(item.id)}
+              aria-current={tab === item.id ? "page" : undefined}
+              className={cn(
+                "tap-target shrink-0 rounded-full border-2 px-5 py-2 text-base font-bold whitespace-nowrap transition-refined",
+                tab === item.id
+                  ? "gradient-warm gradient-motion border-accent text-white"
+                  : "border-accent/70 bg-background text-foreground",
+              )}
+            >
+              {item.label}
+            </button>
+          ))}
+        </nav>
+      </div>
+
+      <div className="relative z-10 flex-1 px-4 pt-2 pb-6">
         {tab === "overview" ? <Overview /> : null}
-        {tab === "share" ? <ShareTab /> : null}
+        {tab === "location" ? <LocationTab /> : null}
+        {tab === "people" ? <PeopleTab /> : null}
+        {tab === "trusted" ? <TrustedTab /> : null}
         {tab === "permissions" ? <PermissionsTab /> : null}
-        {tab === "alerts" ? <AlertsTab /> : null}
+        {tab === "music" ? <MusicTab /> : null}
       </div>
     </div>
   );
 }
 
+/* ------------------------------------------------------------------ *
+ * Shared pieces
+ * ------------------------------------------------------------------ */
+
+/** The dark circular monogram the app uses wherever there's no photo. */
+function Initial({ children }: { children: string }) {
+  return (
+    <span className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[color:var(--brand-petrol)] text-sm font-bold text-white">
+      {children}
+    </span>
+  );
+}
+
+/** The solid deep-teal button the app uses for every "add" action. */
+function SolidAction({ children }: { children: React.ReactNode }) {
+  return (
+    <button
+      type="button"
+      className="tap-target w-full justify-center rounded-3xl bg-[color:var(--brand-petrol)] px-5 py-4 text-lg font-bold text-white"
+    >
+      {children}
+    </button>
+  );
+}
+
+/** A gradient card. Borders alternate warm/cool down a list, the way the
+ *  product's do, so a stack of them never reads as one block. */
+function Card({
+  tone,
+  cool,
+  className,
+  children,
+}: {
+  tone: string;
+  cool?: boolean;
+  className?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <div
+      className={cn(
+        "gradient-motion rounded-3xl border-2 p-5 text-white",
+        tone,
+        cool ? "border-[color:var(--brand-teal)]" : "border-accent",
+        className,
+      )}
+    >
+      {children}
+    </div>
+  );
+}
+
+/** The pencil / minus pair sitting at the bottom-right of every editable card. */
+function CardControls() {
+  return (
+    <span className="mt-3 flex justify-end gap-2">
+      {["settings-2", "x"].map((icon) => (
+        <span
+          key={icon}
+          className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/40 bg-white/85 text-[color:var(--brand-petrol)]"
+        >
+          <Icon name={icon} className="h-4.5 w-4.5" />
+        </span>
+      ))}
+    </span>
+  );
+}
+
+function Label({ children }: { children: React.ReactNode }) {
+  return <p className="text-eyebrow text-white/85">{children}</p>;
+}
+
+/* ------------------------------------------------------------------ *
+ * Tabs
+ * ------------------------------------------------------------------ */
+
 function Overview() {
   return (
-    <div className="flex flex-col gap-5">
-      <div className="flex flex-wrap items-center justify-between gap-3">
-        <div>
-          <h3 className="text-subhead text-foreground">This week with Margaret</h3>
-          <p className="text-caption text-muted-foreground">
-            A sense of the week — not a record of it.
-          </p>
-        </div>
-        <span className="badge-pill bg-success/15 text-success">
-          <Icon name="check" className="h-3.5 w-3.5" />
-          Up and about today
-        </span>
-      </div>
-
-      <div className="grid gap-3 sm:grid-cols-3">
-        {[
-          { label: "Conversations", value: "12", note: "about usual", icon: "message-circle" },
-          { label: "Adventures opened", value: "9", note: "music, memories", icon: "sparkles" },
-          { label: "Stories recorded", value: "2", note: "1 shared with you", icon: "mic" },
-        ].map((stat) => (
-          <div key={stat.label} className="stat-tile flex flex-col gap-1">
-            <span className="flex items-center gap-2 text-muted-foreground">
-              <Icon name={stat.icon} className="h-4 w-4" />
-              <span className="text-caption font-semibold">{stat.label}</span>
-            </span>
-            <span className="text-display text-[2rem] leading-none text-foreground">
-              {stat.value}
-            </span>
-            <span className="text-caption text-muted-foreground">{stat.note}</span>
+    <div className="flex flex-col gap-4">
+      <Card tone="gradient-earth">
+        <Label>Profile</Label>
+        <div className="mt-2 flex items-start gap-4">
+          <span className="inline-flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl bg-[color:var(--brand-petrol)] text-2xl font-bold">
+            S
+          </span>
+          <div className="min-w-0">
+            <p className="text-2xl font-bold">Sharon Fraser</p>
+            <p className="text-lg text-white/85">Tap to add a short bio and a photo.</p>
           </div>
-        ))}
-      </div>
+        </div>
+        <div className="mt-4">
+          <SolidAction>Edit bio &amp; photo</SolidAction>
+        </div>
+      </Card>
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <section className="card-soft p-5">
-          <h4 className="text-title mb-3 text-foreground">Shared with you</h4>
-          <ul className="flex flex-col gap-3">
-            {[
-              {
-                icon: "mic",
-                title: "“The winter the river froze”",
-                meta: "Recorded Tuesday · 4 min",
-              },
-              {
-                icon: "images",
-                title: "Three photos from the lake house",
-                meta: "Annotated Tuesday",
-              },
-            ].map((item) => (
-              <li key={item.title} className="flex items-start gap-3">
-                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary">
-                  <Icon name={item.icon} className="h-5 w-5" />
-                </span>
-                <span className="flex flex-col">
-                  <span className="text-[0.9375rem] font-semibold text-foreground">
-                    {item.title}
-                  </span>
-                  <span className="text-caption text-muted-foreground">{item.meta}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
+      <Card tone="gradient-plum" cool>
+        <Label>Greeting on the Now screen</Label>
+        <p className="mt-1 text-2xl font-bold">My Beautiful Mother</p>
+      </Card>
 
-        <section className="card-soft p-5">
-          <h4 className="text-title mb-3 text-foreground">Coming up</h4>
-          <ul className="flex flex-col gap-3">
-            {[
-              {
-                icon: "calendar-check",
-                title: "Sam's birthday",
-                meta: "In 11 days · Clare is bringing the cake",
-              },
-              { icon: "phone-call", title: "Sunday call", meta: "Recurring · Daniel" },
-              { icon: "calendar", title: "Optician", meta: "14 March, 10:30 · reminder set" },
-            ].map((item) => (
-              <li key={item.title} className="flex items-start gap-3">
-                <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/20 text-accent-foreground">
-                  <Icon name={item.icon} className="h-5 w-5" />
-                </span>
-                <span className="flex flex-col">
-                  <span className="text-[0.9375rem] font-semibold text-foreground">
-                    {item.title}
-                  </span>
-                  <span className="text-caption text-muted-foreground">{item.meta}</span>
-                </span>
-              </li>
-            ))}
-          </ul>
-        </section>
-      </div>
+      <Card tone="gradient-warm">
+        <Label>Home address</Label>
+        <p className="mt-1 text-2xl font-bold">515–10th Street</p>
+      </Card>
 
-      <p className="text-caption flex items-start gap-2 rounded-2xl border border-border bg-surface/60 p-4 text-muted-foreground">
+      <Card tone="gradient-tide" cool>
+        <Label>Primary caregiver</Label>
+        <p className="mt-1 text-2xl font-bold">Donald Fraser</p>
+      </Card>
+
+      <p className="text-body flex items-start gap-2 rounded-2xl border border-border bg-surface/60 p-4 text-muted-foreground">
         <Icon name="lock" className="mt-0.5 h-4 w-4 shrink-0" />
-        What Margaret says in a private conversation is never shown here. There is no setting that
+        What Sharon says in a private conversation is never shown here. There is no setting that
         would change that.
       </p>
     </div>
   );
 }
 
-function ShareTab() {
+function LocationTab() {
+  const places = [
+    "Home",
+    "Sarah's house",
+    "Maple Street Grocery",
+    "Dr. Patel's office",
+    "Community Garden",
+  ];
   return (
-    <div className="flex flex-col gap-5">
-      <div>
-        <h3 className="text-subhead text-foreground">Send something</h3>
-        <p className="text-caption text-muted-foreground">
-          It arrives as a gentle prompt in her morning, not a notification pile.
+    <div className="flex flex-col gap-4">
+      <Card tone="gradient-tide" cool>
+        <Label>Current location</Label>
+        <p className="mt-1 text-3xl font-bold">Home</p>
+        <p className="mt-2 text-lg text-white/85">
+          Updates automatically on Sharon's Now screen — no one needs to edit it by hand.
         </p>
-      </div>
-      <div className="grid gap-3 sm:grid-cols-2">
-        {[
-          {
-            icon: "image-plus",
-            title: "Add photos",
-            body: "Drop them in. Sidekick asks her about them over the week.",
-          },
-          {
-            icon: "mic",
-            title: "Record a voice message",
-            body: "Thirty seconds beats a text she has to squint at.",
-          },
-          { icon: "music", title: "Add a song", body: "With a note about why you chose it." },
-          {
-            icon: "puzzle",
-            title: "Write a quiz",
-            body: "The grandchildren are unreasonably good at this.",
-          },
-          {
-            icon: "calendar-check",
-            title: "Add a date",
-            body: "Birthdays, appointments, anniversaries.",
-          },
-          {
-            icon: "phone-call",
-            title: "Call now",
-            body: "Rings her screen with your name and face.",
-          },
-        ].map((item) => (
-          <button
-            key={item.title}
-            type="button"
-            className="card-soft hover-lift flex items-start gap-3 p-4 text-left"
-          >
-            <span className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-primary/12 text-primary">
-              <Icon name={item.icon} className="h-5 w-5" />
+      </Card>
+
+      <p className="text-eyebrow text-accent-foreground/80">Recent movement</p>
+      <Card tone="gradient-earth">
+        <div className="flex items-center gap-4">
+          <span className="text-lg font-bold">8:45 AM</span>
+          <span className="text-xl font-bold">Arrived at Home</span>
+        </div>
+      </Card>
+
+      <ul className="flex flex-wrap gap-2">
+        {places.map((place, index) => (
+          <li key={place}>
+            <span
+              className={cn(
+                "inline-flex rounded-full px-5 py-2.5 text-base font-bold",
+                index === 0
+                  ? "bg-[color:var(--brand-petrol)] text-white"
+                  : "border-2 border-border bg-background text-foreground",
+              )}
+            >
+              {place}
             </span>
-            <span className="flex flex-col">
-              <span className="text-[0.9375rem] font-semibold text-foreground">{item.title}</span>
-              <span className="text-caption text-muted-foreground">{item.body}</span>
-            </span>
-          </button>
+          </li>
         ))}
-      </div>
+      </ul>
+
+      <p className="text-body flex items-start gap-2 rounded-2xl border border-border bg-surface/60 p-4 text-muted-foreground">
+        <Icon name="shield" className="mt-0.5 h-4 w-4 shrink-0" />
+        Shown only because Sharon granted it, and she can withdraw it by saying so. No history is
+        kept beyond the last arrival.
+      </p>
+    </div>
+  );
+}
+
+const ENTRIES: { name: string; relation: string; kind: "Person" | "Pet" | "Place" }[] = [
+  { name: "Sarah", relation: "Your daughter", kind: "Person" },
+  { name: "David", relation: "Your son", kind: "Person" },
+  { name: "Biscuit", relation: "Your dog", kind: "Pet" },
+  { name: "Jean", relation: "Your neighbour", kind: "Person" },
+  { name: "The Marina", relation: "A place you like to walk", kind: "Place" },
+  { name: "Dr. Patel", relation: "Your doctor", kind: "Person" },
+];
+
+function PeopleTab() {
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="text-body text-muted-foreground">
+        Tap any card to change the name, photo, phone or address.
+      </p>
+
+      {ENTRIES.map((entry, index) => (
+        <Card
+          key={entry.name}
+          tone={index % 2 === 0 ? "gradient-earth" : "gradient-tide"}
+          cool={index % 2 === 0}
+        >
+          <div className="flex items-start gap-4">
+            <img
+              src={demoPhoto(index)}
+              alt=""
+              loading="lazy"
+              decoding="async"
+              className="h-16 w-16 shrink-0 rounded-full object-cover"
+            />
+            <div className="min-w-0 flex-1">
+              <p className="text-2xl font-bold">{entry.name}</p>
+              <p className="text-lg text-white/85">{entry.relation}</p>
+            </div>
+            <span className="shrink-0 rounded-full bg-white/25 px-3 py-1 text-xs font-bold tracking-wide uppercase">
+              {entry.kind}
+            </span>
+          </div>
+          <CardControls />
+        </Card>
+      ))}
+
+      <SolidAction>Add a person, pet, or place</SolidAction>
+    </div>
+  );
+}
+
+function TrustedTab() {
+  return (
+    <div className="flex flex-col gap-4">
+      <p className="text-body text-muted-foreground">
+        Save the addresses Sharon travels to. She can then press Talk and say “Take me to Todd's” or
+        “I want to go home”, and the way there appears on her main screen.
+      </p>
+
+      <Card tone="gradient-tide" cool>
+        <p className="text-2xl font-bold">Todd's</p>
+        <p className="text-lg text-white/85">1503–10th Street, Cold Lake, Alberta</p>
+        <CardControls />
+      </Card>
+
+      <SolidAction>Add a trusted location</SolidAction>
     </div>
   );
 }
 
 function PermissionsTab() {
   return (
-    <div className="flex flex-col gap-5">
-      <div>
-        <h3 className="text-subhead text-foreground">What you can see</h3>
-        <p className="text-caption text-muted-foreground">
-          Set by Margaret, visible to her in the same words, and changeable by her at any time.
-        </p>
-      </div>
-      <ul className="flex flex-col divide-y divide-border overflow-hidden rounded-2xl border border-border">
-        {PERMISSIONS.map((row) => (
-          <li key={row.what} className="flex flex-wrap items-start gap-3 bg-card/50 p-4">
-            <span className="min-w-0 flex-1">
-              <span className="block text-[0.9375rem] font-semibold text-foreground">
-                {row.what}
+    <div className="flex flex-col gap-4">
+      <p className="text-body text-muted-foreground">
+        Set by Sharon, shown to her in these same words, and changeable by her at any time.
+      </p>
+      <ul className="flex flex-col gap-3">
+        {PERMISSIONS.map((row, index) => (
+          <Card
+            key={row.what}
+            tone={index % 2 === 0 ? "gradient-plum" : "gradient-sage"}
+            cool={index % 2 === 1}
+            className="p-4"
+          >
+            <li className="flex flex-wrap items-start gap-3">
+              <span className="min-w-0 flex-1">
+                <span className="block text-lg font-bold">{row.what}</span>
+                <span className="block text-base text-white/85">{row.detail}</span>
               </span>
-              <span className="text-caption block text-muted-foreground">{row.detail}</span>
-            </span>
-            <PermissionBadge value={row.familyDefault} />
-          </li>
+              <PermissionBadge value={row.familyDefault} />
+            </li>
+          </Card>
         ))}
       </ul>
     </div>
@@ -248,69 +355,45 @@ function PermissionsTab() {
 
 function PermissionBadge({ value }: { value: "always" | "with-permission" | "never" }) {
   const map = {
-    always: { label: "Shared", className: "bg-success/15 text-success", icon: "check" },
-    "with-permission": {
-      label: "Her choice",
-      className: "bg-accent/20 text-accent-foreground",
-      icon: "user-check",
-    },
-    never: { label: "Never shared", className: "bg-muted text-muted-foreground", icon: "eye-off" },
+    always: { label: "Shared", icon: "check" },
+    "with-permission": { label: "Her choice", icon: "user-check" },
+    never: { label: "Never shared", icon: "eye-off" },
   } as const;
   const entry = map[value];
   return (
-    <span className={cn("badge-pill shrink-0", entry.className)}>
+    <span className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white/25 px-3 py-1 text-xs font-bold tracking-wide uppercase">
       <Icon name={entry.icon} className="h-3.5 w-3.5" />
       {entry.label}
     </span>
   );
 }
 
-function AlertsTab() {
+function MusicTab() {
+  const songs = [
+    { title: "The Lion Sleeps Tonight", meta: "The Tokens · added by Todd" },
+    { title: "California Dreamin'", meta: "The Mamas & The Papas · added by Todd" },
+    { title: "Stand By Me", meta: "Ben E. King · added by Sarah" },
+  ];
   return (
-    <div className="flex flex-col gap-5">
-      <div>
-        <h3 className="text-subhead text-foreground">What reaches your phone</h3>
-        <p className="text-caption text-muted-foreground">
-          Chosen by you, capped by what Margaret has permitted.
-        </p>
-      </div>
-      <ul className="flex flex-col gap-2.5">
-        {[
-          { title: "A story or memory was shared with me", on: true },
-          { title: "A photo I sent was opened", on: true },
-          { title: "An upcoming birthday or appointment", on: true },
-          { title: "She asked Sidekick to call me and I missed it", on: true },
-          { title: "A quiet day — no conversations by evening", on: false },
-          { title: "Weekly summary, Sunday evening", on: false },
-        ].map((item) => (
-          <li
-            key={item.title}
-            className="flex items-center justify-between gap-3 rounded-2xl border border-border bg-card/50 p-4"
-          >
-            <span className="text-[0.9375rem] text-foreground">{item.title}</span>
-            <span
-              className={cn(
-                "relative inline-flex h-6 w-11 shrink-0 items-center rounded-full transition-refined",
-                item.on ? "bg-primary" : "bg-muted",
-              )}
-              aria-hidden="true"
-            >
-              <span
-                className={cn(
-                  "absolute h-5 w-5 rounded-full bg-white shadow-subtle transition-refined",
-                  item.on ? "left-[1.375rem]" : "left-0.5",
-                )}
-              />
-            </span>
-          </li>
-        ))}
-      </ul>
-      <p className="text-caption flex items-start gap-2 rounded-2xl border border-border bg-surface/60 p-4 text-muted-foreground">
-        <Icon name="shield" className="mt-0.5 h-4 w-4 shrink-0" />
-        There is no fall detection, no health monitoring and no movement history. Location is shown
-        only where Margaret has granted it. Senior Sidekick is a care and safety companion, not a
-        medical device.
+    <div className="flex flex-col gap-4">
+      <p className="text-body text-muted-foreground">
+        Upload an MP3 and Sidekick reads the song's own details from the file. Review them, save,
+        and it shows up on Sharon's Music screen as a big, simple button.
       </p>
+
+      {songs.map((song, index) => (
+        <Card
+          key={song.title}
+          tone={index % 2 === 0 ? "gradient-earth" : "gradient-plum"}
+          cool={index % 2 === 0}
+        >
+          <p className="text-xl font-bold">{song.title}</p>
+          <p className="text-base text-white/85">{song.meta}</p>
+          <CardControls />
+        </Card>
+      ))}
+
+      <SolidAction>Add a song</SolidAction>
     </div>
   );
 }

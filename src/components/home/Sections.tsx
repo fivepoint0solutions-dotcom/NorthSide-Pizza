@@ -289,9 +289,9 @@ export function ProductShowcase() {
             </Reveal>
           </div>
         ) : (
-          <div className="grid gap-8 lg:grid-cols-[1fr_minmax(0,22rem)] lg:items-center">
+          <div className="grid gap-8 lg:grid-cols-[minmax(0,30rem)_1fr] lg:items-center">
             <Reveal>
-              <DeviceFrame kind="desktop" label="family.srsidekick.org — Margaret">
+              <DeviceFrame kind="tablet">
                 <CaregiverDashboard />
               </DeviceFrame>
             </Reveal>
@@ -301,10 +301,10 @@ export function ProductShowcase() {
               </h3>
               <ul className="flex flex-col gap-3">
                 {[
-                  "A sense of the week, never a transcript of it",
-                  "Photos, songs, quizzes and calls, sent in seconds",
+                  "The same app, unlocked with a code — nothing separate to learn",
+                  "Add the people, pets and places they'd want on their screen",
+                  "Photos, songs and trusted addresses, added in seconds",
                   "Permissions set by the senior and visible to everyone",
-                  "Only the notifications you asked for",
                   "Location shared only if they said so. No health monitoring. No scores.",
                 ].map((item) => (
                   <li key={item} className="flex items-start gap-3">
