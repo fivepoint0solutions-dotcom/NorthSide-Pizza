@@ -2,23 +2,23 @@ import { useRouterState } from "@tanstack/react-router";
 import { FeatherMark } from "./FeatherMark";
 
 /**
- * The site-wide watermark: one to three feathers drifting behind every
- * page, as if caught mid-fall. Fixed to the viewport (not the document), so
- * it never contributes to page height or horizontal scroll, and clipped to
- * it so an oversized feather near an edge can't cause either.
+ * The site-wide watermark: feathers drifting behind the page, as if caught
+ * mid-fall. Absolutely positioned against the full document height (not the
+ * viewport), so it scrolls with the page and reappears repeatedly down the
+ * whole length of every route — this is what makes it read as "splashed all
+ * over the site" rather than a decoration stuck to one corner of the screen.
  *
  * The arrangement varies by route — different count, size and corners per
- * page — so the site doesn't read as one fixed background image repeated
- * everywhere. Each feather sways on its own slow, staggered timer: subtle,
- * a few degrees, never in sync with its neighbours.
+ * page — so the site doesn't read as one image repeated everywhere. Each
+ * feather sways on its own slow, staggered timer: subtle, a few degrees,
+ * never in sync with its neighbours.
  *
  * data-decorative="true" is what lets high-contrast mode strip this along
  * with the rest of the site's decoration (see styles.css).
  */
 
 interface Placement {
-  top?: string;
-  bottom?: string;
+  top: string;
   left?: string;
   right?: string;
   size: string;
@@ -29,14 +29,15 @@ interface Placement {
   delay: string;
 }
 
-// Five hand-placed arrangements, favouring the top corners as asked for,
-// with the odd feather lower down so the field doesn't feel like a header
-// decoration repeated at every scroll position. Sizes stay large — never a
-// small confetti scatter — per "I don't want him to be super small."
+// Six hand-placed arrangements, one feather roughly every one to two screens
+// of scroll depth (percentages are of the full page, not the viewport), so a
+// long page carries several and a short one still gets two or three. Sizes
+// stay large — never a small confetti scatter — per "I don't want him to be
+// super small."
 const ARRANGEMENTS: Placement[][] = [
   [
     {
-      top: "-8%",
+      top: "-3%",
       left: "-6%",
       size: "26rem",
       rotate: -18,
@@ -45,7 +46,7 @@ const ARRANGEMENTS: Placement[][] = [
       delay: "0s",
     },
     {
-      top: "4%",
+      top: "16%",
       right: "-9%",
       size: "22rem",
       rotate: 24,
@@ -54,10 +55,38 @@ const ARRANGEMENTS: Placement[][] = [
       duration: "16s",
       delay: "-4s",
     },
+    {
+      top: "38%",
+      left: "-7%",
+      size: "24rem",
+      rotate: -12,
+      opacity: 0.296,
+      duration: "15s",
+      delay: "-2s",
+    },
+    {
+      top: "58%",
+      right: "-7%",
+      size: "20rem",
+      rotate: 20,
+      flip: true,
+      opacity: 0.274,
+      duration: "17s",
+      delay: "-6s",
+    },
+    {
+      top: "78%",
+      left: "-8%",
+      size: "22rem",
+      rotate: -26,
+      opacity: 0.251,
+      duration: "18s",
+      delay: "-3s",
+    },
   ],
   [
     {
-      top: "-10%",
+      top: "-4%",
       right: "-7%",
       size: "30rem",
       rotate: 14,
@@ -67,7 +96,7 @@ const ARRANGEMENTS: Placement[][] = [
       delay: "0s",
     },
     {
-      bottom: "-6%",
+      top: "22%",
       left: "-8%",
       size: "20rem",
       rotate: -30,
@@ -75,10 +104,29 @@ const ARRANGEMENTS: Placement[][] = [
       duration: "18s",
       delay: "-6s",
     },
+    {
+      top: "46%",
+      right: "-6%",
+      size: "24rem",
+      rotate: 18,
+      flip: true,
+      opacity: 0.296,
+      duration: "14s",
+      delay: "-1s",
+    },
+    {
+      top: "70%",
+      left: "-7%",
+      size: "22rem",
+      rotate: -20,
+      opacity: 0.274,
+      duration: "16s",
+      delay: "-5s",
+    },
   ],
   [
     {
-      top: "2%",
+      top: "0%",
       left: "-8%",
       size: "24rem",
       rotate: -10,
@@ -86,10 +134,39 @@ const ARRANGEMENTS: Placement[][] = [
       duration: "13s",
       delay: "0s",
     },
+    {
+      top: "28%",
+      right: "-8%",
+      size: "22rem",
+      rotate: 22,
+      flip: true,
+      opacity: 0.274,
+      duration: "15s",
+      delay: "-4s",
+    },
+    {
+      top: "54%",
+      left: "-6%",
+      size: "20rem",
+      rotate: -16,
+      opacity: 0.251,
+      duration: "17s",
+      delay: "-2s",
+    },
+    {
+      top: "80%",
+      right: "-9%",
+      size: "26rem",
+      rotate: 12,
+      flip: true,
+      opacity: 0.319,
+      duration: "16s",
+      delay: "-7s",
+    },
   ],
   [
     {
-      top: "-6%",
+      top: "-2%",
       left: "6%",
       size: "20rem",
       rotate: -22,
@@ -98,7 +175,7 @@ const ARRANGEMENTS: Placement[][] = [
       delay: "0s",
     },
     {
-      top: "18%",
+      top: "20%",
       right: "-8%",
       size: "26rem",
       rotate: 20,
@@ -108,7 +185,7 @@ const ARRANGEMENTS: Placement[][] = [
       delay: "-3s",
     },
     {
-      bottom: "4%",
+      top: "42%",
       left: "-6%",
       size: "18rem",
       rotate: -34,
@@ -116,10 +193,29 @@ const ARRANGEMENTS: Placement[][] = [
       duration: "19s",
       delay: "-8s",
     },
+    {
+      top: "64%",
+      right: "-7%",
+      size: "22rem",
+      rotate: 16,
+      flip: true,
+      opacity: 0.296,
+      duration: "15s",
+      delay: "-2s",
+    },
+    {
+      top: "86%",
+      left: "-8%",
+      size: "24rem",
+      rotate: -14,
+      opacity: 0.274,
+      duration: "16s",
+      delay: "-5s",
+    },
   ],
   [
     {
-      top: "-9%",
+      top: "-5%",
       right: "8%",
       size: "28rem",
       rotate: 8,
@@ -127,6 +223,83 @@ const ARRANGEMENTS: Placement[][] = [
       opacity: 0.319,
       duration: "15s",
       delay: "0s",
+    },
+    {
+      top: "24%",
+      left: "-7%",
+      size: "22rem",
+      rotate: -24,
+      opacity: 0.274,
+      duration: "17s",
+      delay: "-4s",
+    },
+    {
+      top: "50%",
+      right: "-6%",
+      size: "20rem",
+      rotate: 18,
+      flip: true,
+      opacity: 0.251,
+      duration: "14s",
+      delay: "-1s",
+    },
+    {
+      top: "72%",
+      left: "-8%",
+      size: "24rem",
+      rotate: -10,
+      opacity: 0.296,
+      duration: "18s",
+      delay: "-6s",
+    },
+  ],
+  [
+    {
+      top: "-4%",
+      left: "-7%",
+      size: "22rem",
+      rotate: -16,
+      opacity: 0.296,
+      duration: "16s",
+      delay: "0s",
+    },
+    {
+      top: "18%",
+      right: "-6%",
+      size: "20rem",
+      rotate: 26,
+      flip: true,
+      opacity: 0.251,
+      duration: "14s",
+      delay: "-5s",
+    },
+    {
+      top: "40%",
+      left: "-9%",
+      size: "26rem",
+      rotate: -20,
+      opacity: 0.319,
+      duration: "17s",
+      delay: "-2s",
+    },
+    {
+      top: "62%",
+      right: "-8%",
+      size: "22rem",
+      rotate: 14,
+      flip: true,
+      opacity: 0.274,
+      duration: "15s",
+      delay: "-7s",
+    },
+    {
+      top: "84%",
+      left: "-6%",
+      size: "20rem",
+      rotate: -28,
+      opacity: 0.251,
+      duration: "19s",
+      delay: "-3s",
     },
   ],
 ];
@@ -146,7 +319,7 @@ export function FeatherField() {
     <div
       aria-hidden="true"
       data-decorative="true"
-      className="pointer-events-none fixed inset-0 -z-[1] overflow-hidden"
+      className="pointer-events-none absolute inset-0 -z-[1] overflow-x-hidden"
     >
       {feathers.map((f, i) => (
         <span
@@ -154,7 +327,6 @@ export function FeatherField() {
           className="feather-ruffle absolute"
           style={{
             top: f.top,
-            bottom: f.bottom,
             left: f.left,
             right: f.right,
             width: f.size,
