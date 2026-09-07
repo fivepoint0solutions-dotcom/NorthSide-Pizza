@@ -228,6 +228,12 @@
     var(--brand-lavender) 55%,
     var(--brand-rose)
   );
+  /* The senior app's actual "Sage & Amber" theme — used by the live product
+     demo (SeniorExperience) so it reads as the real interface, not an
+     invented one. */
+  --grad-warm: linear-gradient(120deg, var(--brand-ochre), var(--brand-rust) 100%);
+  --grad-sage: linear-gradient(120deg, var(--brand-olive), var(--brand-khaki) 100%);
+  --grad-earth: linear-gradient(135deg, var(--brand-rust), var(--brand-olive) 100%);
 
   /* Adventure gradients — the app's card colours, one story each. */
   --grad-memory: linear-gradient(125deg, #a85c77, #8b7ba8 55%, #6c86b4 100%);
@@ -1016,6 +1022,15 @@ html[data-motion="reduced"] button:not(:disabled):hover {
 }
 @utility gradient-calm {
   background-image: var(--grad-calm);
+}
+@utility gradient-warm {
+  background-image: var(--grad-warm);
+}
+@utility gradient-sage {
+  background-image: var(--grad-sage);
+}
+@utility gradient-earth {
+  background-image: var(--grad-earth);
 }
 
 /* Card tints — scope a subtree to one of the palette stories. */

@@ -63,7 +63,7 @@ function TabBar({ tab, onChange }: { tab: Tab; onChange: (tab: Tab) => void }) {
       <div
         role="tablist"
         aria-label="Sidekick sections"
-        className="gradient-action gradient-motion flex items-center rounded-full border-2 border-border-strong p-1"
+        className="gradient-warm gradient-motion flex items-center rounded-full border-2 border-accent p-1"
       >
         {TABS.map((item) => (
           <button
@@ -121,8 +121,8 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
             className={cn(
               "tap-target mt-1 shrink-0 gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-semibold transition-refined",
               customizing
-                ? "gradient-action gradient-motion border-border-strong text-white"
-                : "border-border text-muted-foreground",
+                ? "gradient-warm gradient-motion border-accent text-white"
+                : "border-accent/60 text-muted-foreground",
             )}
           >
             <Icon name="sliders-horizontal" className="h-4 w-4" />
@@ -139,7 +139,7 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
 
       {/* Orientation first — the single most reassuring thing on the screen,
           and never part of what gets turned off. */}
-      <section className="gradient-action gradient-motion rounded-3xl border-2 border-border-strong p-5 text-white">
+      <section className="gradient-warm gradient-motion rounded-3xl border-2 border-accent p-5 text-white">
         <p className="text-eyebrow text-white/85">Right now</p>
         <p className="font-display mt-1 text-3xl font-bold">You are at home.</p>
         <p className="mt-2 text-lg text-white/85">It's Tuesday morning. Nothing is due yet.</p>
@@ -157,13 +157,14 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
         active={customizing}
         checked={enabled.songs}
         onChange={() => toggle("songs")}
-        tone="calm"
+        tone="earth"
       />
       <HomeToggleRow
         label="View My Day (memory journal)"
         active={customizing}
         checked={enabled["my-day"]}
         onChange={() => toggle("my-day")}
+        tone="sage"
       />
 
       {customizing || ADVENTURES.some((a) => enabled[a.slug]) ? (
@@ -175,9 +176,10 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
                 <li key={adventure.slug}>
                   <div
                     className={cn(
-                      "relative w-full rounded-3xl border-2 border-border p-4 text-center transition-refined",
+                      "gradient-motion relative w-full rounded-3xl border-2 border-accent p-4 text-center text-white transition-refined",
                       !enabled[adventure.slug] && customizing && "opacity-45",
                     )}
+                    style={{ backgroundImage: adventure.gradient }}
                   >
                     {customizing ? (
                       <Switch
@@ -192,13 +194,10 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
                       onClick={() => (customizing ? toggle(adventure.slug) : onOpen(adventure))}
                       className="hover-lift flex w-full flex-col items-center gap-2"
                     >
-                      <span
-                        className="gradient-motion inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
-                        style={{ backgroundImage: adventure.gradient }}
-                      >
+                      <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-white/20 text-white">
                         <Icon name={adventure.icon} className="h-6 w-6" />
                       </span>
-                      <span className="text-base leading-tight font-semibold text-foreground">
+                      <span className="text-base leading-tight font-semibold text-white">
                         {t(adventure.nameKey)}
                       </span>
                     </button>
@@ -210,7 +209,7 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
         </section>
       ) : null}
 
-      <p className="font-display rounded-3xl border-2 border-border p-5 text-center text-2xl text-primary italic">
+      <p className="font-display rounded-3xl border-2 border-accent p-5 text-center text-2xl text-primary italic">
         “Your family is always thinking of you.”
       </p>
     </div>
@@ -228,16 +227,15 @@ function HomeToggleRow({
   active: boolean;
   checked: boolean;
   onChange: () => void;
-  tone?: "calm";
+  tone?: "earth" | "sage";
 }) {
   if (!active && !checked) return null;
   return (
     <div
       className={cn(
-        "tap-target flex w-full items-center justify-between gap-3 rounded-3xl border-2 px-5 py-4 text-left text-xl font-semibold transition-refined",
-        tone === "calm"
-          ? "gradient-calm gradient-motion border-border-strong text-white"
-          : "border-border text-foreground",
+        "tap-target flex w-full items-center justify-between gap-3 rounded-3xl border-2 border-accent px-5 py-4 text-left text-xl font-semibold text-white transition-refined",
+        tone === "earth" && "gradient-earth gradient-motion",
+        tone === "sage" && "gradient-sage gradient-motion",
         !checked && active && "opacity-45",
       )}
     >
@@ -268,9 +266,9 @@ function ScheduleScreen() {
         {items.map((item) => (
           <li
             key={item.title}
-            className="flex items-start gap-4 rounded-3xl border-2 border-border p-4"
+            className="flex items-start gap-4 rounded-3xl border-2 border-accent p-4"
           >
-            <span className="gradient-calm gradient-motion inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white">
+            <span className="gradient-sage gradient-motion inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white">
               <Icon name={item.icon} className="h-6 w-6" />
             </span>
             <span className="flex flex-col">
@@ -303,7 +301,7 @@ function PeopleScreen() {
         {people.map((person) => (
           <li
             key={person.name}
-            className="gradient-action gradient-motion flex items-center gap-4 rounded-3xl border-2 border-border-strong p-4 text-white"
+            className="gradient-earth gradient-motion flex items-center gap-4 rounded-3xl border-2 border-accent p-4 text-white"
           >
             <span className="font-display inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full border-2 border-white/60 bg-white/20 text-2xl font-bold">
               {person.initials}
@@ -323,29 +321,35 @@ function PeopleScreen() {
 }
 
 function HelpScreen() {
+  const prompts: { label: string; gradient: string }[] = [
+    { label: "Where am I?", gradient: "var(--grad-explore)" },
+    { label: "What's happening?", gradient: "var(--grad-talk)" },
+    { label: "What do I do next?", gradient: "var(--grad-family)" },
+  ];
   return (
     <div className="flex flex-col gap-3">
       <button
         type="button"
-        className="tap-target w-full flex-col items-start gap-1 rounded-3xl border-2 border-border-strong bg-highlight p-5 text-left text-white"
+        className="gradient-warm gradient-motion tap-target w-full flex-col items-start gap-1 rounded-3xl border-2 border-accent p-5 text-left text-white"
       >
         <span className="text-2xl font-bold">Call Caregiver</span>
         <span className="text-lg text-white/85">Sarah Anderson</span>
       </button>
       <button
         type="button"
-        className="tap-target w-full flex-col items-start gap-1 rounded-3xl border-2 border-border-strong bg-accent p-5 text-left text-accent-foreground"
+        className="tap-target w-full flex-col items-start gap-1 rounded-3xl border-2 border-accent bg-accent p-5 text-left text-accent-foreground"
       >
         <span className="text-2xl font-bold">Request Help</span>
         <span className="text-lg opacity-80">Someone will talk with you</span>
       </button>
-      {["Where am I?", "What's happening?", "What do I do next?"].map((question) => (
+      {prompts.map((question) => (
         <button
-          key={question}
+          key={question.label}
           type="button"
-          className="tap-target gradient-action gradient-motion w-full justify-start rounded-3xl border-2 border-border-strong px-5 py-4 text-left text-xl font-semibold text-white"
+          className="gradient-motion tap-target w-full justify-start rounded-3xl border-2 border-accent px-5 py-4 text-left text-xl font-semibold text-white"
+          style={{ backgroundImage: question.gradient }}
         >
-          {question}
+          {question.label}
         </button>
       ))}
     </div>
@@ -358,7 +362,7 @@ function AdventureScreen({ adventure, onBack }: { adventure: Adventure; onBack: 
   return (
     <div className="flex flex-col gap-4">
       <div
-        className="gradient-motion flex items-center gap-3 rounded-3xl border-2 border-border-strong p-4 text-white"
+        className="gradient-motion flex items-center gap-3 rounded-3xl border-2 border-accent p-4 text-white"
         style={{ backgroundImage: adventure.gradient }}
       >
         <button
@@ -390,7 +394,7 @@ function AdventureScreen({ adventure, onBack }: { adventure: Adventure; onBack: 
             key={label}
             type="button"
             onClick={label === "Something else" ? onBack : undefined}
-            className="tap-target rounded-2xl border-2 border-border-strong px-5 py-3.5 text-base font-semibold"
+            className="tap-target rounded-2xl border-2 border-accent px-5 py-3.5 text-base font-semibold"
           >
             {label}
           </button>
@@ -405,12 +409,12 @@ function TalkBar() {
   return (
     <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
       <span className="flex flex-col items-center gap-1">
-        <span className="gradient-action gradient-motion tap-target h-16 w-16 rounded-full border-2 border-border-strong text-white shadow-raised">
+        <span className="gradient-warm gradient-motion tap-target h-16 w-16 rounded-full border-2 border-[color:var(--brand-olive)] text-white shadow-raised">
           <Icon name="mic" className="h-7 w-7" />
         </span>
         <span className="text-sm font-bold text-foreground">Tap to talk</span>
       </span>
-      <span className="gradient-sunrise gradient-motion tap-target rounded-full border-2 border-border-strong px-6 py-3 text-base font-bold text-white shadow-raised">
+      <span className="gradient-sage gradient-motion tap-target rounded-full border-2 border-accent px-6 py-3 text-base font-bold text-white shadow-raised">
         Caregiver
       </span>
     </div>
