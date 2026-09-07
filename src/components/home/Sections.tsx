@@ -475,23 +475,23 @@ export function WhySection() {
       <SectionHeading eyebrow={t("why.eyebrow")} title={t("why.title")} />
       <div className="mt-10 overflow-hidden rounded-3xl border border-border">
         <div className="grid grid-cols-2 gap-px bg-border">
-          <div className="bg-muted/60 px-5 py-4 lg:px-8">
+          <div className="min-w-0 bg-muted/60 px-4 py-4 sm:px-5 lg:px-8">
             <h3 className="text-title text-muted-foreground">{t("why.traditional")}</h3>
           </div>
-          <div className="gradient-action gradient-motion px-5 py-4 lg:px-8">
+          <div className="gradient-action gradient-motion min-w-0 px-4 py-4 sm:px-5 lg:px-8">
             <h3 className="text-title text-white">{t("why.sidekick")}</h3>
           </div>
           {/* Rendered as a flat sequence of cells so the two columns stay
               aligned row-for-row at every breakpoint. */}
           {COMPARISON.map((row) => (
             <Fragment key={row.sidekick}>
-              <div className="flex items-start gap-3 bg-background px-5 py-5 lg:px-8">
+              <div className="flex min-w-0 items-start gap-3 bg-background px-4 py-5 sm:px-5 lg:px-8">
                 <Icon name="x" className="mt-1 h-5 w-5 shrink-0 text-muted-foreground/60" />
-                <p className="text-body text-muted-foreground">{row.traditional}</p>
+                <p className="text-body min-w-0 text-muted-foreground">{row.traditional}</p>
               </div>
-              <div className="flex items-start gap-3 bg-card/70 px-5 py-5 lg:px-8">
+              <div className="flex min-w-0 items-start gap-3 bg-card/70 px-4 py-5 sm:px-5 lg:px-8">
                 <Icon name="check" className="mt-1 h-5 w-5 shrink-0 text-primary" />
-                <p className="text-body text-foreground">{row.sidekick}</p>
+                <p className="text-body min-w-0 text-foreground">{row.sidekick}</p>
               </div>
             </Fragment>
           ))}
