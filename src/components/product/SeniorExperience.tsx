@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ADVENTURES, type Adventure } from "@/lib/site/adventures";
+import { affirmationAt } from "@/lib/site/affirmations";
 import { formatLongDate, formatTime, useLanguage, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { AmbientPhotos } from "./AmbientPhotos";
 import { SidekickAvatar } from "./SidekickAvatar";
 import { Icon } from "@/components/site/Icon";
 import { Switch } from "@/components/ui/switch";
@@ -31,6 +33,8 @@ export function SeniorExperience({ className }: { className?: string }) {
 
   return (
     <div className={cn("relative flex min-h-full flex-col bg-background", className)}>
+      <AmbientPhotos />
+
       <TabBar
         tab={tab}
         onChange={(next) => {
@@ -39,7 +43,7 @@ export function SeniorExperience({ className }: { className?: string }) {
         }}
       />
 
-      <div className="flex-1 px-5 pt-5 pb-24 sm:px-6">
+      <div className="relative z-10 flex-1 px-5 pt-5 pb-24 sm:px-6">
         {open ? (
           <AdventureScreen adventure={open} onBack={() => setOpen(null)} />
         ) : (
@@ -95,6 +99,15 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
   const { language } = useLanguage();
   const now = new Date();
   const [customizing, setCustomizing] = useState(false);
+  // The affirmations change through the day in the product rather than
+  // sitting on one line, so the demo rotates them too. Starts at 0 on both
+  // server and client, then advances — picking at random on first render
+  // would mismatch during hydration.
+  const [affirmation, setAffirmation] = useState(0);
+  useEffect(() => {
+    const id = window.setInterval(() => setAffirmation((n) => n + 1), 7000);
+    return () => window.clearInterval(id);
+  }, []);
   const [enabled, setEnabled] = useState<Record<HomeItemId, boolean>>(() => {
     const state = { songs: true, "my-day": true } as Record<HomeItemId, boolean>;
     ADVENTURES.forEach((adventure) => {
@@ -129,8 +142,12 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
             {customizing ? "Done" : "Customize"}
           </button>
         </div>
-        <p className="font-display text-lg text-primary italic">
-          You are loved more than words can say.
+        <p
+          key={affirmation}
+          className="font-display animate-fade-in text-lg text-primary italic"
+          aria-live="polite"
+        >
+          {affirmationAt(affirmation)}
         </p>
         <p className="mt-2 text-xl font-bold text-foreground">
           {formatLongDate(language, now)} · {formatTime(language, 8, 15)}
@@ -209,8 +226,12 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
         </section>
       ) : null}
 
-      <p className="font-display rounded-3xl border-2 border-accent p-5 text-center text-2xl text-primary italic">
-        “Your family is always thinking of you.”
+      {/* Offset from the greeting's line so the two are never the same. */}
+      <p
+        key={`quote-${affirmation}`}
+        className="font-display animate-fade-in rounded-3xl border-2 border-accent p-5 text-center text-2xl text-primary italic"
+      >
+        “{affirmationAt(affirmation + 4)}”
       </p>
     </div>
   );
@@ -407,7 +428,7 @@ function AdventureScreen({ adventure, onBack }: { adventure: Adventure; onBack: 
 /** The two controls that are always reachable, wherever you are in the app. */
 function TalkBar() {
   return (
-    <div className="pointer-events-none absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4">
+    <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-3 p-4">
       <span className="flex flex-col items-center gap-1">
         <span className="gradient-warm gradient-motion tap-target h-16 w-16 rounded-full border-2 border-[color:var(--brand-olive)] text-white shadow-raised">
           <Icon name="mic" className="h-7 w-7" />

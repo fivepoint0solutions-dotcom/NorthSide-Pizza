@@ -270,6 +270,8 @@ export function ProductShowcase() {
               <ul className="flex flex-col gap-3">
                 {[
                   "One suggestion for today — not a feed to scroll",
+                  "Affirmations that change through the day, and family can add their own",
+                  "Their own photos drifting behind it all — family, pets, the things they love",
                   "Every adventure reachable in a single tap or a single sentence",
                   "No icon without a word beside it",
                   "Help is a permanent, oversized button, never a hidden menu",

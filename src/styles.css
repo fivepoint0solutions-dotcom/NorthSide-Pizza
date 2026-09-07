@@ -1228,6 +1228,67 @@ html[data-motion="reduced"] .feather-ruffle {
   animation: none;
 }
 
+/* The app's ambient photo layer — family, pets and the things a person
+   likes, drifting up slowly behind the interface and fading at both ends
+   so nothing ever pops in or out. Semi-transparent throughout: this is
+   atmosphere, never something competing with the buttons in front of it. */
+@keyframes photo-drift {
+  0% {
+    opacity: 0;
+    transform: translate3d(0, 1.25rem, 0) scale(0.9) rotate(0deg);
+  }
+  15%,
+  85% {
+    opacity: var(--drift-opacity, 0.32);
+  }
+  100% {
+    opacity: 0;
+    transform: translate3d(0, -5rem, 0) scale(1.05) rotate(5deg);
+  }
+}
+
+@utility photo-drift {
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: photo-drift var(--drift-duration, 22s) linear infinite;
+  animation-delay: var(--drift-delay, 0s);
+  /* Calm mode keeps the photos — they're content — and drops the motion. */
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+    opacity: var(--drift-opacity, 0.32);
+    transform: none;
+  }
+}
+html[data-motion="reduced"] .photo-drift {
+  animation: none;
+  opacity: var(--drift-opacity, 0.32);
+  transform: none;
+}
+
+/* A line of text arriving in place of the one before it — used where an
+   affirmation rotates, so it reads as a change of thought rather than a
+   flicker. */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 0.25rem, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in var(--duration-slow) var(--ease-editorial) both;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+html[data-motion="reduced"] .animate-fade-in {
+  animation: none;
+}
+
 /* Skip link — visible only on keyboard focus. */
 @utility skip-link {
   position: absolute;
