@@ -12,6 +12,7 @@ import {
   TRUST_PILLARS,
 } from "@/lib/site/content";
 import { cn } from "@/lib/utils";
+import { cardTint } from "@/lib/cardTint";
 import { Reveal } from "@/components/motion/Reveal";
 import {
   Section,
@@ -186,7 +187,9 @@ export function PlatformSection() {
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {PILLARS.map((pillar, index) => (
           <Reveal key={pillar.slug} delay={index * 60} className="h-full">
-            <article className="card-elevated flex h-full flex-col gap-3 p-6">
+            <article
+              className={cn("card-elevated flex h-full flex-col gap-3 p-6", cardTint(index))}
+            >
               <span
                 className="gradient-motion inline-flex h-14 w-14 items-center justify-center rounded-2xl text-white shadow-raised"
                 style={{ backgroundImage: pillar.gradient }}
@@ -436,7 +439,7 @@ export function JourneySection() {
       <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {PRODUCT_JOURNEY.map((step, index) => (
           <Reveal key={step.key} delay={index * 70} as="li" className="h-full">
-            <div className="card-elevated flex h-full flex-col gap-3 p-6">
+            <div className={cn("card-elevated flex h-full flex-col gap-3 p-6", cardTint(index))}>
               <span className="text-eyebrow text-primary">Step {index + 1}</span>
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                 <Icon name={step.icon} className="h-6 w-6" />
@@ -541,7 +544,7 @@ export function TestimonialsSection() {
       <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {TESTIMONIALS.map((testimonial, index) => (
           <Reveal key={testimonial.name} delay={index * 60} className="h-full">
-            <figure className="card-elevated flex h-full flex-col gap-4 p-6">
+            <figure className={cn("card-elevated flex h-full flex-col gap-4 p-6", cardTint(index))}>
               <Icon name="quote" className="h-6 w-6 text-accent" />
               <blockquote className="text-body text-foreground">“{testimonial.quote}”</blockquote>
               <figcaption className="mt-auto flex flex-col gap-2 pt-2">
@@ -575,7 +578,10 @@ export function TrustSection() {
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {TRUST_PILLARS.map((pillar, index) => (
           <Reveal key={pillar.title} delay={index * 60} className="h-full">
-            <Link to={pillar.href} className="card-elevated group flex h-full flex-col gap-3 p-6">
+            <Link
+              to={pillar.href}
+              className={cn("card-elevated group flex h-full flex-col gap-3 p-6", cardTint(index))}
+            >
               <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                 <Icon name={pillar.icon} className="h-6 w-6" />
               </span>

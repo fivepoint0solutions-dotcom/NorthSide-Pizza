@@ -18,6 +18,8 @@ import {
 } from "@/components/site/Primitives";
 import { Icon } from "@/components/site/Icon";
 import { ConversationDemo } from "@/components/product/ConversationDemo";
+import { cardTint } from "@/lib/cardTint";
+import { cn } from "@/lib/utils";
 import { DeviceFrame } from "@/components/product/DeviceFrame";
 import { SeniorExperience } from "@/components/product/SeniorExperience";
 import { SidekickAvatar } from "@/components/product/SidekickAvatar";
@@ -136,7 +138,9 @@ function HowItWorksPage() {
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {otherPillars.map((pillar, index) => (
             <Reveal key={pillar.slug} delay={index * 60} className="h-full">
-              <article className="card-elevated flex h-full flex-col gap-3 p-6">
+              <article
+                className={cn("card-elevated flex h-full flex-col gap-3 p-6", cardTint(index))}
+              >
                 <span
                   className="gradient-motion inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white shadow-raised"
                   style={{ backgroundImage: pillar.gradient }}
@@ -164,7 +168,7 @@ function HowItWorksPage() {
         <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {PRODUCT_JOURNEY.map((step, index) => (
             <Reveal key={step.key} delay={index * 70} as="li" className="h-full">
-              <div className="card-elevated flex h-full flex-col gap-3 p-6">
+              <div className={cn("card-elevated flex h-full flex-col gap-3 p-6", cardTint(index))}>
                 <span className="text-eyebrow text-primary">Step {index + 1}</span>
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                   <Icon name={step.icon} className="h-6 w-6" />

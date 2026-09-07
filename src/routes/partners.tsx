@@ -11,6 +11,8 @@ import {
 } from "@/components/site/Primitives";
 import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/site/Icon";
+import { cardTint } from "@/lib/cardTint";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/partners")({
   head: () =>
@@ -37,7 +39,9 @@ function PartnersPage() {
         <div className="grid gap-4 lg:grid-cols-2">
           {PARTNER_TRACKS.map((track, index) => (
             <Reveal key={track.title} delay={index * 70} className="h-full">
-              <article className="card-elevated flex h-full flex-col gap-4 p-7">
+              <article
+                className={cn("card-elevated flex h-full flex-col gap-4 p-7", cardTint(index))}
+              >
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                   <Icon name={track.icon} className="h-6 w-6" />
                 </span>
@@ -86,7 +90,7 @@ function PartnersPage() {
             },
           ].map((step, index) => (
             <Reveal key={step.title} delay={index * 70} as="li" className="h-full">
-              <div className="card-soft flex h-full flex-col gap-3 p-6">
+              <div className={cn("card-soft flex h-full flex-col gap-3 p-6", cardTint(index))}>
                 <span className="text-eyebrow text-primary">Stage {index + 1}</span>
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                   <Icon name={step.icon} className="h-5.5 w-5.5" />

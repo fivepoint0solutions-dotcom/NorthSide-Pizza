@@ -12,6 +12,8 @@ import {
 } from "@/components/site/Primitives";
 import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/site/Icon";
+import { cardTint } from "@/lib/cardTint";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/support")({
   head: () =>
@@ -37,7 +39,9 @@ function SupportPage() {
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {SUPPORT_CHANNELS.map((channel, index) => (
             <Reveal key={channel.title} delay={index * 60} className="h-full">
-              <article className="card-elevated flex h-full flex-col gap-3 p-6">
+              <article
+                className={cn("card-elevated flex h-full flex-col gap-3 p-6", cardTint(index))}
+              >
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                   <Icon name={channel.icon} className="h-6 w-6" />
                 </span>
@@ -132,7 +136,7 @@ function SupportPage() {
             },
           ].map((step, index) => (
             <Reveal key={step.title} delay={index * 60} as="li" className="h-full">
-              <div className="card-soft flex h-full flex-col gap-3 p-6">
+              <div className={cn("card-soft flex h-full flex-col gap-3 p-6", cardTint(index))}>
                 <span className="text-eyebrow text-primary">Step {index + 1}</span>
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                   <Icon name={step.icon} className="h-5.5 w-5.5" />

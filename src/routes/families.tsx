@@ -18,6 +18,7 @@ import { DeviceFrame } from "@/components/product/DeviceFrame";
 import { CaregiverDashboard } from "@/components/product/CaregiverDashboard";
 import { formatTime, useLanguage } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { cardTint } from "@/lib/cardTint";
 
 export const Route = createFileRoute("/families")({
   head: () =>
@@ -135,7 +136,7 @@ function FamiliesPage() {
         <ol className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {CAREGIVER_DAY.map((moment, index) => (
             <Reveal key={moment.title} delay={index * 60} as="li" className="h-full">
-              <div className="card-elevated flex h-full flex-col gap-3 p-6">
+              <div className={cn("card-elevated flex h-full flex-col gap-3 p-6", cardTint(index))}>
                 <span className="text-eyebrow text-primary">
                   {formatTime(language, moment.hour, moment.minute ?? 0)}
                 </span>

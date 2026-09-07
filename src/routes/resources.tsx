@@ -6,6 +6,7 @@ import { CtaBand, PageHero, Section, SectionHeading } from "@/components/site/Pr
 import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/site/Icon";
 import { cn } from "@/lib/utils";
+import { cardTint } from "@/lib/cardTint";
 
 export const Route = createFileRoute("/resources")({
   head: () =>
@@ -56,7 +57,9 @@ function ResourcesPage() {
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {visible.map((resource, index) => (
             <Reveal key={resource.title} delay={index * 50} className="h-full">
-              <article className="card-elevated flex h-full flex-col gap-3 p-6">
+              <article
+                className={cn("card-elevated flex h-full flex-col gap-3 p-6", cardTint(index))}
+              >
                 <span className="flex items-center gap-2">
                   <span className="badge-pill bg-secondary text-secondary-foreground">
                     {resource.kind}
@@ -104,7 +107,7 @@ function ResourcesPage() {
             },
           ].map((item, index) => (
             <Reveal key={item.title} delay={index * 60} className="h-full">
-              <div className="card-soft flex h-full flex-col gap-3 p-6">
+              <div className={cn("card-soft flex h-full flex-col gap-3 p-6", cardTint(index))}>
                 <span className="inline-flex h-11 w-11 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                   <Icon name={item.icon} className="h-5.5 w-5.5" />
                 </span>

@@ -4,6 +4,7 @@ import { formatTime, useLanguage, useT } from "@/lib/i18n";
 import { adventureBySlug } from "@/lib/site/adventures";
 import { at } from "@/lib/collections";
 import { cn } from "@/lib/utils";
+import { cardTint } from "@/lib/cardTint";
 import { Icon } from "@/components/site/Icon";
 
 /**
@@ -85,7 +86,9 @@ export function DayTimeline({ className }: { className?: string }) {
           ))}
         </ol>
 
-        <article className="card-elevated flex flex-col gap-4 p-6 lg:p-8">
+        <article
+          className={cn("card-elevated flex flex-col gap-4 p-6 lg:p-8", cardTint(activeIndex))}
+        >
           <span className="inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/12 text-primary">
             <Icon name={active.icon} className="h-7 w-7" />
           </span>

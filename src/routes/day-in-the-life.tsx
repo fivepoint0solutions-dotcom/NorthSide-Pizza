@@ -5,6 +5,8 @@ import { CtaBand, PageHero, Section, SectionHeading } from "@/components/site/Pr
 import { DayTimeline } from "@/components/product/DayTimeline";
 import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/site/Icon";
+import { cardTint } from "@/lib/cardTint";
+import { cn } from "@/lib/utils";
 
 export const Route = createFileRoute("/day-in-the-life")({
   head: () =>
@@ -53,7 +55,7 @@ function DayPage() {
             },
           ].map((item, index) => (
             <Reveal key={item.title} delay={index * 70} className="h-full">
-              <div className="card-elevated flex h-full flex-col gap-3 p-6">
+              <div className={cn("card-elevated flex h-full flex-col gap-3 p-6", cardTint(index))}>
                 <span className="inline-flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/12 text-primary">
                   <Icon name={item.icon} className="h-6 w-6" />
                 </span>
