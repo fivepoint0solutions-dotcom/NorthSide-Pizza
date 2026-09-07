@@ -13,9 +13,9 @@
  */
 
 export const BRAND = {
-  name: "SR Sidekick",
+  name: "Senior Sidekick",
   shortName: "Sidekick",
-  legalName: "SR Sidekick",
+  legalName: "Senior Sidekick",
   domain: "srsidekick.org",
   /* Positioning taken from the reference site and deck. */
   category: "Senior care & safety platform",
@@ -25,7 +25,7 @@ export const BRAND = {
   logo: {
     /** Set to an asset path (e.g. "/brand/senior-sidekick-logo.svg") to use the real logo. */
     src: null as string | null,
-    alt: "SR Sidekick",
+    alt: "Senior Sidekick",
   },
   contact: {
     general: "hello@srsidekick.org",

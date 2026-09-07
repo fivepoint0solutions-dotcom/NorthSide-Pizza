@@ -17,7 +17,7 @@ export const Route = createFileRoute("/support")({
   head: () =>
     seoHead({
       path: "/support",
-      title: "Support & contact — SR Sidekick",
+      title: "Support & contact — Senior Sidekick",
       description:
         "A phone number answered by a person, seven days a week, in four languages — plus help articles, accessibility support and account help.",
     }),

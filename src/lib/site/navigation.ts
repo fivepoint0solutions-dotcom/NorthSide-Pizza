@@ -15,7 +15,6 @@ export const PRIMARY_NAV: NavItem[] = [
   { to: "/families", labelKey: "nav.families" },
   { to: "/adventures", labelKey: "nav.adventures" },
   { to: "/languages", labelKey: "nav.languages" },
-  { to: "/pricing", labelKey: "nav.pricing" },
 ];
 
 export interface FooterColumn {
@@ -30,8 +29,7 @@ export const FOOTER_COLUMNS: FooterColumn[] = [
       { to: "/how-it-works", label: "How it works" },
       { to: "/adventures", label: "Adventures" },
       { to: "/memories", label: "Memories & legacy" },
-      { to: "/day-in-the-life", label: "A day with SR Sidekick" },
-      { to: "/pricing", label: "Plans & pricing" },
+      { to: "/day-in-the-life", label: "A day with Senior Sidekick" },
       { to: "/get-started", label: "Get started" },
     ],
   },

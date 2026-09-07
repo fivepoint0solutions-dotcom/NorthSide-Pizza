@@ -22,7 +22,7 @@ export const Route = createFileRoute("/adventures/$slug")({
     // locale through the hreflang alternates, not by translating the title.
     return seoHead({
       path: `/adventures/${adventure.slug}`,
-      title: `${adventure.englishName} — a SR Sidekick adventure`,
+      title: `${adventure.englishName} — a Senior Sidekick adventure`,
       description: adventure.description.split(". ").slice(0, 2).join(". ") + ".",
     });
   },
@@ -143,7 +143,7 @@ function AdventureDetailPage() {
         <SectionHeading eyebrow="Keep exploring" title="Other adventures" />
         <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {others.map((other, index) => (
-            <AdventureCard key={other.slug} adventure={other} delay={index * 60} />
+            <AdventureCard key={other.slug} adventure={other} delay={index * 60} index={index} />
           ))}
         </div>
       </Section>

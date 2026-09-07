@@ -285,6 +285,31 @@
     color-mix(in oklab, var(--brand-pearl) 76%, var(--brand-amber) 18%),
     color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-rose) 14%) 100%
   );
+  /* Four more, so a grid of cards never has to repeat a story — eight total,
+     every one built from the same five brand hues at a different pairing
+     and angle, never a colour outside the palette. */
+  --grad-card-dawn: linear-gradient(
+    155deg,
+    color-mix(in oklab, var(--brand-pearl) 76%, var(--brand-amber) 17%),
+    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-lavender) 13%) 60%,
+    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-blue) 11%) 100%
+  );
+  --grad-card-dusk: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-rose) 15%),
+    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-teal) 11%) 100%
+  );
+  --grad-card-meadow: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-teal) 13%),
+    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-amber) 15%) 100%
+  );
+  --grad-card-twilight: linear-gradient(
+    110deg,
+    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-blue) 13%),
+    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-rose) 14%) 55%,
+    color-mix(in oklab, var(--brand-pearl) 76%, var(--brand-amber) 15%) 100%
+  );
 
   --primary: var(--brand-rose-deep);
   --primary-foreground: white;
@@ -407,6 +432,28 @@
     color-mix(in oklab, var(--brand-amber) 24%, black),
     color-mix(in oklab, var(--brand-rose) 22%, black) 100%
   );
+  --grad-card-dawn: linear-gradient(
+    155deg,
+    color-mix(in oklab, var(--brand-amber) 22%, black),
+    color-mix(in oklab, var(--brand-lavender) 26%, black) 60%,
+    color-mix(in oklab, var(--brand-blue-deep) 46%, black) 100%
+  );
+  --grad-card-dusk: linear-gradient(
+    125deg,
+    color-mix(in oklab, var(--brand-rose) 24%, black),
+    color-mix(in oklab, var(--brand-teal) 24%, black) 100%
+  );
+  --grad-card-meadow: linear-gradient(
+    160deg,
+    color-mix(in oklab, var(--brand-teal) 24%, black),
+    color-mix(in oklab, var(--brand-amber) 20%, black) 100%
+  );
+  --grad-card-twilight: linear-gradient(
+    110deg,
+    color-mix(in oklab, var(--brand-blue-deep) 46%, black),
+    color-mix(in oklab, var(--brand-rose) 22%, black) 55%,
+    color-mix(in oklab, var(--brand-amber) 18%, black) 100%
+  );
 
   --primary: color-mix(in oklab, var(--brand-teal) 74%, white);
   --primary-foreground: color-mix(in oklab, var(--brand-blue-deep) 80%, black);
@@ -502,6 +549,13 @@ html[data-contrast="high"] .card-elevated::after,
 html[data-contrast="high"] .big-cta::after {
   display: none;
 }
+/* Gradient text is a decorative flourish, not a contrast-checked palette —
+   fall back to the plain, verified-contrast foreground colour. */
+html[data-contrast="high"] .text-gradient {
+  background-image: none;
+  -webkit-text-fill-color: unset;
+  color: var(--foreground);
+}
 html[data-contrast="high"] [data-decorative="true"] {
   display: none;
 }
@@ -556,12 +610,14 @@ html[data-motion="reduced"] .parallax-layer {
     overflow-x: hidden;
   }
 
-  /* The living gradient wash — fixed behind every screen. */
+  /* The living gradient wash — fixed behind every screen. z-index -2, one
+     step further back than <FeatherField>'s -1, so the feathers paint on
+     top of this wash instead of being hidden underneath it. */
   body::before {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: -1;
+    z-index: -2;
     pointer-events: none;
     background-image: var(--grad-ambient);
     background-size: 220% 220%;
@@ -605,6 +661,24 @@ html[data-motion="reduced"] .parallax-layer {
     border-radius: var(--radius-xs);
   }
 
+  /* A baseline pop for every button on the site, so nothing sits dead under
+     the cursor even before a component adds its own hover treatment. Real
+     <button> elements only — a element and Link hovers are handled per
+     component, since not every link should lift (e.g. inline text links use
+     link-underline instead). :not(:disabled) so a disabled control doesn't
+     invite a tap that does nothing. More specific component styles (chip,
+     PrimaryAction, etc.) simply layer on top of this. */
+  button:not(:disabled) {
+    transition: var(--transition-hover);
+  }
+  button:not(:disabled):hover {
+    transform: translate3d(0, -2px, 0);
+    filter: brightness(1.04);
+  }
+  button:not(:disabled):active {
+    transform: translate3d(0, 0, 0);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -617,7 +691,13 @@ html[data-motion="reduced"] .parallax-layer {
       transition-duration: 0.01ms !important;
       scroll-behavior: auto !important;
     }
+    button:not(:disabled):hover {
+      transform: none;
+    }
   }
+}
+html[data-motion="reduced"] button:not(:disabled):hover {
+  transform: none;
 }
 
 /* ============================================================
@@ -928,6 +1008,18 @@ html[data-motion="reduced"] .parallax-layer {
 @utility card-tint-warm {
   --grad-card: var(--grad-card-warm);
 }
+@utility card-tint-dawn {
+  --grad-card: var(--grad-card-dawn);
+}
+@utility card-tint-dusk {
+  --grad-card: var(--grad-card-dusk);
+}
+@utility card-tint-meadow {
+  --grad-card: var(--grad-card-meadow);
+}
+@utility card-tint-twilight {
+  --grad-card: var(--grad-card-twilight);
+}
 
 /* ============================================================
  * SURFACES
@@ -1077,6 +1169,31 @@ html[data-motion="reduced"] .parallax-layer {
 
 @utility animate-pulse-ring {
   animation: pulse-ring 2.4s var(--ease-tide) infinite;
+}
+
+/* The feather field's gentle sway — a twist, not a slide, since "ruffle"
+   is what was asked for. Small amplitude on purpose: this sits behind
+   the whole site and must never compete with the content in front of it. */
+@keyframes feather-ruffle {
+  0%,
+  100% {
+    transform: rotate(var(--ruffle-from, -3deg)) translateY(0);
+  }
+  50% {
+    transform: rotate(var(--ruffle-to, 3deg)) translateY(-1.5%);
+  }
+}
+
+@utility feather-ruffle {
+  animation: feather-ruffle var(--ruffle-duration, 13s) ease-in-out infinite;
+  animation-delay: var(--ruffle-delay, 0s);
+  transform-origin: 30% 85%;
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+html[data-motion="reduced"] .feather-ruffle {
+  animation: none;
 }
 
 /* Skip link — visible only on keyboard focus. */

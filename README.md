@@ -1,6 +1,6 @@
-# SR Sidekick
+# Senior Sidekick
 
-A premium, global marketing and product-experience site for **SR Sidekick** — a warm, voice-first
+A premium, global marketing and product-experience site for **Senior Sidekick** — a warm, voice-first
 companion for older adults, and a quiet line of connection for the families around them.
 
 > The companion that learns how to be there for you.
@@ -36,7 +36,7 @@ reference's brighter ramp is kept for decorative surfaces that carry no text.
 
 **Two things still open:**
 
-1. **The name.** The reference brand is _SR Sidekick_; the brief for this site says _Senior
+1. **The name.** The reference brand is _Senior Sidekick_; the brief for this site says _Senior
    Sidekick_ throughout, so that's what's built. Changing it is one edit in `src/lib/brand.ts` plus
    the `brand.tagline` keys in the four translation dictionaries.
 2. **The logo.** No wordmark asset was available, so `<SidekickLogo />` sets the name in the brand

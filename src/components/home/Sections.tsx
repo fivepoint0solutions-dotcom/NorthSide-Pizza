@@ -94,7 +94,7 @@ export function MeetSection() {
 
       <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {traits.map((trait, index) => (
-          <FeatureCard key={trait.title} {...trait} delay={index * 60} />
+          <FeatureCard key={trait.title} {...trait} delay={index * 60} index={index} />
         ))}
       </div>
     </Section>
@@ -388,7 +388,12 @@ export function AdventuresSection() {
       />
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {ADVENTURES.map((adventure, index) => (
-          <AdventureCard key={adventure.slug} adventure={adventure} delay={index * 60} />
+          <AdventureCard
+            key={adventure.slug}
+            adventure={adventure}
+            delay={index * 60}
+            index={index}
+          />
         ))}
         <Reveal delay={ADVENTURES.length * 60} className="h-full">
           <Link
@@ -459,7 +464,7 @@ export function DaySection() {
 }
 
 /* ------------------------------------------------------------------ *
- * Why SR Sidekick
+ * Why Senior Sidekick
  * ------------------------------------------------------------------ */
 
 export function WhySection() {

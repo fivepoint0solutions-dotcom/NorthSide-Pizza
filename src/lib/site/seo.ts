@@ -121,21 +121,6 @@ export function faqJsonLd(items: { q: string; a: string }[]) {
   });
 }
 
-export function productJsonLd(offers: { name: string; price: string; description: string }[]) {
-  return ldScript({
-    "@context": "https://schema.org",
-    "@type": "Product",
-    name: BRAND.name,
-    description: BRAND.promise,
-    brand: { "@type": "Brand", name: BRAND.name },
-    offers: offers.map((offer) => ({
-      "@type": "Offer",
-      name: offer.name,
-      description: offer.description,
-      price: offer.price.replace(/[^0-9.]/g, ""),
-      priceCurrency: "USD",
-      availability: "https://schema.org/InStock",
-      url: canonicalUrl("/pricing"),
-    })),
-  });
-}
+// productJsonLd (Product + Offer structured data) lived here for the
+// pricing page. Removed along with the page itself — plans aren't on the
+// site right now. Bring it back if /pricing returns.

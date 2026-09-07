@@ -9,7 +9,7 @@ export interface Principle {
 export const PRIVACY_PRINCIPLES: Principle[] = [
   {
     title: "The senior owns their data",
-    body: "Photos, stories, recordings and conversation history belong to the person using SR Sidekick. Not to the family who set it up, not to the community they live in, and not to us.",
+    body: "Photos, stories, recordings and conversation history belong to the person using Senior Sidekick. Not to the family who set it up, not to the community they live in, and not to us.",
     icon: "user-check",
   },
   {
@@ -52,7 +52,7 @@ export const PRIVACY_PRINCIPLES: Principle[] = [
 export const SAFETY_PRINCIPLES: Principle[] = [
   {
     title: "It is not a medical device",
-    body: "SR Sidekick does not diagnose, monitor vital signs, dispense medical advice or replace any professional care. It says so, in its own voice, whenever a conversation heads that way.",
+    body: "Senior Sidekick does not diagnose, monitor vital signs, dispense medical advice or replace any professional care. It says so, in its own voice, whenever a conversation heads that way.",
     icon: "stethoscope",
   },
   {

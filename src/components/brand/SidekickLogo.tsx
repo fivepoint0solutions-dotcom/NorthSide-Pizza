@@ -55,7 +55,7 @@ export function SidekickLogo({
           tone === "inverse" ? "text-white" : "text-foreground",
         )}
       >
-        SR Sidekick
+        Senior Sidekick
       </span>
       <span className="sr-only">{BRAND.logo.alt}</span>
     </span>

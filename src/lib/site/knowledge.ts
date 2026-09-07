@@ -117,7 +117,7 @@ export const FAQ_GROUPS: FaqGroup[] = [
     ],
   },
   {
-    audience: "Plans & technology",
+    audience: "Technology",
     icon: "credit-card",
     items: [
       {
@@ -127,14 +127,6 @@ export const FAQ_GROUPS: FaqGroup[] = [
       {
         q: "Does it need a good internet connection?",
         a: "It needs a connection, but it's built for a slow one. Conversation degrades gracefully, and cached music, stories and photos keep working through a brief outage.",
-      },
-      {
-        q: "What does it cost?",
-        a: "From $19 a month for one person, $29 for a family, with thirty days free and no card required to start. Care organisations and institutions are priced separately.",
-      },
-      {
-        q: "Can we cancel?",
-        a: "In one step, by voice or in the dashboard. The memories, stories and recordings are exportable before and after cancellation.",
       },
     ],
   },

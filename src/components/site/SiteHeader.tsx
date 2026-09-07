@@ -52,8 +52,8 @@ export function SiteHeader() {
         )}
       >
         <div className="container-wide flex h-20 items-center justify-between gap-4">
-          <FeatherMark className="hidden h-9 w-9 opacity-80 lg:block" />
-          <Link to="/" className="shrink-0" aria-label="SR Sidekick — home">
+          <FeatherMark className="hidden h-10 w-8 opacity-90 lg:block" />
+          <Link to="/" className="shrink-0" aria-label="Senior Sidekick — home">
             <SidekickLogo variant="wordmark" />
           </Link>
 
@@ -88,7 +88,7 @@ export function SiteHeader() {
             >
               {t("nav.getStarted")}
             </Link>
-            <FeatherMark flip className="hidden h-9 w-9 opacity-80 lg:block" />
+            <FeatherMark flip className="hidden h-10 w-8 opacity-90 lg:block" />
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}

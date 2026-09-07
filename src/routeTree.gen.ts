@@ -20,7 +20,6 @@ import { Route as HowItWorksRouteImport } from './routes/how-it-works'
 import { Route as LanguagesRouteImport } from './routes/languages'
 import { Route as MemoriesRouteImport } from './routes/memories'
 import { Route as PartnersRouteImport } from './routes/partners'
-import { Route as PricingRouteImport } from './routes/pricing'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as ResourcesRouteImport } from './routes/resources'
 import { Route as SafetyRouteImport } from './routes/safety'
@@ -86,11 +85,6 @@ const PartnersRoute = PartnersRouteImport.update({
   path: '/partners',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PricingRoute = PricingRouteImport.update({
-  id: '/pricing',
-  path: '/pricing',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -149,7 +143,6 @@ export interface FileRoutesByFullPath {
   '/languages': typeof LanguagesRoute
   '/memories': typeof MemoriesRoute
   '/partners': typeof PartnersRoute
-  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/resources': typeof ResourcesRoute
   '/safety': typeof SafetyRoute
@@ -172,7 +165,6 @@ export interface FileRoutesByTo {
   '/languages': typeof LanguagesRoute
   '/memories': typeof MemoriesRoute
   '/partners': typeof PartnersRoute
-  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/resources': typeof ResourcesRoute
   '/safety': typeof SafetyRoute
@@ -196,7 +188,6 @@ export interface FileRoutesById {
   '/languages': typeof LanguagesRoute
   '/memories': typeof MemoriesRoute
   '/partners': typeof PartnersRoute
-  '/pricing': typeof PricingRoute
   '/privacy': typeof PrivacyRoute
   '/resources': typeof ResourcesRoute
   '/safety': typeof SafetyRoute
@@ -221,7 +212,6 @@ export interface FileRouteTypes {
     | '/languages'
     | '/memories'
     | '/partners'
-    | '/pricing'
     | '/privacy'
     | '/resources'
     | '/safety'
@@ -244,7 +234,6 @@ export interface FileRouteTypes {
     | '/languages'
     | '/memories'
     | '/partners'
-    | '/pricing'
     | '/privacy'
     | '/resources'
     | '/safety'
@@ -267,7 +256,6 @@ export interface FileRouteTypes {
     | '/languages'
     | '/memories'
     | '/partners'
-    | '/pricing'
     | '/privacy'
     | '/resources'
     | '/safety'
@@ -291,7 +279,6 @@ export interface RootRouteChildren {
   LanguagesRoute: typeof LanguagesRoute
   MemoriesRoute: typeof MemoriesRoute
   PartnersRoute: typeof PartnersRoute
-  PricingRoute: typeof PricingRoute
   PrivacyRoute: typeof PrivacyRoute
   ResourcesRoute: typeof ResourcesRoute
   SafetyRoute: typeof SafetyRoute
@@ -382,13 +369,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PartnersRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/pricing': {
-      id: '/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof PricingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -467,7 +447,6 @@ const rootRouteChildren: RootRouteChildren = {
   LanguagesRoute: LanguagesRoute,
   MemoriesRoute: MemoriesRoute,
   PartnersRoute: PartnersRoute,
-  PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
   ResourcesRoute: ResourcesRoute,
   SafetyRoute: SafetyRoute,

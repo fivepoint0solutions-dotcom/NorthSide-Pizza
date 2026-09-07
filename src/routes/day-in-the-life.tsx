@@ -10,7 +10,7 @@ export const Route = createFileRoute("/day-in-the-life")({
   head: () =>
     seoHead({
       path: "/day-in-the-life",
-      title: "A day with SR Sidekick",
+      title: "A day with Senior Sidekick",
       description:
         "The same Tuesday from both sides: Margaret at home, and her daughter Clare four hundred miles away.",
     }),

@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import type { Adventure } from "@/lib/site/adventures";
 import { useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
+import { cardTint } from "@/lib/cardTint";
 import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "@/components/site/Icon";
 
@@ -9,10 +10,14 @@ export function AdventureCard({
   adventure,
   delay = 0,
   size = "default",
+  index,
 }: {
   adventure: Adventure;
   delay?: number;
   size?: "default" | "feature";
+  /** Position in its grid — the accent bar and icon already carry the
+   * adventure's own colour, so this only varies the card's own background. */
+  index?: number;
 }) {
   const t = useT();
 
@@ -23,6 +28,7 @@ export function AdventureCard({
         params={{ slug: adventure.slug }}
         className={cn(
           "group card-elevated relative flex h-full flex-col overflow-hidden",
+          index !== undefined && cardTint(index),
           size === "feature" ? "p-7 lg:p-9" : "p-6",
         )}
       >
@@ -37,7 +43,12 @@ export function AdventureCard({
         >
           <Icon name={adventure.icon} className="h-7 w-7" />
         </span>
-        <h3 className={cn("text-foreground", size === "feature" ? "text-subhead" : "text-title")}>
+        <h3
+          className={cn(
+            "text-gradient gradient-motion",
+            size === "feature" ? "text-subhead" : "text-title",
+          )}
+        >
           {t(adventure.nameKey)}
         </h3>
         <p className="text-body mt-2 text-muted-foreground">{t(adventure.taglineKey)}</p>

@@ -23,7 +23,7 @@ const en = {
   "nav.pricing": "Plans",
   "nav.resources": "Resources",
   "nav.about": "About",
-  "nav.getStarted": "Meet SR Sidekick",
+  "nav.getStarted": "Meet Senior Sidekick",
   "nav.seeHow": "See how it works",
   "nav.menu": "Menu",
   "nav.close": "Close",
@@ -50,8 +50,8 @@ const en = {
   "hero.headline": "Good morning, Margaret.",
   "hero.headlineAccent": "What should we do today?",
   "hero.lede":
-    "SR Sidekick is a warm, talking companion for older adults — and a quiet line of connection for the people who love them. Ask it anything. It already knows your music, your stories and your people.",
-  "hero.ctaPrimary": "Meet SR Sidekick",
+    "Senior Sidekick is a warm, talking companion for older adults — and a quiet line of connection for the people who love them. Ask it anything. It already knows your music, your stories and your people.",
+  "hero.ctaPrimary": "Meet Senior Sidekick",
   "hero.ctaSecondary": "See how it works",
   "hero.trust": "Voice-first · 4 languages · Private by design",
 
@@ -107,17 +107,17 @@ const en = {
   "adventure.family.name": "Family",
   "adventure.family.tagline": "Messages, photos, calls and the days that matter.",
 
-  "day.eyebrow": "A day with SR Sidekick",
+  "day.eyebrow": "A day with Senior Sidekick",
   "day.title": "One day, from both sides.",
   "day.lede":
     "The same Tuesday, lived by Margaret at home and by her daughter Clare four hundred miles away.",
   "day.senior": "Margaret's day",
   "day.caregiver": "Clare's day",
 
-  "why.eyebrow": "Why SR Sidekick",
+  "why.eyebrow": "Why Senior Sidekick",
   "why.title": "Technology usually asks people to adapt. This adapts to them.",
   "why.traditional": "Ordinary technology",
-  "why.sidekick": "SR Sidekick",
+  "why.sidekick": "Senior Sidekick",
 
   "global.eyebrow": "Global from day one",
   "global.title": "One companion. Many languages. Millions of lives.",
@@ -164,7 +164,7 @@ const fr: Dictionary = {
   "nav.pricing": "Formules",
   "nav.resources": "Ressources",
   "nav.about": "À propos",
-  "nav.getStarted": "Rencontrer SR Sidekick",
+  "nav.getStarted": "Rencontrer Senior Sidekick",
   "nav.seeHow": "Voir comment ça marche",
   "nav.menu": "Menu",
   "nav.close": "Fermer",
@@ -191,8 +191,8 @@ const fr: Dictionary = {
   "hero.headline": "Bonjour, Marguerite.",
   "hero.headlineAccent": "Qu'est-ce qu'on fait aujourd'hui ?",
   "hero.lede":
-    "SR Sidekick est un compagnon chaleureux qui parle avec les aînés — et un fil discret de connexion pour ceux qui les aiment. Posez-lui n'importe quelle question. Il connaît déjà votre musique, vos histoires et vos proches.",
-  "hero.ctaPrimary": "Rencontrer SR Sidekick",
+    "Senior Sidekick est un compagnon chaleureux qui parle avec les aînés — et un fil discret de connexion pour ceux qui les aiment. Posez-lui n'importe quelle question. Il connaît déjà votre musique, vos histoires et vos proches.",
+  "hero.ctaPrimary": "Rencontrer Senior Sidekick",
   "hero.ctaSecondary": "Voir comment ça marche",
   "hero.trust": "Commande vocale · 4 langues · Confidentiel par conception",
 
@@ -248,17 +248,17 @@ const fr: Dictionary = {
   "adventure.family.name": "Famille",
   "adventure.family.tagline": "Messages, photos, appels et les jours qui comptent.",
 
-  "day.eyebrow": "Une journée avec SR Sidekick",
+  "day.eyebrow": "Une journée avec Senior Sidekick",
   "day.title": "Une journée, vue des deux côtés.",
   "day.lede":
     "Le même mardi, vécu par Marguerite chez elle et par sa fille Claire à six cents kilomètres de là.",
   "day.senior": "La journée de Marguerite",
   "day.caregiver": "La journée de Claire",
 
-  "why.eyebrow": "Pourquoi SR Sidekick",
+  "why.eyebrow": "Pourquoi Senior Sidekick",
   "why.title": "La technologie demande aux gens de s'adapter. Ici, c'est l'inverse.",
   "why.traditional": "La technologie ordinaire",
-  "why.sidekick": "SR Sidekick",
+  "why.sidekick": "Senior Sidekick",
 
   "global.eyebrow": "Mondial dès le premier jour",
   "global.title": "Un compagnon. Plusieurs langues. Des millions de vies.",
@@ -303,7 +303,7 @@ const es: Dictionary = {
   "nav.pricing": "Planes",
   "nav.resources": "Recursos",
   "nav.about": "Quiénes somos",
-  "nav.getStarted": "Conocer a SR Sidekick",
+  "nav.getStarted": "Conocer a Senior Sidekick",
   "nav.seeHow": "Ver cómo funciona",
   "nav.menu": "Menú",
   "nav.close": "Cerrar",
@@ -330,8 +330,8 @@ const es: Dictionary = {
   "hero.headline": "Buenos días, Margarita.",
   "hero.headlineAccent": "¿Qué hacemos hoy?",
   "hero.lede":
-    "SR Sidekick es un compañero cálido que conversa con las personas mayores — y un hilo tranquilo de conexión para quienes las quieren. Pregúntale lo que sea. Ya conoce tu música, tus historias y a tu gente.",
-  "hero.ctaPrimary": "Conocer a SR Sidekick",
+    "Senior Sidekick es un compañero cálido que conversa con las personas mayores — y un hilo tranquilo de conexión para quienes las quieren. Pregúntale lo que sea. Ya conoce tu música, tus historias y a tu gente.",
+  "hero.ctaPrimary": "Conocer a Senior Sidekick",
   "hero.ctaSecondary": "Ver cómo funciona",
   "hero.trust": "Por voz · 4 idiomas · Privado por diseño",
 
@@ -387,17 +387,17 @@ const es: Dictionary = {
   "adventure.family.name": "Familia",
   "adventure.family.tagline": "Mensajes, fotos, llamadas y los días que importan.",
 
-  "day.eyebrow": "Un día con SR Sidekick",
+  "day.eyebrow": "Un día con Senior Sidekick",
   "day.title": "Un mismo día, desde los dos lados.",
   "day.lede":
     "El mismo martes, vivido por Margarita en casa y por su hija Clara a seiscientos kilómetros.",
   "day.senior": "El día de Margarita",
   "day.caregiver": "El día de Clara",
 
-  "why.eyebrow": "Por qué SR Sidekick",
+  "why.eyebrow": "Por qué Senior Sidekick",
   "why.title": "La tecnología suele pedir que la gente se adapte. Esto se adapta a ellos.",
   "why.traditional": "La tecnología de siempre",
-  "why.sidekick": "SR Sidekick",
+  "why.sidekick": "Senior Sidekick",
 
   "global.eyebrow": "Global desde el primer día",
   "global.title": "Un compañero. Muchos idiomas. Millones de vidas.",
@@ -442,7 +442,7 @@ const hi: Dictionary = {
   "nav.pricing": "योजनाएँ",
   "nav.resources": "संसाधन",
   "nav.about": "हमारे बारे में",
-  "nav.getStarted": "SR Sidekick से मिलिए",
+  "nav.getStarted": "Senior Sidekick से मिलिए",
   "nav.seeHow": "देखिए यह कैसे काम करता है",
   "nav.menu": "मेन्यू",
   "nav.close": "बंद करें",
@@ -469,8 +469,8 @@ const hi: Dictionary = {
   "hero.headline": "सुप्रभात, सुनीता जी।",
   "hero.headlineAccent": "आज हम क्या करें?",
   "hero.lede":
-    "SR Sidekick बुज़ुर्गों के लिए एक गर्मजोशी भरा, बातें करने वाला साथी है — और उनके अपनों के लिए जुड़े रहने का एक शांत सूत्र। कुछ भी पूछिए। इसे आपका संगीत, आपकी कहानियाँ और आपके अपने पहले से याद हैं।",
-  "hero.ctaPrimary": "SR Sidekick से मिलिए",
+    "Senior Sidekick बुज़ुर्गों के लिए एक गर्मजोशी भरा, बातें करने वाला साथी है — और उनके अपनों के लिए जुड़े रहने का एक शांत सूत्र। कुछ भी पूछिए। इसे आपका संगीत, आपकी कहानियाँ और आपके अपने पहले से याद हैं।",
+  "hero.ctaPrimary": "Senior Sidekick से मिलिए",
   "hero.ctaSecondary": "देखिए यह कैसे काम करता है",
   "hero.trust": "आवाज़ से चलता है · 4 भाषाएँ · निजता पहले",
 
@@ -525,17 +525,17 @@ const hi: Dictionary = {
   "adventure.family.name": "परिवार",
   "adventure.family.tagline": "संदेश, तस्वीरें, कॉल और वे दिन जो मायने रखते हैं।",
 
-  "day.eyebrow": "SR Sidekick के साथ एक दिन",
+  "day.eyebrow": "Senior Sidekick के साथ एक दिन",
   "day.title": "एक ही दिन, दोनों तरफ़ से।",
   "day.lede":
     "वही मंगलवार — सुनीता जी ने घर पर जिया, और उनकी बेटी क्लारा ने छह सौ किलोमीटर दूर से।",
   "day.senior": "सुनीता जी का दिन",
   "day.caregiver": "क्लारा का दिन",
 
-  "why.eyebrow": "SR Sidekick क्यों",
+  "why.eyebrow": "Senior Sidekick क्यों",
   "why.title": "तकनीक अक्सर लोगों से बदलने को कहती है। यह ख़ुद उनके हिसाब से ढलती है।",
   "why.traditional": "आम तकनीक",
-  "why.sidekick": "SR Sidekick",
+  "why.sidekick": "Senior Sidekick",
 
   "global.eyebrow": "पहले दिन से वैश्विक",
   "global.title": "एक साथी। कई भाषाएँ। लाखों ज़िंदगियाँ।",

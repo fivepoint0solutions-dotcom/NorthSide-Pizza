@@ -18,9 +18,9 @@ export const Route = createFileRoute("/about")({
   head: () =>
     seoHead({
       path: "/about",
-      title: "About SR Sidekick — why we built it",
+      title: "About Senior Sidekick — why we built it",
       description:
-        "Why SR Sidekick exists, what we believe about designing for older adults, and the principles we won't trade away.",
+        "Why Senior Sidekick exists, what we believe about designing for older adults, and the principles we won't trade away.",
     }),
   component: AboutPage,
 });
@@ -64,7 +64,7 @@ function AboutPage() {
       <PageHero
         eyebrow="About"
         title="The technology aimed at older adults is either an alarm or a tablet nobody asked for."
-        lede="Neither is company. SR Sidekick started from a simpler question: what would it take for someone living alone to have a good conversation on a Tuesday afternoon?"
+        lede="Neither is company. Senior Sidekick started from a simpler question: what would it take for someone living alone to have a good conversation on a Tuesday afternoon?"
       />
 
       <Section>
@@ -100,7 +100,7 @@ function AboutPage() {
         <SectionHeading eyebrow="What we believe" title="Six positions, and what they cost us." />
         <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {BELIEFS.map((belief, index) => (
-            <FeatureCard key={belief.title} {...belief} delay={index * 60} />
+            <FeatureCard key={belief.title} {...belief} delay={index * 60} index={index} />
           ))}
         </div>
       </Section>

@@ -19,7 +19,7 @@ export const Route = createFileRoute("/accessibility")({
   head: () =>
     seoHead({
       path: "/accessibility",
-      title: "Accessibility — SR Sidekick",
+      title: "Accessibility — Senior Sidekick",
       description:
         "Accessibility as a product principle: large type by default, 7:1 contrast, 60px targets, voice-first input, screen reader support and calm motion. WCAG 2.2 AA as a floor.",
     }),
@@ -88,6 +88,7 @@ function AccessibilityPage() {
               title={item.title}
               body={item.body}
               delay={index * 50}
+              index={index}
             />
           ))}
         </div>
@@ -101,9 +102,10 @@ function AccessibilityPage() {
             </span>
             <h2 className="text-title text-foreground">Conformance</h2>
             <p className="text-body text-muted-foreground">
-              SR Sidekick targets WCAG 2.2 Level AA across the marketing site, the senior experience
-              and the family dashboard, and exceeds it on contrast and target size in the senior
-              experience. We publish what we don't yet meet rather than claiming a clean sheet.
+              Senior Sidekick targets WCAG 2.2 Level AA across the marketing site, the senior
+              experience and the family dashboard, and exceeds it on contrast and target size in the
+              senior experience. We publish what we don't yet meet rather than claiming a clean
+              sheet.
             </p>
             <ul className="text-body flex flex-col gap-2 text-muted-foreground">
               {[

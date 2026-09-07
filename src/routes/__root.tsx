@@ -14,12 +14,14 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { LanguageProvider } from "../lib/i18n";
 import { organisationJsonLd, websiteJsonLd, SITE_URL } from "../lib/site/seo";
 import { AccessibilityProvider } from "../lib/accessibility";
+import { primeVoices } from "../lib/speech";
 import { SiteHeader } from "../components/site/SiteHeader";
+import { FeatherField } from "../components/brand/FeatherField";
 import { SiteFooter } from "../components/site/SiteFooter";
 import { Toaster } from "../components/ui/sonner";
 
 const SITE_DESCRIPTION =
-  "SR Sidekick is a warm, voice-first companion for older adults — conversation, music, memories, games and family connection — with a caregiver experience families can trust. Available in English, French, Spanish and Hindi.";
+  "Senior Sidekick is a warm, voice-first companion for older adults — conversation, music, memories, games and family connection — with a caregiver experience families can trust. Available in English, French, Spanish and Hindi.";
 
 function NotFoundComponent() {
   return (
@@ -91,15 +93,15 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "SR Sidekick — the companion that learns how to be there for you" },
+      { title: "Senior Sidekick — the companion that learns how to be there for you" },
       { name: "description", content: SITE_DESCRIPTION },
       {
         name: "keywords",
         content:
           "senior companionship, senior technology, caregiver support, aging independently, family connection, memory preservation, senior activities, multilingual senior technology, digital companion, senior accessibility",
       },
-      { property: "og:site_name", content: "SR Sidekick" },
-      { property: "og:title", content: "SR Sidekick" },
+      { property: "og:site_name", content: "Senior Sidekick" },
+      { property: "og:title", content: "Senior Sidekick" },
       { property: "og:description", content: SITE_DESCRIPTION },
       { property: "og:type", content: "website" },
       // og:locale:alternate is intentionally omitted: repeated meta properties
@@ -151,10 +153,15 @@ function RootShell({ children }: { children: ReactNode }) {
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
 
+  useEffect(() => {
+    primeVoices();
+  }, []);
+
   return (
     <QueryClientProvider client={queryClient}>
       <AccessibilityProvider>
         <LanguageProvider>
+          <FeatherField />
           <SiteHeader />
           <main id="main">
             {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}

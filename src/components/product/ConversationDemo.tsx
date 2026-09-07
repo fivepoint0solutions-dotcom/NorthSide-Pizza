@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { languageOption, useLanguage, useT, type TranslationKey } from "@/lib/i18n";
 import { usePrefersCalm } from "@/lib/accessibility";
+import { pickVoice } from "@/lib/speech";
 import { cn } from "@/lib/utils";
 import { SidekickAvatar, type AvatarState } from "./SidekickAvatar";
 import { Icon } from "@/components/site/Icon";
@@ -98,9 +99,16 @@ export function ConversationDemo({ className }: { className?: string }) {
 
   const readAloud = useCallback(() => {
     if (typeof window === "undefined" || !("speechSynthesis" in window) || !active) return;
+    const locale = languageOption(language).locale;
     const utterance = new SpeechSynthesisUtterance(t(active.answerKey));
-    utterance.lang = languageOption(language).locale;
+    utterance.lang = locale;
     utterance.rate = 0.92;
+    utterance.pitch = 1.02;
+    // The browser's default pick for a language is often its worst-sounding
+    // voice, even when a much better one is installed — ask for the best
+    // available one explicitly rather than leaving it to chance.
+    const voice = pickVoice(locale);
+    if (voice) utterance.voice = voice;
     window.speechSynthesis.cancel();
     window.speechSynthesis.speak(utterance);
     setSpoken(true);

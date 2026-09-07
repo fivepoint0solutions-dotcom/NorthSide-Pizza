@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { cn } from "@/lib/utils";
+import { cardTint } from "@/lib/cardTint";
 import { Reveal } from "@/components/motion/Reveal";
 import { Icon } from "./Icon";
 
@@ -207,20 +208,30 @@ export function FeatureCard({
   body,
   className,
   delay = 0,
+  index,
 }: {
   icon: string;
   title: ReactNode;
   body: ReactNode;
   className?: string;
   delay?: number;
+  /** Position within its grid — picks a different gradient per card via
+   * cardTint() so a row of these never repeats the same background twice. */
+  index?: number;
 }) {
   return (
     <Reveal delay={delay} className="h-full">
-      <article className={cn("card-elevated flex h-full flex-col gap-3 p-6", className)}>
+      <article
+        className={cn(
+          "card-elevated flex h-full flex-col gap-3 p-6",
+          index !== undefined && cardTint(index),
+          className,
+        )}
+      >
         <span className="tap-target inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/12 text-primary">
           <Icon name={icon} className="h-6 w-6" />
         </span>
-        <h3 className="text-title text-foreground">{title}</h3>
+        <h3 className="text-title text-gradient gradient-motion">{title}</h3>
         <p className="text-body text-muted-foreground">{body}</p>
       </article>
     </Reveal>

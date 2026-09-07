@@ -17,7 +17,7 @@ export const Route = createFileRoute("/faq")({
   head: () => ({
     ...seoHead({
       path: "/faq",
-      title: "Frequently asked questions — SR Sidekick",
+      title: "Frequently asked questions — Senior Sidekick",
       description:
         "Answers for seniors, families, caregivers and organisations: privacy, safety, languages, plans and technology.",
     }),
