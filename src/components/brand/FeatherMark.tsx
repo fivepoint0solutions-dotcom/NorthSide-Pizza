@@ -30,15 +30,17 @@ export function FeatherMark({
     >
       <defs>
         <linearGradient id={id} x1="0.5" y1="0" x2="0.35" y2="1">
-          {/* Same full-strength stops for both tones — dimming for the
-              watermark use is the wrapper's opacity, not the fill's. Stacking
-              both multiplies down to nearly nothing, which is what made the
-              first watermark pass invisible. */}
-          <stop offset="0%" stopColor="var(--brand-amber)" />
-          <stop offset="16%" stopColor="var(--brand-amber)" />
-          <stop offset="46%" stopColor="var(--brand-rose)" />
-          <stop offset="74%" stopColor="var(--brand-lavender)" />
-          <stop offset="100%" stopColor="var(--brand-blue-deep)" />
+          {/* Matches the reference mark: a cool blue tip curling at the top,
+              through a pale silvery band, into warm amber and rust toward
+              the quill. Same full-strength stops for both tones — dimming
+              for the watermark use is the wrapper's opacity, not the fill's.
+              Stacking both multiplies down to nearly nothing, which is what
+              made the first watermark pass invisible. */}
+          <stop offset="0%" stopColor="var(--brand-blue)" />
+          <stop offset="22%" stopColor="var(--brand-blue)" />
+          <stop offset="48%" stopColor="var(--brand-pearl)" />
+          <stop offset="70%" stopColor="var(--brand-amber)" />
+          <stop offset="100%" stopColor="var(--brand-rust)" />
         </linearGradient>
         {/* A second, cooler wash so even the near-transparent watermark
             reads as more than a flat tint. */}
