@@ -51,8 +51,21 @@ export function SiteFooter() {
         </div>
 
         <div className="mt-14 flex flex-col gap-4 border-t border-border pt-8 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-caption text-muted-foreground">
-            © {year} {BRAND.legalName}. {t("footer.rights")}
+          <p className="text-caption flex flex-col gap-1 text-muted-foreground">
+            <span>
+              © {year} {BRAND.legalName}. {t("footer.rights")}
+            </span>
+            <span>
+              Website developed and designed by{" "}
+              <a
+                href="https://fivepoint0solutions.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="link-underline font-semibold"
+              >
+                FivePoint0Solutions.com
+              </a>
+            </span>
           </p>
           <ul className="flex flex-wrap items-center gap-4">
             {[
