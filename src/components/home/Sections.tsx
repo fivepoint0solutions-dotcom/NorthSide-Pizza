@@ -27,6 +27,7 @@ import { AdventureCard } from "@/components/adventures/AdventureCard";
 import { SidekickAvatar } from "@/components/product/SidekickAvatar";
 import { DeviceFrame } from "@/components/product/DeviceFrame";
 import { SeniorExperience } from "@/components/product/SeniorExperience";
+import { PhotoPicker } from "@/components/product/PhotoPicker";
 import { CaregiverDashboard } from "@/components/product/CaregiverDashboard";
 import { DayTimeline } from "@/components/product/DayTimeline";
 import { WorldMap } from "@/components/product/WorldMap";
@@ -215,6 +216,9 @@ export function PlatformSection() {
 
 export function ProductShowcase() {
   const [view, setView] = useState<"senior" | "family">("senior");
+  // Photos a visitor picked from their own device, handed to the demo's
+  // ambient background. Undefined means the sample set.
+  const [ownPhotos, setOwnPhotos] = useState<string[] | undefined>(undefined);
 
   return (
     <Section tone="surface" id="product">
@@ -259,7 +263,7 @@ export function ProductShowcase() {
           <div className="grid gap-8 lg:grid-cols-[minmax(0,30rem)_1fr] lg:items-center">
             <Reveal>
               <DeviceFrame kind="tablet">
-                <SeniorExperience />
+                <SeniorExperience photos={ownPhotos} />
               </DeviceFrame>
             </Reveal>
             <Reveal delay={80} className="flex flex-col gap-5">
@@ -283,6 +287,7 @@ export function ProductShowcase() {
                   </li>
                 ))}
               </ul>
+              <PhotoPicker onChange={setOwnPhotos} />
               <SecondaryAction to="/seniors" icon="arrow-right" size="md">
                 Explore the senior experience
               </SecondaryAction>

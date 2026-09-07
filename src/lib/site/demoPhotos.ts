@@ -3,8 +3,17 @@
  *
  * In the shipping product every one of these comes from the senior's own
  * library — family and pets added by whoever holds the caregiver code, and
- * places they like. These URLs exist so the marketing demo shows the real
- * behaviour; swap this one list when it's wired to an account.
+ * places they like. These exist so the marketing demo shows the real
+ * behaviour; this is the one list to swap. Three ways to do it:
+ *
+ *   1. Local files. Drop them in `public/photos/` and reference them from
+ *      the site root — `{ src: "/photos/mom.jpg", label: "Mum" }`. Nothing
+ *      leaves the box they're served from.
+ *   2. Your own URLs — `{ src: "https://srsidekick.org/…", label: "…" }`.
+ *   3. Picked at runtime, which is what the "Use your own photos" control
+ *      beside the demo does: the browser hands back an object URL per file
+ *      and the drift layer takes it from there. Those never leave the
+ *      device, and the URLs are revoked when they're replaced.
  */
 export interface DemoPhoto {
   src: string;

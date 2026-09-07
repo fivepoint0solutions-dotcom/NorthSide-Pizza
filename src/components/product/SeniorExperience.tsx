@@ -27,13 +27,21 @@ const TABS: { id: Tab; label: string }[] = [
   { id: "help", label: "Help" },
 ];
 
-export function SeniorExperience({ className }: { className?: string }) {
+export function SeniorExperience({
+  photos,
+  className,
+}: {
+  /** Overrides the ambient background's photos — the senior's own library
+   *  in the product, or whatever a visitor picked from their device. */
+  photos?: string[] | undefined;
+  className?: string;
+}) {
   const [tab, setTab] = useState<Tab>("now");
   const [open, setOpen] = useState<Adventure | null>(null);
 
   return (
     <div className={cn("relative flex min-h-full flex-col bg-background", className)}>
-      <AmbientPhotos />
+      <AmbientPhotos photos={photos} />
 
       <TabBar
         tab={tab}
