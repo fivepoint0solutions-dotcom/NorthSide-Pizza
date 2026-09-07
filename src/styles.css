@@ -266,49 +266,56 @@
 
   --grad-card: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-rose) 12%),
-    color-mix(in oklab, var(--brand-pearl) 84%, var(--brand-lavender) 10%) 55%,
-    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-blue) 12%) 100%
+    color-mix(in oklab, var(--brand-pearl) 55%, var(--brand-rose) 32%),
+    color-mix(in oklab, var(--brand-rose) 30%, var(--brand-lavender) 28%) 50%,
+    color-mix(in oklab, var(--brand-pearl) 55%, var(--brand-blue) 32%) 100%
   );
   --grad-card-memory: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-lavender) 16%),
-    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-rose) 14%) 100%
+    color-mix(in oklab, var(--brand-pearl) 45%, var(--brand-lavender) 40%),
+    color-mix(in oklab, var(--brand-lavender) 38%, var(--brand-rose) 26%) 50%,
+    color-mix(in oklab, var(--brand-pearl) 45%, var(--brand-rose) 38%) 100%
   );
   --grad-card-cool: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-blue) 16%),
-    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-teal) 12%) 100%
+    color-mix(in oklab, var(--brand-pearl) 45%, var(--brand-blue) 40%),
+    color-mix(in oklab, var(--brand-blue) 34%, var(--brand-teal) 30%) 50%,
+    color-mix(in oklab, var(--brand-pearl) 48%, var(--brand-teal) 34%) 100%
   );
   --grad-card-warm: linear-gradient(
     140deg,
-    color-mix(in oklab, var(--brand-pearl) 76%, var(--brand-amber) 18%),
-    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-rose) 14%) 100%
+    color-mix(in oklab, var(--brand-pearl) 40%, var(--brand-amber) 45%),
+    color-mix(in oklab, var(--brand-amber) 30%, var(--brand-rose) 30%) 50%,
+    color-mix(in oklab, var(--brand-pearl) 45%, var(--brand-rose) 38%) 100%
   );
   /* Four more, so a grid of cards never has to repeat a story — eight total,
      every one built from the same five brand hues at a different pairing
-     and angle, never a colour outside the palette. */
+     and angle, never a colour outside the palette. Middle stops mix the two
+     hues directly (not just each against pearl) so the gradient reads as
+     colours blending into one another, not a tint sliding under a highlight. */
   --grad-card-dawn: linear-gradient(
     155deg,
-    color-mix(in oklab, var(--brand-pearl) 76%, var(--brand-amber) 17%),
-    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-lavender) 13%) 60%,
-    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-blue) 11%) 100%
+    color-mix(in oklab, var(--brand-pearl) 42%, var(--brand-amber) 42%),
+    color-mix(in oklab, var(--brand-amber) 26%, var(--brand-lavender) 32%) 55%,
+    color-mix(in oklab, var(--brand-pearl) 48%, var(--brand-blue) 32%) 100%
   );
   --grad-card-dusk: linear-gradient(
     125deg,
-    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-rose) 15%),
-    color-mix(in oklab, var(--brand-pearl) 82%, var(--brand-teal) 11%) 100%
+    color-mix(in oklab, var(--brand-pearl) 42%, var(--brand-rose) 40%),
+    color-mix(in oklab, var(--brand-rose) 26%, var(--brand-teal) 30%) 50%,
+    color-mix(in oklab, var(--brand-pearl) 48%, var(--brand-teal) 32%) 100%
   );
   --grad-card-meadow: linear-gradient(
     160deg,
-    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-teal) 13%),
-    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-amber) 15%) 100%
+    color-mix(in oklab, var(--brand-pearl) 45%, var(--brand-teal) 38%),
+    color-mix(in oklab, var(--brand-teal) 26%, var(--brand-amber) 30%) 50%,
+    color-mix(in oklab, var(--brand-pearl) 42%, var(--brand-amber) 42%) 100%
   );
   --grad-card-twilight: linear-gradient(
     110deg,
-    color-mix(in oklab, var(--brand-pearl) 80%, var(--brand-blue) 13%),
-    color-mix(in oklab, var(--brand-pearl) 78%, var(--brand-rose) 14%) 55%,
-    color-mix(in oklab, var(--brand-pearl) 76%, var(--brand-amber) 15%) 100%
+    color-mix(in oklab, var(--brand-pearl) 45%, var(--brand-blue) 38%),
+    color-mix(in oklab, var(--brand-blue) 30%, var(--brand-rose) 32%) 55%,
+    color-mix(in oklab, var(--brand-pearl) 42%, var(--brand-amber) 40%) 100%
   );
 
   --primary: var(--brand-rose-deep);
@@ -420,16 +427,19 @@
   --grad-card-memory: linear-gradient(
     140deg,
     color-mix(in oklab, var(--brand-lavender) 30%, black),
+    color-mix(in oklab, var(--brand-lavender) 20%, var(--brand-rose) 16%) 50%,
     color-mix(in oklab, var(--brand-blue-deep) 44%, black) 100%
   );
   --grad-card-cool: linear-gradient(
     140deg,
     color-mix(in oklab, var(--brand-teal) 26%, black),
+    color-mix(in oklab, var(--brand-teal) 16%, var(--brand-blue-deep) 34%) 50%,
     color-mix(in oklab, var(--brand-blue-deep) 50%, black) 100%
   );
   --grad-card-warm: linear-gradient(
     140deg,
     color-mix(in oklab, var(--brand-amber) 24%, black),
+    color-mix(in oklab, var(--brand-amber) 14%, var(--brand-rose) 16%) 50%,
     color-mix(in oklab, var(--brand-rose) 22%, black) 100%
   );
   --grad-card-dawn: linear-gradient(
@@ -441,11 +451,13 @@
   --grad-card-dusk: linear-gradient(
     125deg,
     color-mix(in oklab, var(--brand-rose) 24%, black),
+    color-mix(in oklab, var(--brand-rose) 14%, var(--brand-teal) 16%) 50%,
     color-mix(in oklab, var(--brand-teal) 24%, black) 100%
   );
   --grad-card-meadow: linear-gradient(
     160deg,
     color-mix(in oklab, var(--brand-teal) 24%, black),
+    color-mix(in oklab, var(--brand-teal) 14%, var(--brand-amber) 12%) 50%,
     color-mix(in oklab, var(--brand-amber) 20%, black) 100%
   );
   --grad-card-twilight: linear-gradient(
@@ -1129,10 +1141,10 @@ html[data-motion="reduced"] button:not(:disabled):hover {
 @keyframes feather-ruffle {
   0%,
   100% {
-    transform: rotate(var(--ruffle-from, -3deg)) translateY(0);
+    transform: rotate(var(--ruffle-from, -5deg)) translateY(0);
   }
   50% {
-    transform: rotate(var(--ruffle-to, 3deg)) translateY(-1.5%);
+    transform: rotate(var(--ruffle-to, 5deg)) translateY(-2.5%);
   }
 }
 
