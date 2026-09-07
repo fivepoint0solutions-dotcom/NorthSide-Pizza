@@ -541,14 +541,6 @@ html[data-contrast="high"] .glass-panel {
   background-color: var(--card);
   animation: none;
 }
-/* `@apply shimmer-sweep` inlines the sweep into each surface's own ::after,
-   so every surface that uses it has to be named here. */
-html[data-contrast="high"] .shimmer-sweep::after,
-html[data-contrast="high"] .card-soft::after,
-html[data-contrast="high"] .card-elevated::after,
-html[data-contrast="high"] .big-cta::after {
-  display: none;
-}
 /* Gradient text is a decorative flourish, not a contrast-checked palette —
    fall back to the plain, verified-contrast foreground colour. */
 html[data-contrast="high"] .text-gradient {
@@ -948,43 +940,6 @@ html[data-motion="reduced"] button:not(:disabled):hover {
   }
 }
 
-@keyframes shimmer-sweep {
-  0% {
-    transform: translateX(-140%) rotate(8deg);
-  }
-  100% {
-    transform: translateX(140%) rotate(8deg);
-  }
-}
-
-@utility shimmer-sweep {
-  position: relative;
-  isolation: isolate;
-  overflow: hidden;
-  &::after {
-    content: "";
-    position: absolute;
-    inset: -30% -10%;
-    width: 45%;
-    background: linear-gradient(
-      100deg,
-      transparent,
-      color-mix(in oklab, white 68%, var(--brand-amber)) 50%,
-      transparent
-    );
-    opacity: 0.32;
-    transform: translateX(-140%) rotate(8deg);
-    animation: shimmer-sweep 7s ease-in-out infinite;
-    pointer-events: none;
-  }
-  @media (prefers-reduced-motion: reduce) {
-    &::after {
-      animation: none;
-      opacity: 0;
-    }
-  }
-}
-
 @utility gradient-hero {
   background-image: var(--grad-hero);
 }
@@ -1026,7 +981,6 @@ html[data-motion="reduced"] button:not(:disabled):hover {
  * ============================================================ */
 
 @utility card-soft {
-  @apply shimmer-sweep;
   border-radius: var(--radius-2xl);
   background-image: var(--grad-card);
   background-size: 180% 180%;
@@ -1037,7 +991,6 @@ html[data-motion="reduced"] button:not(:disabled):hover {
 }
 
 @utility card-elevated {
-  @apply shimmer-sweep;
   border-radius: var(--radius-2xl);
   background-image: var(--grad-card);
   background-size: 180% 180%;
@@ -1060,7 +1013,6 @@ html[data-motion="reduced"] button:not(:disabled):hover {
 }
 
 @utility big-cta {
-  @apply shimmer-sweep;
   border-radius: var(--radius-3xl);
   border: 2px solid color-mix(in oklab, var(--brand-amber) 60%, transparent);
   color: white;
