@@ -4,6 +4,7 @@ import { formatLongDate, formatTime, useLanguage, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 import { SidekickAvatar } from "./SidekickAvatar";
 import { Icon } from "@/components/site/Icon";
+import { Switch } from "@/components/ui/switch";
 
 /**
  * The senior-facing interface, rendered as live markup inside a device frame
@@ -84,19 +85,50 @@ function TabBar({ tab, onChange }: { tab: Tab; onChange: (tab: Tab) => void }) {
   );
 }
 
+/** Everything on the home screen besides orientation and the permanent
+ *  talk/caregiver controls — the part each family configures for the
+ *  person using it, so nobody sees a tile that doesn't fit them. */
+type HomeItemId = "songs" | "my-day" | Adventure["slug"];
+
 function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
   const t = useT();
   const { language } = useLanguage();
   const now = new Date();
+  const [customizing, setCustomizing] = useState(false);
+  const [enabled, setEnabled] = useState<Record<HomeItemId, boolean>>(() => {
+    const state = { songs: true, "my-day": true } as Record<HomeItemId, boolean>;
+    ADVENTURES.forEach((adventure) => {
+      state[adventure.slug] = true;
+    });
+    return state;
+  });
+
+  const toggle = (id: HomeItemId) => setEnabled((prev) => ({ ...prev, [id]: !prev[id] }));
 
   return (
     <div className="flex flex-col gap-5">
       <header className="flex flex-col gap-1">
-        <h3 className="text-display font-display text-[2rem] leading-tight">
-          <span className="text-gradient gradient-motion italic">Good Morning,</span>
-          <br />
-          <span className="text-foreground italic">Margaret</span>
-        </h3>
+        <div className="flex items-start justify-between gap-3">
+          <h3 className="text-display font-display text-[2rem] leading-tight">
+            <span className="text-gradient gradient-motion italic">Good Morning,</span>
+            <br />
+            <span className="text-foreground italic">Margaret</span>
+          </h3>
+          <button
+            type="button"
+            onClick={() => setCustomizing((v) => !v)}
+            aria-pressed={customizing}
+            className={cn(
+              "tap-target mt-1 shrink-0 gap-1.5 rounded-full border-2 px-3.5 py-2 text-sm font-semibold transition-refined",
+              customizing
+                ? "gradient-action gradient-motion border-border-strong text-white"
+                : "border-border text-muted-foreground",
+            )}
+          >
+            <Icon name="sliders-horizontal" className="h-4 w-4" />
+            {customizing ? "Done" : "Customize"}
+          </button>
+        </div>
         <p className="font-display text-lg text-primary italic">
           You are loved more than words can say.
         </p>
@@ -105,55 +137,118 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
         </p>
       </header>
 
-      {/* Orientation first — the single most reassuring thing on the screen. */}
+      {/* Orientation first — the single most reassuring thing on the screen,
+          and never part of what gets turned off. */}
       <section className="gradient-action gradient-motion rounded-3xl border-2 border-border-strong p-5 text-white">
         <p className="text-eyebrow text-white/85">Right now</p>
         <p className="font-display mt-1 text-3xl font-bold">You are at home.</p>
         <p className="mt-2 text-lg text-white/85">It's Tuesday morning. Nothing is due yet.</p>
       </section>
 
-      <button
-        type="button"
-        className="tap-target gradient-calm gradient-motion w-full justify-start rounded-3xl border-2 border-border-strong px-5 py-4 text-left text-xl font-semibold text-white"
-      >
-        Songs picked just for you
-      </button>
+      {customizing ? (
+        <p className="text-body text-muted-foreground">
+          Every tile below is optional. Turn off anything that doesn't fit — the rest of the app
+          works the same either way.
+        </p>
+      ) : null}
 
-      <button
-        type="button"
-        className="tap-target w-full justify-start rounded-3xl border-2 border-border px-5 py-4 text-left text-xl font-semibold text-foreground"
-      >
-        View My Day (memory journal)
-      </button>
+      <HomeToggleRow
+        label="Songs picked just for you"
+        active={customizing}
+        checked={enabled.songs}
+        onChange={() => toggle("songs")}
+        tone="calm"
+      />
+      <HomeToggleRow
+        label="View My Day (memory journal)"
+        active={customizing}
+        checked={enabled["my-day"]}
+        onChange={() => toggle("my-day")}
+      />
 
-      <section className="flex flex-col gap-3">
-        <h4 className="text-title text-foreground">{t("adventures.title")}</h4>
-        <ul className="grid grid-cols-2 gap-3">
-          {ADVENTURES.map((adventure) => (
-            <li key={adventure.slug}>
-              <button
-                type="button"
-                onClick={() => onOpen(adventure)}
-                className="tap-target hover-lift w-full flex-col gap-2 rounded-3xl border-2 border-border p-4 text-center"
-              >
-                <span
-                  className="gradient-motion inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
-                  style={{ backgroundImage: adventure.gradient }}
-                >
-                  <Icon name={adventure.icon} className="h-6 w-6" />
-                </span>
-                <span className="text-base leading-tight font-semibold text-foreground">
-                  {t(adventure.nameKey)}
-                </span>
-              </button>
-            </li>
-          ))}
-        </ul>
-      </section>
+      {customizing || ADVENTURES.some((a) => enabled[a.slug]) ? (
+        <section className="flex flex-col gap-3">
+          <h4 className="text-title text-foreground">{t("adventures.title")}</h4>
+          <ul className="grid grid-cols-2 gap-3">
+            {ADVENTURES.filter((adventure) => customizing || enabled[adventure.slug]).map(
+              (adventure) => (
+                <li key={adventure.slug}>
+                  <div
+                    className={cn(
+                      "relative w-full rounded-3xl border-2 border-border p-4 text-center transition-refined",
+                      !enabled[adventure.slug] && customizing && "opacity-45",
+                    )}
+                  >
+                    {customizing ? (
+                      <Switch
+                        checked={enabled[adventure.slug]}
+                        onCheckedChange={() => toggle(adventure.slug)}
+                        aria-label={`Show ${t(adventure.nameKey)} on the home screen`}
+                        className="pointer-events-none absolute top-2 right-2"
+                      />
+                    ) : null}
+                    <button
+                      type="button"
+                      onClick={() => (customizing ? toggle(adventure.slug) : onOpen(adventure))}
+                      className="hover-lift flex w-full flex-col items-center gap-2"
+                    >
+                      <span
+                        className="gradient-motion inline-flex h-12 w-12 items-center justify-center rounded-2xl text-white"
+                        style={{ backgroundImage: adventure.gradient }}
+                      >
+                        <Icon name={adventure.icon} className="h-6 w-6" />
+                      </span>
+                      <span className="text-base leading-tight font-semibold text-foreground">
+                        {t(adventure.nameKey)}
+                      </span>
+                    </button>
+                  </div>
+                </li>
+              ),
+            )}
+          </ul>
+        </section>
+      ) : null}
 
       <p className="font-display rounded-3xl border-2 border-border p-5 text-center text-2xl text-primary italic">
         “Your family is always thinking of you.”
       </p>
+    </div>
+  );
+}
+
+function HomeToggleRow({
+  label,
+  active,
+  checked,
+  onChange,
+  tone,
+}: {
+  label: string;
+  active: boolean;
+  checked: boolean;
+  onChange: () => void;
+  tone?: "calm";
+}) {
+  if (!active && !checked) return null;
+  return (
+    <div
+      className={cn(
+        "tap-target flex w-full items-center justify-between gap-3 rounded-3xl border-2 px-5 py-4 text-left text-xl font-semibold transition-refined",
+        tone === "calm"
+          ? "gradient-calm gradient-motion border-border-strong text-white"
+          : "border-border text-foreground",
+        !checked && active && "opacity-45",
+      )}
+    >
+      <span>{label}</span>
+      {active ? (
+        <Switch
+          checked={checked}
+          onCheckedChange={onChange}
+          aria-label={`Show "${label}" on the home screen`}
+        />
+      ) : null}
     </div>
   );
 }
