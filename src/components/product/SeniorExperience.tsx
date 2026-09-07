@@ -38,6 +38,13 @@ export function SeniorExperience({
 }) {
   const [tab, setTab] = useState<Tab>("now");
   const [open, setOpen] = useState<Adventure | null>(null);
+  /** A tile that opens its own screen rather than an adventure transcript. */
+  const [screen, setScreen] = useState<"games" | null>(null);
+
+  const closeAll = () => {
+    setOpen(null);
+    setScreen(null);
+  };
 
   return (
     <div className={cn("relative flex min-h-full flex-col bg-background", className)}>
@@ -47,16 +54,20 @@ export function SeniorExperience({
         tab={tab}
         onChange={(next) => {
           setTab(next);
-          setOpen(null);
+          closeAll();
         }}
       />
 
       <div className="relative z-10 flex-1 px-5 pt-5 pb-24 sm:px-6">
-        {open ? (
-          <AdventureScreen adventure={open} onBack={() => setOpen(null)} />
+        {screen === "games" ? (
+          <GamesScreen onBack={closeAll} />
+        ) : open ? (
+          <AdventureScreen adventure={open} onBack={closeAll} />
         ) : (
           <>
-            {tab === "now" ? <NowScreen onOpen={setOpen} /> : null}
+            {tab === "now" ? (
+              <NowScreen onOpen={setOpen} onOpenGames={() => setScreen("games")} />
+            ) : null}
             {tab === "schedule" ? <ScheduleScreen /> : null}
             {tab === "people" ? <PeopleScreen /> : null}
             {tab === "help" ? <HelpScreen /> : null}
@@ -152,7 +163,13 @@ const HOME_TILES: HomeTile[] = [
   },
 ];
 
-function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
+function NowScreen({
+  onOpen,
+  onOpenGames,
+}: {
+  onOpen: (adventure: Adventure) => void;
+  onOpenGames: () => void;
+}) {
   const { language } = useLanguage();
   const now = new Date();
   const [customizing, setCustomizing] = useState(false);
@@ -265,6 +282,10 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
                 toggle(tile.id);
                 return;
               }
+              if (tile.id === "brain-games") {
+                onOpenGames();
+                return;
+              }
               const adventure = ADVENTURES.find((a) => a.slug === tile.adventure);
               if (adventure) onOpen(adventure);
             }}
@@ -319,36 +340,179 @@ function NowScreen({ onOpen }: { onOpen: (adventure: Adventure) => void }) {
   );
 }
 
+const DAY_INITIALS = ["S", "M", "T", "W", "T", "F", "S"];
+
 function ScheduleScreen() {
   const { language } = useLanguage();
+  // Fixed at first render so the server and the client agree, and so the
+  // month grid doesn't shift under the visitor mid-session.
+  const [today] = useState(() => new Date());
+  const [showCalendar, setShowCalendar] = useState(true);
+  const [span, setSpan] = useState<"week" | "month">("month");
+  const [selected, setSelected] = useState(today.getDate());
+  const [hideFinished, setHideFinished] = useState(false);
+
   const items = [
-    { hour: 9, title: "Morning tablets", note: "With breakfast", icon: "clock" },
-    { hour: 11, title: "Call from Clare", note: "She rings most Tuesdays", icon: "phone-call" },
-    { hour: 14, title: "Photos from the lake house", note: "Added by David", icon: "images" },
-    { hour: 16, title: "Walk, if it stays dry", note: "Twenty minutes is plenty", icon: "sun" },
+    { hour: 9, title: "Morning tablets", note: "With breakfast", done: true },
+    { hour: 11, title: "Call from Clare", note: "She rings most Tuesdays", done: true },
+    { hour: 14, title: "Photos from the lake house", note: "Added by David", done: false },
+    { hour: 16, title: "Walk, if it stays dry", note: "Twenty minutes is plenty", done: false },
   ];
+  const visible = hideFinished ? items.filter((item) => !item.done) : items;
+  const onToday = selected === today.getDate();
+
+  const year = today.getFullYear();
+  const month = today.getMonth();
+  const monthLabel = today.toLocaleDateString(language === "en" ? "en-GB" : language, {
+    month: "long",
+    year: "numeric",
+  });
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+  const firstWeekday = new Date(year, month, 1).getDay();
+  // Week view shows only the row the selected day sits in.
+  const weekStart = Math.max(1, selected - ((firstWeekday + selected - 1) % 7));
+  const days =
+    span === "month"
+      ? Array.from({ length: daysInMonth }, (_, i) => i + 1)
+      : Array.from({ length: 7 }, (_, i) => weekStart + i).filter((d) => d <= daysInMonth);
+  const leadingBlanks = span === "month" ? firstWeekday : (firstWeekday + weekStart - 1) % 7;
+
   return (
     <div className="flex flex-col gap-4">
-      <h3 className="font-display text-3xl font-bold text-foreground">Today</h3>
-      <ul className="flex flex-col gap-3">
-        {items.map((item) => (
-          <li
-            key={item.title}
-            className="flex items-start gap-4 rounded-3xl border-2 border-accent p-4"
+      <div className="flex items-center justify-between gap-3">
+        <button
+          type="button"
+          className="tap-target shrink-0 rounded-full border-2 border-accent bg-background px-4 py-2 text-base font-bold"
+        >
+          ‹ Back
+        </button>
+        <h3 className="font-display text-3xl font-bold text-foreground">
+          {onToday ? "Today" : `${monthLabel.split(" ")[0]} ${selected}`}
+        </h3>
+        <button
+          type="button"
+          onClick={() => setHideFinished((v) => !v)}
+          aria-pressed={hideFinished}
+          className="tap-target shrink-0 rounded-full border-2 border-[color:var(--brand-teal)] bg-background px-4 py-2 text-base leading-tight font-bold"
+        >
+          {hideFinished ? "Show all" : "Hide finished"}
+        </button>
+      </div>
+
+      <button
+        type="button"
+        className="gradient-plum gradient-motion tap-target w-full items-center gap-4 rounded-3xl border-2 border-accent p-5 text-left text-white"
+      >
+        <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-full bg-[color:var(--brand-petrol)] text-3xl leading-none font-bold">
+          +
+        </span>
+        <span className="flex min-w-0 flex-col">
+          <span className="font-display text-2xl font-bold">Add appointment</span>
+          <span className="text-lg text-white/85">Put something new on the calendar</span>
+        </span>
+      </button>
+
+      <section className="gradient-earth gradient-motion rounded-3xl border-2 border-accent p-5 text-white">
+        <div className="flex items-center justify-between gap-3">
+          <h4 className="font-display text-2xl font-bold">Calendar</h4>
+          <button
+            type="button"
+            onClick={() => setShowCalendar((v) => !v)}
+            aria-expanded={showCalendar}
+            className="tap-target rounded-full border-2 border-accent bg-white/85 px-5 py-2 text-base font-bold text-foreground"
           >
-            <span className="gradient-sage gradient-motion inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl text-white">
-              <Icon name={item.icon} className="h-6 w-6" />
-            </span>
-            <span className="flex flex-col">
-              <span className="text-lg font-bold text-foreground">
-                {formatTime(language, item.hour)}
+            {showCalendar ? "Hide" : "Show"}
+          </button>
+        </div>
+
+        {showCalendar ? (
+          <>
+            <div className="mt-4 flex gap-2">
+              {(["week", "month"] as const).map((option) => (
+                <button
+                  key={option}
+                  type="button"
+                  onClick={() => setSpan(option)}
+                  aria-pressed={span === option}
+                  className={cn(
+                    "tap-target rounded-full border-2 px-6 py-2 text-base font-bold capitalize",
+                    span === option
+                      ? "border-accent bg-[color:var(--brand-petrol)] text-white"
+                      : "border-transparent bg-white/85 text-foreground",
+                  )}
+                >
+                  {option}
+                </button>
+              ))}
+            </div>
+
+            <div className="mt-4 flex items-center justify-between gap-3">
+              <span className="tap-target rounded-full bg-white/85 px-4 py-2 text-lg font-bold text-foreground">
+                ‹
               </span>
-              <span className="text-lg text-foreground">{item.title}</span>
-              <span className="text-base text-muted-foreground">{item.note}</span>
-            </span>
-          </li>
-        ))}
-      </ul>
+              <p className="font-display text-2xl font-bold">{monthLabel}</p>
+              <span className="tap-target rounded-full bg-white/85 px-4 py-2 text-lg font-bold text-foreground">
+                ›
+              </span>
+            </div>
+
+            <div className="mt-3 grid grid-cols-7 gap-1.5 text-center">
+              {DAY_INITIALS.map((initial, index) => (
+                <span key={index} className="py-1 text-base font-bold text-white/85">
+                  {initial}
+                </span>
+              ))}
+              {Array.from({ length: leadingBlanks }, (_, i) => (
+                <span key={`blank-${i}`} />
+              ))}
+              {days.map((day) => (
+                <button
+                  key={day}
+                  type="button"
+                  onClick={() => setSelected(day)}
+                  aria-current={day === selected ? "date" : undefined}
+                  className={cn(
+                    "rounded-2xl py-2.5 text-lg font-bold transition-refined",
+                    day === selected
+                      ? "border-2 border-accent bg-white text-foreground"
+                      : "bg-white/25 text-white",
+                  )}
+                >
+                  {day}
+                </button>
+              ))}
+            </div>
+          </>
+        ) : null}
+      </section>
+
+      {onToday && visible.length > 0 ? (
+        <ul className="flex flex-col gap-3">
+          {visible.map((item, index) => (
+            <li key={item.title}>
+              <div
+                className={cn(
+                  "gradient-motion flex items-start gap-4 rounded-3xl border-2 p-4 text-white",
+                  index % 2 === 0 ? "gradient-tide" : "gradient-earth",
+                  index % 2 === 0 ? "border-accent" : "border-[color:var(--brand-teal)]",
+                )}
+              >
+                <span className="inline-flex shrink-0 rounded-full bg-white/25 px-3 py-1.5 text-base font-bold">
+                  {formatTime(language, item.hour)}
+                </span>
+                <span className="flex min-w-0 flex-col">
+                  <span className="text-xl font-bold">{item.title}</span>
+                  <span className="text-base text-white/85">{item.note}</span>
+                </span>
+              </div>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="gradient-earth gradient-motion rounded-3xl border-2 border-accent p-5 text-2xl font-bold text-white">
+          Nothing on this day.
+        </p>
+      )}
     </div>
   );
 }
@@ -398,17 +562,27 @@ function HelpScreen() {
     <div className="flex flex-col gap-3">
       <button
         type="button"
-        className="gradient-warm gradient-motion tap-target w-full flex-col items-start gap-1 rounded-3xl border-2 border-accent p-5 text-left text-white"
+        className="gradient-warm gradient-motion tap-target w-full items-center gap-4 rounded-3xl border-2 border-accent p-5 text-left text-white"
       >
-        <span className="text-2xl font-bold">Call Caregiver</span>
-        <span className="text-lg text-white/85">Sarah Anderson</span>
+        <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/25">
+          <Icon name="phone" className="h-7 w-7" />
+        </span>
+        <span className="flex min-w-0 flex-col">
+          <span className="text-2xl font-bold">Call Caregiver</span>
+          <span className="text-lg text-white/85">Sarah Anderson</span>
+        </span>
       </button>
       <button
         type="button"
-        className="tap-target w-full flex-col items-start gap-1 rounded-3xl border-2 border-accent bg-accent p-5 text-left text-accent-foreground"
+        className="tap-target w-full items-center gap-4 rounded-3xl border-2 border-accent bg-accent p-5 text-left text-accent-foreground"
       >
-        <span className="text-2xl font-bold">Request Help</span>
-        <span className="text-lg opacity-80">Someone will talk with you</span>
+        <span className="inline-flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-white/30">
+          <Icon name="phone-call" className="h-7 w-7" />
+        </span>
+        <span className="flex min-w-0 flex-col">
+          <span className="text-2xl font-bold">Request Help</span>
+          <span className="text-lg opacity-80">Someone will talk with you</span>
+        </span>
       </button>
       {prompts.map((question) => (
         <button
@@ -418,6 +592,68 @@ function HelpScreen() {
           style={{ backgroundImage: question.gradient }}
         >
           {question.label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
+const GAMES: { title: string; note: string; tone: string; cool: boolean }[] = [
+  {
+    title: "Word Find",
+    note: "Search for family names & favourite words",
+    tone: "gradient-earth",
+    cool: true,
+  },
+  { title: "Photo Match", note: "Flip cards to match faces", tone: "gradient-warm", cool: false },
+  {
+    title: "Family Quiz",
+    note: "A gentle game about the people you love",
+    tone: "gradient-plum",
+    cool: true,
+  },
+  {
+    title: "Crossword",
+    note: "A small puzzle about your family",
+    tone: "gradient-tide",
+    cool: false,
+  },
+  {
+    title: "Find Your Way Home",
+    note: "A gentle little maze",
+    tone: "gradient-sage",
+    cool: true,
+  },
+];
+
+/** Brain games — a list of its own rather than an adventure transcript,
+ *  since that's what the tile opens in the product. */
+function GamesScreen({ onBack }: { onBack: () => void }) {
+  return (
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center gap-3">
+        <button
+          type="button"
+          onClick={onBack}
+          className="tap-target shrink-0 rounded-full border-2 border-accent bg-background px-4 py-2 text-base font-bold"
+        >
+          ‹ Back
+        </button>
+        <h3 className="font-display text-3xl font-bold text-foreground">Brain Games</h3>
+      </div>
+
+      {GAMES.map((game) => (
+        <button
+          key={game.title}
+          type="button"
+          className={cn(
+            "gradient-motion tap-target w-full flex-col items-start gap-1 rounded-3xl border-2 p-5 text-left text-white",
+            game.tone,
+            game.cool ? "border-[color:var(--brand-teal)]" : "border-accent",
+          )}
+        >
+          <span className="text-2xl font-bold">{game.title}</span>
+          <span className="text-lg text-white/85">{game.note}</span>
         </button>
       ))}
     </div>
