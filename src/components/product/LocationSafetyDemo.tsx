@@ -1,8 +1,24 @@
 import { useState } from "react";
 import { cn } from "@/lib/utils";
 import { Icon } from "@/components/site/Icon";
+import { SidekickMap, type LatLng, type LatLngTuple } from "./SidekickMap";
 
 type View = "home" | "asking" | "directions";
+
+/* The demo runs on Cold Lake, Alberta — the same ground the product was
+   built and tested on, rather than a stock city that means nothing. */
+const HOME: LatLng = { lat: 54.4648, lng: -110.1817 };
+const SARAHS: LatLng = { lat: 54.4712, lng: -110.1699 };
+
+/** The walk between them, as the route the app would draw. */
+const ROUTE: LatLngTuple[] = [
+  [54.4648, -110.1817],
+  [54.4661, -110.1806],
+  [54.4673, -110.1778],
+  [54.4688, -110.1749],
+  [54.4701, -110.1719],
+  [54.4712, -110.1699],
+];
 
 /**
  * FLAGSHIP FEATURE — Location Safety.
@@ -28,12 +44,21 @@ export function LocationSafetyDemo({ className }: { className?: string }) {
         <Icon name="map-pin" className="h-8 w-8 text-white/85" />
       </header>
 
-      <div className="relative flex-1 p-5">
-        {/* The map is intentionally abstract, never a real tile provider —
-            it's a reassurance graphic, not a tracking display. */}
-        <MapGround active={view === "directions"} />
+      <div className="flex flex-1 flex-col gap-4 p-5">
+        {/* The real map from the app — the route only appears once she's
+            actually going somewhere, so the resting state is a place, not a
+            tracking display. */}
+        <SidekickMap
+          points={view === "directions" ? ROUTE : []}
+          from={HOME}
+          to={view === "directions" ? SARAHS : null}
+          height={168}
+          radius={24}
+          lineColor="var(--brand-rust, #9C6455)"
+          accent="var(--brand-ochre, #CC7F3B)"
+        />
 
-        <div className="relative z-10 flex h-full flex-col gap-4">
+        <div className="flex flex-1 flex-col gap-4">
           {view === "home" ? (
             <>
               <div
@@ -135,34 +160,5 @@ export function LocationSafetyDemo({ className }: { className?: string }) {
         </div>
       </div>
     </div>
-  );
-}
-
-/** A soft, non-literal map ground — reassurance, not surveillance. */
-function MapGround({ active }: { active: boolean }) {
-  return (
-    <svg
-      aria-hidden="true"
-      viewBox="0 0 300 400"
-      className="pointer-events-none absolute inset-5 opacity-[0.16]"
-      preserveAspectRatio="xMidYMid slice"
-    >
-      <g stroke="currentColor" strokeWidth="2" className="text-foreground">
-        <path d="M0 60 H300" /> <path d="M0 160 H300" /> <path d="M0 260 H300" />{" "}
-        <path d="M0 360 H300" />
-        <path d="M70 0 V400" /> <path d="M160 0 V400" /> <path d="M230 0 V400" />
-      </g>
-      {active ? (
-        <path
-          d="M70 360 L70 260 L160 260 L160 60"
-          fill="none"
-          stroke="var(--brand-rose)"
-          strokeWidth="5"
-          strokeLinecap="round"
-          strokeDasharray="2 14"
-          opacity="0.7"
-        />
-      ) : null}
-    </svg>
   );
 }
