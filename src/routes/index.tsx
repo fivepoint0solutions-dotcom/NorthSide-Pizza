@@ -11,7 +11,6 @@ import {
   MeetSection,
   PlatformSection,
   ProductShowcase,
-  TestimonialsSection,
   TrustSection,
   TwoSidedSection,
   WhySection,
@@ -32,7 +31,7 @@ export const Route = createFileRoute("/")({
 /**
  * The homepage is one continuous argument, in this order:
  * brand → emotion → product → senior → caregiver → experiences → the day →
- * comparison → global scale → voices → trust → conversion.
+ * comparison → global scale → trust → conversion.
  */
 function HomePage() {
   const t = useT();
@@ -50,7 +49,6 @@ function HomePage() {
       <DaySection />
       <WhySection />
       <GlobalSection />
-      <TestimonialsSection />
       <TrustSection />
       <CtaBand
         title={t("cta.title")}

@@ -8,7 +8,6 @@ import {
   COMPARISON,
   PRODUCT_JOURNEY,
   SENIOR_VALUE,
-  TESTIMONIALS,
   TRUST_PILLARS,
 } from "@/lib/site/content";
 import { cn } from "@/lib/utils";
@@ -532,43 +531,6 @@ export function GlobalSection() {
           The multilingual system in full
         </SecondaryAction>
       </Reveal>
-    </Section>
-  );
-}
-
-/* ------------------------------------------------------------------ *
- * Testimonials
- * ------------------------------------------------------------------ */
-
-export function TestimonialsSection() {
-  return (
-    <Section id="voices">
-      <SectionHeading
-        eyebrow="Voices"
-        title="Four perspectives on the same companion."
-        lede="Each quote is paired with the part of the product it's actually about."
-      />
-      <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-        {TESTIMONIALS.map((testimonial, index) => (
-          <Reveal key={testimonial.name} delay={index * 60} className="h-full">
-            <figure className={cn("card-elevated flex h-full flex-col gap-4 p-6", cardTint(index))}>
-              <Icon name="quote" className="h-6 w-6 text-accent" />
-              <blockquote className="text-body text-foreground">“{testimonial.quote}”</blockquote>
-              <figcaption className="mt-auto flex flex-col gap-2 pt-2">
-                <span className="font-semibold text-foreground">{testimonial.name}</span>
-                <span className="text-caption text-muted-foreground">{testimonial.role}</span>
-                <Link
-                  to={testimonial.relatedHref}
-                  className="text-caption mt-1 flex w-fit items-center gap-1.5 py-2 font-semibold text-primary"
-                >
-                  <Icon name="arrow-right" className="h-3.5 w-3.5" />
-                  {testimonial.relatedTo}
-                </Link>
-              </figcaption>
-            </figure>
-          </Reveal>
-        ))}
-      </div>
     </Section>
   );
 }
