@@ -13,14 +13,11 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as BuildRouteImport } from './routes/build'
 import { Route as BusyworkRouteImport } from './routes/busywork'
 import { Route as ChallengeRouteImport } from './routes/challenge'
-import { Route as ContactRouteImport } from './routes/contact'
 import { Route as CreateRouteImport } from './routes/create'
-import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as IdeasRouteImport } from './routes/ideas'
 import { Route as InspireRouteImport } from './routes/inspire'
 import { Route as LessonsRouteImport } from './routes/lessons'
 import { Route as MaterialsRouteImport } from './routes/materials'
-import { Route as PackagesRouteImport } from './routes/packages'
 import { Route as RecentWorkRouteImport } from './routes/recent-work'
 import { Route as WorkspaceRouteImport } from './routes/workspace'
 
@@ -44,19 +41,9 @@ const ChallengeRoute = ChallengeRouteImport.update({
   path: '/challenge',
   getParentRoute: () => rootRouteImport,
 } as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const CreateRoute = CreateRouteImport.update({
   id: '/create',
   path: '/create',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GalleryRoute = GalleryRouteImport.update({
-  id: '/gallery',
-  path: '/gallery',
   getParentRoute: () => rootRouteImport,
 } as any)
 const IdeasRoute = IdeasRouteImport.update({
@@ -79,11 +66,6 @@ const MaterialsRoute = MaterialsRouteImport.update({
   path: '/materials',
   getParentRoute: () => rootRouteImport,
 } as any)
-const PackagesRoute = PackagesRouteImport.update({
-  id: '/packages',
-  path: '/packages',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const RecentWorkRoute = RecentWorkRouteImport.update({
   id: '/recent-work',
   path: '/recent-work',
@@ -100,14 +82,11 @@ export interface FileRoutesByFullPath {
   '/build': typeof BuildRoute
   '/busywork': typeof BusyworkRoute
   '/challenge': typeof ChallengeRoute
-  '/contact': typeof ContactRoute
   '/create': typeof CreateRoute
-  '/gallery': typeof GalleryRoute
   '/ideas': typeof IdeasRoute
   '/inspire': typeof InspireRoute
   '/lessons': typeof LessonsRoute
   '/materials': typeof MaterialsRoute
-  '/packages': typeof PackagesRoute
   '/recent-work': typeof RecentWorkRoute
   '/workspace': typeof WorkspaceRoute
 }
@@ -116,14 +95,11 @@ export interface FileRoutesByTo {
   '/build': typeof BuildRoute
   '/busywork': typeof BusyworkRoute
   '/challenge': typeof ChallengeRoute
-  '/contact': typeof ContactRoute
   '/create': typeof CreateRoute
-  '/gallery': typeof GalleryRoute
   '/ideas': typeof IdeasRoute
   '/inspire': typeof InspireRoute
   '/lessons': typeof LessonsRoute
   '/materials': typeof MaterialsRoute
-  '/packages': typeof PackagesRoute
   '/recent-work': typeof RecentWorkRoute
   '/workspace': typeof WorkspaceRoute
 }
@@ -133,14 +109,11 @@ export interface FileRoutesById {
   '/build': typeof BuildRoute
   '/busywork': typeof BusyworkRoute
   '/challenge': typeof ChallengeRoute
-  '/contact': typeof ContactRoute
   '/create': typeof CreateRoute
-  '/gallery': typeof GalleryRoute
   '/ideas': typeof IdeasRoute
   '/inspire': typeof InspireRoute
   '/lessons': typeof LessonsRoute
   '/materials': typeof MaterialsRoute
-  '/packages': typeof PackagesRoute
   '/recent-work': typeof RecentWorkRoute
   '/workspace': typeof WorkspaceRoute
 }
@@ -151,14 +124,11 @@ export interface FileRouteTypes {
     | '/build'
     | '/busywork'
     | '/challenge'
-    | '/contact'
     | '/create'
-    | '/gallery'
     | '/ideas'
     | '/inspire'
     | '/lessons'
     | '/materials'
-    | '/packages'
     | '/recent-work'
     | '/workspace'
   fileRoutesByTo: FileRoutesByTo
@@ -167,14 +137,11 @@ export interface FileRouteTypes {
     | '/build'
     | '/busywork'
     | '/challenge'
-    | '/contact'
     | '/create'
-    | '/gallery'
     | '/ideas'
     | '/inspire'
     | '/lessons'
     | '/materials'
-    | '/packages'
     | '/recent-work'
     | '/workspace'
   id:
@@ -183,14 +150,11 @@ export interface FileRouteTypes {
     | '/build'
     | '/busywork'
     | '/challenge'
-    | '/contact'
     | '/create'
-    | '/gallery'
     | '/ideas'
     | '/inspire'
     | '/lessons'
     | '/materials'
-    | '/packages'
     | '/recent-work'
     | '/workspace'
   fileRoutesById: FileRoutesById
@@ -200,14 +164,11 @@ export interface RootRouteChildren {
   BuildRoute: typeof BuildRoute
   BusyworkRoute: typeof BusyworkRoute
   ChallengeRoute: typeof ChallengeRoute
-  ContactRoute: typeof ContactRoute
   CreateRoute: typeof CreateRoute
-  GalleryRoute: typeof GalleryRoute
   IdeasRoute: typeof IdeasRoute
   InspireRoute: typeof InspireRoute
   LessonsRoute: typeof LessonsRoute
   MaterialsRoute: typeof MaterialsRoute
-  PackagesRoute: typeof PackagesRoute
   RecentWorkRoute: typeof RecentWorkRoute
   WorkspaceRoute: typeof WorkspaceRoute
 }
@@ -242,25 +203,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ChallengeRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/create': {
       id: '/create'
       path: '/create'
       fullPath: '/create'
       preLoaderRoute: typeof CreateRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/gallery': {
-      id: '/gallery'
-      path: '/gallery'
-      fullPath: '/gallery'
-      preLoaderRoute: typeof GalleryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/ideas': {
@@ -291,13 +238,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MaterialsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/packages': {
-      id: '/packages'
-      path: '/packages'
-      fullPath: '/packages'
-      preLoaderRoute: typeof PackagesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/recent-work': {
       id: '/recent-work'
       path: '/recent-work'
@@ -320,14 +260,11 @@ const rootRouteChildren: RootRouteChildren = {
   BuildRoute: BuildRoute,
   BusyworkRoute: BusyworkRoute,
   ChallengeRoute: ChallengeRoute,
-  ContactRoute: ContactRoute,
   CreateRoute: CreateRoute,
-  GalleryRoute: GalleryRoute,
   IdeasRoute: IdeasRoute,
   InspireRoute: InspireRoute,
   LessonsRoute: LessonsRoute,
   MaterialsRoute: MaterialsRoute,
-  PackagesRoute: PackagesRoute,
   RecentWorkRoute: RecentWorkRoute,
   WorkspaceRoute: WorkspaceRoute,
 }

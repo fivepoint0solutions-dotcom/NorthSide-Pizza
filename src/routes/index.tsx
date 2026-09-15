@@ -1,159 +1,158 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { ArrowRight, Droplets, ShieldCheck, Sparkles } from "lucide-react";
+import { ArrowRight, BookOpen, FolderOpen, Lightbulb, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { ModeCard } from "@/components/copilot/ModeCard";
+import { LibraryCard } from "@/components/copilot/LibraryCard";
 import { Reveal } from "@/components/motion/Reveal";
-import { RinkBackdrop } from "@/components/site/RinkBackdrop";
-import { BeforeAfterSlider } from "@/components/site/BeforeAfterSlider";
-import { PackageCard } from "@/components/site/PackageCard";
-import { Testimonials } from "@/components/site/Testimonials";
-import { PACKAGES } from "@/lib/packages-data";
+import { useModes } from "@/lib/modes";
+import { deleteLibraryItem, useLibrary, useRecentWork } from "@/lib/library";
+import { useT } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Top Shelf Detailing — Score the Perfect Shine" },
+      { title: "Teacher's Pet" },
       {
         name: "description",
         content:
-          "Premium mobile and in-shop car detailing on the West Coast. Book paint correction, ceramic coating, and full detail packages online.",
+          "An AI teaching assistant that amplifies your creativity, expertise and confidence — you're still the teacher, AI just helps you do more with your ideas.",
+      },
+      { property: "og:title", content: "Teacher's Pet" },
+      {
+        property: "og:description",
+        content: "You're still the teacher. AI just helps you do more with your ideas.",
       },
     ],
   }),
-  component: Home,
+  component: Dashboard,
 });
 
-function Home() {
+const SHORTCUTS = [
+  {
+    labelKey: "shortcuts.myLessons" as const,
+    to: "/lessons" as const,
+    icon: BookOpen,
+    category: "lesson" as const,
+  },
+  {
+    labelKey: "shortcuts.myIdeas" as const,
+    to: "/ideas" as const,
+    icon: Lightbulb,
+    category: "idea" as const,
+  },
+  {
+    labelKey: "shortcuts.materials" as const,
+    to: "/materials" as const,
+    icon: FolderOpen,
+    category: "material" as const,
+  },
+];
+
+function ShortcutRow() {
+  const t = useT();
+  const lessons = useLibrary("lesson");
+  const ideas = useLibrary("idea");
+  const materials = useLibrary("material");
+  const counts = { lesson: lessons.length, idea: ideas.length, material: materials.length };
+
+  return (
+    <div className="grid gap-4 sm:grid-cols-3">
+      {SHORTCUTS.map((s) => (
+        <Link
+          key={s.to}
+          to={s.to}
+          className="card-soft group flex items-center justify-between gap-4 p-5 hover:-translate-y-0.5"
+        >
+          <div className="flex items-center gap-3">
+            <span className="grid size-10 place-items-center rounded-xl bg-secondary text-interactive">
+              <s.icon className="size-5" />
+            </span>
+            <div>
+              <p className="font-semibold">{t(s.labelKey)}</p>
+              <p className="text-caption text-muted-foreground">
+                {t("shortcuts.saved", { count: counts[s.category] })}
+              </p>
+            </div>
+          </div>
+          <ArrowRight className="size-4 text-muted-foreground transition-transform group-hover:translate-x-1" />
+        </Link>
+      ))}
+    </div>
+  );
+}
+
+function RecentWork() {
+  const t = useT();
+  const recent = useRecentWork(6);
+  if (recent.length === 0) return null;
+
+  return (
+    <section className="pt-10 pb-6 lg:pt-12">
+      <div className="mb-6 flex items-center justify-between">
+        <h2 className="text-headline">{t("dashboard.recentWork")}</h2>
+        <Link to="/recent-work" className="text-sm font-semibold text-interactive hover:underline">
+          {t("dashboard.seeAll")}
+        </Link>
+      </div>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {recent.map((item) => (
+          <LibraryCard key={item.id} item={item} onDelete={deleteLibraryItem} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function Dashboard() {
+  const t = useT();
+  const modes = useModes();
+
   return (
     <main>
-      <section className="rink-streaks ice-vignette relative overflow-hidden">
-        <RinkBackdrop className="opacity-70" />
-        <div className="container-app relative grid gap-10 py-16 lg:grid-cols-2 lg:items-center lg:py-24">
-          <div>
-            <Reveal>
-              <p className="text-eyebrow text-[color:var(--brand-orange)]">
-                West Coast Mobile &amp; In-Shop Detailing
-              </p>
-            </Reveal>
-            <Reveal delay={80}>
-              <h1 className="text-display mt-5 uppercase">
-                Top Shelf Detailing.
-                <br />
-                <span className="text-[color:var(--brand-orange)]">Score</span> the perfect shine.
-              </h1>
-            </Reveal>
-            <Reveal delay={160}>
-              <p className="text-lede measure mt-6 text-muted-foreground">
-                From a quick refresh to full paint correction and ceramic coating, we bring
-                championship-level detailing to your driveway — or ours.
-              </p>
-            </Reveal>
-            <Reveal delay={240} className="mt-9 flex flex-wrap gap-3">
-              <Button asChild variant="hero" size="xl">
-                <Link to="/contact">
-                  <Sparkles /> Book Your Detail
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="xl">
-                <Link to="/packages">View Packages</Link>
-              </Button>
-            </Reveal>
-          </div>
-
-          <Reveal delay={200} variant="fade" className="relative">
-            <img
-              src="/images/suv-after.svg"
-              alt="Freshly detailed SUV with a glossy ceramic-coated finish"
-              className="w-full drop-shadow-[0_30px_60px_rgba(0,0,0,0.55)]"
-            />
-          </Reveal>
-        </div>
-      </section>
-
-      <section className="section-y container-app">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-eyebrow text-[color:var(--brand-orange)]">Before &amp; After</p>
-          <h2 className="text-headline mt-3">See the transformation. Feel the shine.</h2>
+      <section className="container-app pb-4 pt-16 text-center lg:pt-24">
+        <Reveal>
+          <p className="text-eyebrow text-interactive">{t("dashboard.eyebrow")}</p>
         </Reveal>
-        <Reveal delay={120} className="mx-auto mt-10 max-w-3xl">
-          <BeforeAfterSlider
-            beforeSrc="/images/suv-before.svg"
-            afterSrc="/images/suv-after.svg"
-            alt="SUV detail"
-          />
+        <Reveal delay={80}>
+          <h1 className="text-display measure mx-auto mt-5">
+            {t("dashboard.headline1")}
+            <br />
+            {t("dashboard.headline2")}
+          </h1>
         </Reveal>
-        <Reveal delay={200} className="mt-6 text-center">
-          <Link
-            to="/gallery"
-            className="link-underline inline-flex items-center gap-1 font-semibold"
-          >
-            See the full gallery <ArrowRight className="size-4" />
-          </Link>
-        </Reveal>
-      </section>
-
-      <section className="section-y container-app">
-        <Reveal className="mx-auto max-w-2xl text-center">
-          <p className="text-eyebrow text-[color:var(--brand-orange)]">
-            2. Premium Detailing Packages
+        <Reveal delay={160}>
+          <p className="text-lede measure mx-auto mt-6 text-muted-foreground">
+            {t("dashboard.subtitle")}
           </p>
-          <h2 className="text-headline mt-3">Pick your line-up</h2>
         </Reveal>
-        <div className="mt-12 grid gap-6 lg:grid-cols-3">
-          {PACKAGES.map((pkg, i) => (
-            <Reveal key={pkg.name} delay={i * 100}>
-              <PackageCard {...pkg} />
-            </Reveal>
-          ))}
-        </div>
-        <Reveal delay={300} className="mt-8 text-center">
-          <Link
-            to="/packages"
-            className="link-underline inline-flex items-center gap-1 font-semibold"
-          >
-            Compare all packages <ArrowRight className="size-4" />
-          </Link>
+        <Reveal delay={240} className="mt-9 flex justify-center">
+          <Button asChild variant="hero" size="xl">
+            <Link to="/create">
+              <Sparkles /> {t("nav.createSomething")}
+            </Link>
+          </Button>
         </Reveal>
       </section>
 
-      <section className="rink-streaks section-y">
-        <div className="container-app">
-          <Reveal className="mx-auto max-w-2xl text-center">
-            <p className="text-eyebrow text-[color:var(--brand-orange)]">3. West Coast Car Care</p>
-            <h2 className="text-headline mt-3">Specialty care for every finish</h2>
-          </Reveal>
-          <div className="mt-12 grid gap-5 sm:grid-cols-3">
-            {[
-              {
-                icon: Droplets,
-                label: "Ceramic Coating",
-                copy: "Multi-year hydrophobic protection.",
-              },
-              {
-                icon: ShieldCheck,
-                label: "Paint Correction",
-                copy: "Swirl-free, mirror-grade finish.",
-              },
-              {
-                icon: Sparkles,
-                label: "Mobile Service",
-                copy: "We come to you, anywhere on the West Coast.",
-              },
-            ].map((item, i) => (
-              <Reveal key={item.label} delay={i * 100}>
-                <div className="card-soft flex flex-col items-center gap-3 p-7 text-center">
-                  <span className="grid size-12 place-items-center rounded-full bg-[var(--brand-teal)]/20 text-[color:var(--brand-teal)]">
-                    <item.icon className="size-6" />
-                  </span>
-                  <p className="text-title">{item.label}</p>
-                  <p className="text-body text-muted-foreground">{item.copy}</p>
-                </div>
-              </Reveal>
+      <section className="container-app pt-4 pb-10 lg:pb-12">
+        <Reveal>
+          <div className="grid gap-5 sm:grid-cols-2">
+            {modes.map((mode) => (
+              <ModeCard key={mode.id} mode={mode} />
             ))}
           </div>
-        </div>
+        </Reveal>
       </section>
 
-      <Testimonials />
+      <section className="container-app">
+        <Reveal>
+          <ShortcutRow />
+        </Reveal>
+      </section>
+
+      <div className="container-app pb-10">
+        <RecentWork />
+      </div>
     </main>
   );
 }

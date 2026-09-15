@@ -1,20 +1,62 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Globe, Menu, Sparkles, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { LANGUAGES, useLanguage, useT } from "@/lib/i18n";
 import { cn } from "@/lib/utils";
 
 const NAV_ITEMS = [
-  { label: "Home", to: "/" as const },
-  { label: "Packages", to: "/packages" as const },
-  { label: "Gallery", to: "/gallery" as const },
-];
+  { key: "nav.dashboard", to: "/" as const },
+  { key: "nav.myLessons", to: "/lessons" as const },
+  { key: "nav.myIdeas", to: "/ideas" as const },
+  { key: "nav.materials", to: "/materials" as const },
+] as const;
+
+function LanguageSwitcher() {
+  const { language, setLanguage } = useLanguage();
+  const t = useT();
+  const current = LANGUAGES.find((l) => l.code === language) ?? LANGUAGES[0]!;
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <button
+          type="button"
+          aria-label={t("language.label")}
+          className="inline-flex items-center gap-1.5 rounded-full px-3 py-2 text-sm font-semibold text-foreground/75 transition-refined hover:bg-secondary hover:text-foreground"
+        >
+          <Globe className="size-4" />
+          <span className="uppercase">{current.code}</span>
+        </button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end">
+        {LANGUAGES.map((lang) => (
+          <DropdownMenuItem
+            key={lang.code}
+            onClick={() => setLanguage(lang.code)}
+            className={cn("gap-2", lang.code === language && "font-semibold text-primary")}
+          >
+            <span>{lang.nativeName}</span>
+            <span className="ml-auto text-xs text-muted-foreground">{lang.englishName}</span>
+          </DropdownMenuItem>
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
 
 export function AppHeader() {
   const [open, setOpen] = useState(false);
+  const t = useT();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-[color:var(--background)]/90 backdrop-blur-xl">
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/85 backdrop-blur-xl">
       <nav
         aria-label="Primary"
         className="container-app flex items-center justify-between gap-4 py-4"
@@ -24,12 +66,10 @@ export function AppHeader() {
           className="group inline-flex items-center gap-2.5"
           onClick={() => setOpen(false)}
         >
-          <span className="gradient-hero grid size-9 place-items-center rounded-lg text-sm font-black text-white shadow-subtle transition-transform duration-300 group-hover:scale-105">
-            TS
+          <span className="gradient-hero gradient-motion grid size-9 place-items-center rounded-xl text-white shadow-subtle transition-transform duration-300 group-hover:scale-105">
+            <Sparkles className="size-4.5" />
           </span>
-          <span className="font-display text-lg font-bold uppercase tracking-tight">
-            Top Shelf <span className="text-[color:var(--brand-orange)]">Detailing</span>
-          </span>
+          <span className="font-display text-lg font-bold tracking-tight">Teacher's Pet</span>
         </Link>
 
         <ul className="hidden items-center gap-1 md:flex">
@@ -37,19 +77,19 @@ export function AppHeader() {
             <li key={item.to}>
               <Link
                 to={item.to}
-                className="rounded-full px-4 py-2 text-sm font-semibold uppercase tracking-wide text-foreground/75 transition-refined hover:bg-secondary hover:text-foreground"
+                className="rounded-full px-4 py-2 text-sm font-semibold text-foreground/75 transition-refined hover:bg-secondary hover:text-foreground"
                 activeProps={{ className: "bg-secondary text-foreground" }}
-                activeOptions={{ exact: item.to === "/" }}
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             </li>
           ))}
         </ul>
 
-        <div className="hidden md:flex">
+        <div className="hidden items-center gap-2 md:flex">
+          <LanguageSwitcher />
           <Button asChild variant="hero" size="default">
-            <Link to="/contact">Book Now</Link>
+            <Link to="/create">{t("nav.createSomething")}</Link>
           </Button>
         </div>
 
@@ -77,11 +117,14 @@ export function AppHeader() {
                 key={item.to}
                 to={item.to}
                 onClick={() => setOpen(false)}
-                className="rounded-xl px-4 py-3 text-base font-semibold uppercase tracking-wide text-foreground/85 hover:bg-secondary"
+                className="rounded-xl px-4 py-3 text-base font-semibold text-foreground/85 hover:bg-secondary"
               >
-                {item.label}
+                {t(item.key)}
               </Link>
             ))}
+            <div className="mt-1 px-4">
+              <LanguageSwitcher />
+            </div>
             <Button
               asChild
               variant="hero"
@@ -89,7 +132,7 @@ export function AppHeader() {
               className="mt-2"
               onClick={() => setOpen(false)}
             >
-              <Link to="/contact">Book Now</Link>
+              <Link to="/create">{t("nav.createSomething")}</Link>
             </Button>
           </div>
         </div>
