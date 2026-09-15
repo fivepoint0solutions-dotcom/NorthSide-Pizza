@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { CopilotWorkspace } from "@/components/copilot/CopilotWorkspace";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/busywork")({
-  head: () => ({ meta: [{ title: "Do The Busywork — Teacher's Pet" }] }),
-  component: () => <CopilotWorkspace mode="busywork" />,
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
 });

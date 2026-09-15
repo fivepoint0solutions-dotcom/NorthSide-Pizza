@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { LibraryView } from "@/components/copilot/LibraryView";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/materials")({
-  head: () => ({ meta: [{ title: "Classroom Materials — Teacher's Pet" }] }),
-  component: () => <LibraryView category="material" />,
+  beforeLoad: () => {
+    throw redirect({ to: "/" });
+  },
 });

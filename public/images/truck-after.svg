@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" width="400" height="220">
+  <defs>
+    <linearGradient id="bodyGloss3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d3238"/>
+      <stop offset="55%" stop-color="#04262b"/>
+      <stop offset="100%" stop-color="#01161a"/>
+    </linearGradient>
+    <linearGradient id="shine3" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glass3" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#bfe9ee"/>
+      <stop offset="100%" stop-color="#6fb9c2"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="220" fill="#050c0d"/>
+  <ellipse cx="200" cy="190" rx="178" ry="14" fill="#000" opacity="0.5"/>
+  <ellipse cx="200" cy="150" rx="195" ry="40" fill="#ea7200" opacity="0.07"/>
+  <path d="M30,156 L34,122 Q38,102 60,96 L96,86 Q118,58 152,56 L204,56 Q222,56 232,72 L242,86 L318,86 Q352,88 362,114 L366,156 Z" fill="url(#bodyGloss3)" stroke="#ea7200" stroke-width="1.5" stroke-opacity="0.7"/>
+  <path d="M108,90 L138,64 Q150,60 168,60 L198,60 Q214,60 222,74 L228,86 Z" fill="url(#glass3)"/>
+  <line x1="168" y1="60" x2="170" y2="86" stroke="#04262b" stroke-width="2"/>
+  <circle cx="104" cy="158" r="27" fill="#0a0a0a"/>
+  <circle cx="104" cy="158" r="12" fill="#c7ccce"/>
+  <circle cx="308" cy="158" r="27" fill="#0a0a0a"/>
+  <circle cx="308" cy="158" r="12" fill="#c7ccce"/>
+  <path d="M30,156 L34,122 Q38,102 60,96 L96,86 Q118,58 152,56 L204,56 Q222,56 232,72 L242,86 L318,86 Q352,88 362,114 L366,156 Z" fill="url(#shine3)" opacity="0.5"/>
+  <path d="M50,138 L350,116" stroke="#ffffff" stroke-width="2" opacity="0.35"/>
+  <path d="M48,152 L358,148" stroke="#ea7200" stroke-width="2" opacity="0.5"/>
+</svg>

@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 220" width="400" height="220">
+  <defs>
+    <linearGradient id="bodyGloss" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0f3a40"/>
+      <stop offset="55%" stop-color="#04262b"/>
+      <stop offset="100%" stop-color="#01161a"/>
+    </linearGradient>
+    <linearGradient id="shine" x1="0" y1="0" x2="1" y2="0.3">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0"/>
+      <stop offset="45%" stop-color="#ffffff" stop-opacity="0.85"/>
+      <stop offset="60%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#bfe9ee"/>
+      <stop offset="100%" stop-color="#6fb9c2"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="220" fill="#050c0d"/>
+  <ellipse cx="200" cy="188" rx="170" ry="14" fill="#000" opacity="0.5"/>
+  <ellipse cx="200" cy="150" rx="190" ry="40" fill="#ea7200" opacity="0.06"/>
+  <path d="M40,150 L46,120 Q52,98 78,90 L120,72 Q150,52 190,50 L250,50 Q286,52 306,78 L336,96 Q358,102 360,124 L360,150 Z" fill="url(#bodyGloss)" stroke="#ea7200" stroke-width="1.5" stroke-opacity="0.7"/>
+  <path d="M128,86 L158,60 Q178,54 200,54 L238,54 Q264,56 280,80 L288,90 Z" fill="url(#glass)"/>
+  <line x1="200" y1="54" x2="202" y2="90" stroke="#04262b" stroke-width="2"/>
+  <circle cx="108" cy="152" r="26" fill="#0a0a0a"/>
+  <circle cx="108" cy="152" r="11" fill="#c7ccce"/>
+  <circle cx="296" cy="152" r="26" fill="#0a0a0a"/>
+  <circle cx="296" cy="152" r="11" fill="#c7ccce"/>
+  <path d="M40,150 L46,120 Q52,98 78,90 L120,72 Q150,52 190,50 L250,50 Q286,52 306,78 L336,96 Q358,102 360,124 L360,150 Z" fill="url(#shine)" opacity="0.5"/>
+  <path d="M55,132 L345,108" stroke="#ffffff" stroke-width="2" opacity="0.35"/>
+  <path d="M60,148 L338,140" stroke="#ea7200" stroke-width="2" opacity="0.5"/>
+</svg>

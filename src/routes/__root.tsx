@@ -13,9 +13,8 @@ import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
 import { RefinedCursor } from "../components/motion/RefinedCursor";
 import { AppHeader } from "../components/navigation/AppHeader";
-import { AskTeachersPet } from "../components/copilot/AskTeachersPet";
+import { SiteFooter } from "../components/site/SiteFooter";
 import { Toaster } from "../components/ui/sonner";
-import { LanguageProvider } from "../lib/i18n";
 
 function NotFoundComponent() {
   return (
@@ -82,16 +81,16 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Teacher's Pet" },
+      { title: "Top Shelf Detailing — Score the Perfect Shine" },
       {
         name: "description",
         content:
-          "An AI teaching assistant that amplifies your creativity, expertise and confidence. You're still the teacher — AI just helps you do more with your ideas.",
+          "Premium mobile and in-shop car detailing on the West Coast — paint correction, ceramic coating, and showroom-shine packages from Top Shelf Detailing.",
       },
-      { property: "og:title", content: "Teacher's Pet" },
+      { property: "og:title", content: "Top Shelf Detailing" },
       {
         property: "og:description",
-        content: "You're still the teacher. AI just helps you do more with your ideas.",
+        content: "Score the perfect shine — premium detailing packages for every ride.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -105,7 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Fraunces:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Nunito:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap",
       },
       { rel: "icon", href: "/favicon.png", type: "image/png" },
     ],
@@ -136,14 +135,12 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      <LanguageProvider>
-        <RefinedCursor />
-        <AppHeader />
-        {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-        <Outlet />
-        <AskTeachersPet />
-        <Toaster position="bottom-right" />
-      </LanguageProvider>
+      <RefinedCursor />
+      <AppHeader />
+      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
+      <Outlet />
+      <SiteFooter />
+      <Toaster position="bottom-right" />
     </QueryClientProvider>
   );
 }
